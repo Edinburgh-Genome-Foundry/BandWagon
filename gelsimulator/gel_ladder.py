@@ -11,6 +11,11 @@ class GelLadder:
         self.compute_migration_distance_predictor()
 
     def compute_migration_distance_predictor(self):
+        """Fit the ladder's band with a mathematical model
+
+        This allows to then predict how far new bands will migrate with respect
+        to this ladder.
+        """
 
         sizes, distances = [
             np.array(a)
@@ -33,6 +38,10 @@ class GelLadder:
         self._migration_predictor = migration_predictor
 
     def compute_migration_distance(self, band_size):
+        """Compute how far a fragment of size `band_size` will migrate.
+
+        This uses a mathematical fit of the ladder's bands.
+        """
         return self._migration_predictor(band_size)
 
     @property
