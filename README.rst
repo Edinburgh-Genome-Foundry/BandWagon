@@ -7,7 +7,7 @@ single- and multiple-enzymes digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
 
-.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer/master/examples/by_hand.png
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/gel_simulation.png
     :align: center
 
 While fairly minimal, Gel Simulator was written so as to be easily reusable, customizable, and extensible.
@@ -44,7 +44,7 @@ Computing digestion bands sizes
 This first example shows how to compute digestion bands in the case of
 a linear fragment, a circular fragment, and a multi-enzymes digestion.
 
-..  code::python
+..  code:: python
 
     from gelsimulator import compute_digestion_bands
 
@@ -70,7 +70,8 @@ Plotting a gel simulation
 The following example shows how to plot the the digestion patterns produced
 by different restriction enzymes on a same DNA sequence:
 
-..  code::python
+..  code:: python
+
     from gelsimulator import GelSimulator, LADDER_100_to_4k
     import matplotlib.pyplot as plt
 
@@ -98,7 +99,8 @@ if we wanted another ladder that Gel Simulator does not provide ?
 
 New ladders can be easily defined by providing a dict of the form:
 
-..  code::python
+..  code:: python
+
     {
     `band_size_1: y_coordinate_1`,
     `band_size_2: y_coordinate_2`,
@@ -114,7 +116,8 @@ The gel must be oriented with larger-fragments bands on top (as is usually the c
 It is not necessary to provide any "origin" of the ladder as it will be
 computed automatically. For instance:
 
-..  code::python
+..  code:: python
+
     custom_ladder = GelLadder(bands={
         # band_size : meaured y-coordinate
         100: 200,
