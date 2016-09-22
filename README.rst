@@ -24,11 +24,17 @@ Everyone is welcome to contribute !
 Installation
 --------------
 
+With PIP:
+
+.. code:: python
+
+    (sudo) pip install gelsimulator
+
 Gel Simulator can be installed by unzipping the source code in one directory and using this command:
 
 .. code:: python
 
-    sudo python setup.py install
+    (sudo) python setup.py install
 
 PIP install is coming soon !
 
