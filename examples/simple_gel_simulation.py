@@ -20,4 +20,4 @@ for i, enzyme in enumerate(enzymes):
     gel_simulator.plot_digestion_result(ax, sequence, [enzyme],
                                         x_coord=i+2, label=enzyme)
 
-fig.savefig("gel_simulation.png", bbox_inches="tight")
+fig.savefig("simple_gel_simulation.png", bbox_inches="tight")

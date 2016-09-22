@@ -12,7 +12,7 @@ import itertools
 with open("example_sequence.txt", "r") as f:
     sequence = f.read()
 
-enzymes_names = ["EcoRI", "EcoRV", "BamHI", "XbaI", "SpeI"]
+enzymes_names = ["EcoRI", "EcoRV", "BamHI"]
 enzymes_mixes = ([[e] for e in enzymes_names] +
                  list(itertools.combinations(enzymes_names, 2)))
 
@@ -35,4 +35,4 @@ for i, enzymes in enumerate(enzymes_mixes):
     gel_simulator.plot_digestion_result(ax, sequence, enzymes,
                                         x_coord=i + 2, label=label)
 fig.tight_layout()
-fig.savefig("enzyme_mixes.png", bbox_inches="tight")
+fig.savefig("multi_enzyme_mixes.png", bbox_inches="tight")

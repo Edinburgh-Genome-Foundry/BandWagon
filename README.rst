@@ -7,7 +7,7 @@ single- and multiple-enzymes digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
 
-.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/gel_simulation.png
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/multi_enzyme_mixes.png
     :align: center
 
 While fairly minimal, Gel Simulator was written so as to be easily reusable, customizable, and extensible.
@@ -90,6 +90,8 @@ by different restriction enzymes on a same DNA sequence:
 
     fig.savefig("gel_simulation.png", bbox_inches="tight")
 
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/simple_gel_simulation.png
+    :align: center
 
 Using a custom ladder
 ~~~~~~~~~~~~~~~~~~~~~~~
