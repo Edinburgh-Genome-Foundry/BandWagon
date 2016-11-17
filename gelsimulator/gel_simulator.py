@@ -1,36 +1,5 @@
-from Bio import Restriction
-from Bio.Seq import Seq
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
 import numpy as np
-
-
-def compute_digestion_bands(sequence, enzymes, linear=True):
-    """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion
-
-    Parameters
-    ----------
-
-    sequence
-      Sequence to be digested. Either a string ("ATGC...") or a BioPython `Seq`
-
-    enzymes
-      list of all enzymes placed at the same time in the digestion mix
-      e.g. `["EcoRI", "BamHI"]`
-
-    linear
-      True if the DNA fragment is linearized, False if it is circular
-    """
-    if not isinstance(sequence, Seq):
-        sequence = Seq(sequence)
-    batch = Restriction.RestrictionBatch(enzymes)
-    cut_sites = batch.search(sequence, linear=linear)
-    cut_sites = [0] + sorted(sum(cut_sites.values(), [])) + [len(sequence)]
-    bands_sizes = [end - start for (start, end)
-                   in zip(cut_sites, cut_sites[1:])]
-    if not linear:
-        bands_sizes[0] += bands_sizes.pop()
-    return sorted(bands_sizes)
+from .tools import compute_digestion_bands
 
 
 class GelSimulator:
@@ -43,6 +12,11 @@ class GelSimulator:
     overwritten, leaving you complete freedom to change the way the bands
     and the texts are rendered, simply by sub-classing GelSimulator with
     overwritten methods.
+
+    Parameters
+    ----------
+
+    ladder
 
     Examples
     --------
@@ -67,11 +41,13 @@ class GelSimulator:
 
     def format_ax(self, ax):
         """Preformat the Matplotlib ax: remove the frame, set y-span."""
-        ax.axis("off")
-        y1, y2 = self.ladder.migration_distances_span
+        ax.set_frame_on(False)
+        ax.set_yticks([])
+        ax.set_xticks([])
+        y1, y2 = self.ladder.migration_distances_span()
         ax.set_ylim(-1.1 * y2, 0.1 * y2)
 
-    def format_fragment_size_label(self, band_size):
+    def format_band_size_label(self, band_size):
         """Prettify the fragment size label, e.g. '13278' becomes '13.3k'"""
         if band_size >= 1000:
             kilobases = np.round(band_size / 1000.0, 1)
@@ -80,80 +56,155 @@ class GelSimulator:
         else:
             return "%d" % band_size
 
-    def plot_band_rectangle(self, ax, fragment_size, x_coord, color="k"):
+    def plot_band_rectangle(self, ax, band_size, x_coord, color="k",
+                            width=0.6, band_thickness=4):
         """Plot one band (without label) on the matplotlib ax.
 
         At the moment it just draws a thick horizontal line at the specified
-        location
-        """
-        distance = self.ladder.compute_migration_distance(fragment_size)
-        # patch = FancyBboxPatch([x_coord-0.4, -distance-0.2)
-        ax.plot([x_coord - 0.3, x_coord + 0.3], [-distance, -distance],
-                lw=4, c=color)
+        location.
 
-    def plot_band_size_label(self, ax, fragment_size, x_coord, color="k"):
+        Parameters
+        ----------
+
+        ax
+          A matplotlib ax object
+
+        band_size
+          The size in basepairs of the DNA forming the band
+
+        x_coord
+          The x coordinate at which the pattern will be drawn.
+
+        color
+          Color of the band (can be any matplotlib-compatible color name)
+
+        width
+
+        band_thickness
+          Thickness of the band in pixels. Beware that this means the band will
+          have the same thickness undepending on the size
+
+        """
+        distance = self.ladder.compute_migration_distance(band_size)
+        # patch = FancyBboxPatch([x_coord-0.4, -distance-0.2)
+        ax.plot([x_coord - width/2.0, x_coord + width/2.0],
+                [-distance, -distance],
+                lw=band_thickness, c=color)
+
+    def plot_band_size_label(self, ax, band_size, x_coord,
+                             bg_color="black", label_fontdict=None):
         """Plot the band's label on the matplotlib ax.
 
-        The label is meant to go over the result of `plot_band_rectangle`
+        The label is meant to go over the result of `plot_band_rectangle`.
+
+        Parameters
+        ----------
+
+        ax
+
+        band_size
+          Size in basepairs of the DNA forming the band
+
+        x_coord
+          x coordinate at which to the band is.
+
+        label_fontdict
+          A Matplotlib fontdict, e.g. {"color": "red", "size": 10}, to
+          overwrite the label text defaults (white bold font)
+
+        bg_color
+          Color of the label's background
+
         """
-        size_label = self.format_fragment_size_label(fragment_size)
-        distance = self.ladder.compute_migration_distance(fragment_size)
+        size_label = self.format_band_size_label(band_size)
+        distance = self.ladder.compute_migration_distance(band_size)
+        fontdict = {"color": 'white', 'family': 'sans-serif',
+                    "weight": "bold", "size": 10}
+        if label_fontdict is not None:
+            fontdict.update(label_fontdict)
         ax.text(
             x_coord, -distance, size_label,
             horizontalalignment="center",
             verticalalignment="center",
-            fontdict={"color": "white",
-                      'family': 'sans-serif', "weight": "bold"},
-            fontsize=10,
+            fontdict=fontdict,
             transform=ax.transData,
-            bbox=dict(boxstyle="round", fc=color, lw=0)
+            bbox=dict(boxstyle="round", fc=bg_color, lw=0)
         )
 
-    def plot_band(self, ax, fragment_size, x_coord, color="k",
-                  with_size_label=True):
+    def plot_band(self, ax, band_size, x_coord, color="k",
+                  width=0.3, with_size_labels=True, band_thickness=4,
+                  label_fontdict=None):
         """Plot a band (horizontal line and size label) at the given location
         """
-        self.plot_band_rectangle(ax, fragment_size, x_coord, color=color)
-        if with_size_label:
-            self.plot_band_size_label(ax, fragment_size, x_coord, color=color)
+        self.plot_band_rectangle(ax, band_size, x_coord, color=color,
+                                 width=width, band_thickness=band_thickness)
+        if with_size_labels:
+            self.plot_band_size_label(ax, band_size, x_coord, bg_color=color,
+                                      label_fontdict=label_fontdict)
 
-    def plot_band_pattern_label(self, ax, label, x_coord):
+    def plot_horizontal_line(self, ax, band_size, xmin=0, xmax=1,
+                             color="k", linewidth=1, linestyle="-", **kw):
+        """Plot a horizontal line accross the ax at the given band size.
+
+        Useful for comparing a series of band patterns with some expected
+        band lengths.
+        """
+        y = -self.ladder.compute_migration_distance(band_size)
+        ax.axhline(y, xmin=xmin, xmax=xmax, color=color, linewidth=linewidth,
+                   linestyle=linestyle, **kw)
+
+    def plot_band_pattern_label(self, ax, label, x_coord, tilt_angle=0):
         """Write the label at the top of a band pattern
         """
         ax.text(
-            x_coord, 0.05 * self.ladder.migration_distances_span[1], label,
+            x_coord, 0.05 * self.ladder.migration_distances_span()[1], label,
             horizontalalignment="center",
             verticalalignment="bottom",
             fontdict={"color": "black",
                       'family': 'sans-serif', "weight": "bold"},
             fontsize=13,
+            rotation=tilt_angle,
             transform=ax.transData,
         )
 
+    def color_band_zone(self, ax, x_coord, width=0.3, facecolor=None,
+                        edgecolor="black", linewidth=0.5):
+        ymax = self.ladder.migration_distances_span()[1]
+        ax.fill_between([x_coord-width, x_coord+width], [-ymax, -ymax],
+                        facecolor=facecolor, edgecolor=edgecolor,
+                        linewidth=linewidth)
+
     def plot_bands_pattern(self, ax, bands, label=None, x_coord=1,
-                           color="k"):
+                           color="black", with_size_labels=True, width=0.3,
+                           band_thickness=4, label_tilt_angle=0):
 
         """Plot all bands in a same column and add a label for the pattern
         """
         for band in bands:
-            self.plot_band(ax=ax, fragment_size=band, x_coord=x_coord,
-                           color=color)
+            self.plot_band(ax=ax, band_size=band, x_coord=x_coord,
+                           color=color, with_size_labels=with_size_labels,
+                           width=width, band_thickness=band_thickness)
+
         if label is not None:
-            self.plot_band_pattern_label(ax, label=label, x_coord=x_coord)
+            self.plot_band_pattern_label(ax, label=label, x_coord=x_coord,
+                                         tilt_angle=label_tilt_angle)
 
 
 
-    def plot_ladder(self, ax, label="ladder", x_coord=1, color="r"):
+    def plot_ladder(self, ax, label="ladder", x_coord=1, color="r",
+                    label_tilt_angle=0, with_size_labels=True):
         """Plot this simulator's ladder on a Matplotlib ax.
 
         (usually the first thing you want to plot)
         """
         bands = sorted(self.ladder.bands.keys())
         self.plot_bands_pattern(ax, bands, label=label, x_coord=x_coord,
-                                color=color)
+                                color=color, with_size_labels=with_size_labels,
+                                label_tilt_angle=label_tilt_angle)
 
     def plot_digestion_result(self, ax, sequence, enzymes, linear=True,
-                              label=None, x_coord=1, color="k"):
+                              label=None, x_coord=1, color="k",
+                              with_size_labels=True, label_tilt_angle=0):
         """ Plot the resulting band pattern of a digestion on a Matplotlib ax
 
         Parameters
@@ -185,4 +236,5 @@ class GelSimulator:
         """
         bands = compute_digestion_bands(sequence, enzymes, linear=linear)
         self.plot_bands_pattern(ax, bands, label=label, x_coord=x_coord,
-                                color=color)
+                                color=color, with_size_labels=with_size_labels,
+                                label_tilt_angle=label_tilt_angle)

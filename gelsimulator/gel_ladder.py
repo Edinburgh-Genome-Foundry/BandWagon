@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.optimize import curve_fit
 
-
 class GelLadder:
     """Class to represent gel ladders. These ladders serve as a scale for
     plotting any other gel simulation."""
@@ -16,7 +15,6 @@ class GelLadder:
         This allows to then predict how far new bands will migrate with respect
         to this ladder.
         """
-
         sizes, distances = [
             np.array(a)
             for a in
@@ -44,10 +42,10 @@ class GelLadder:
         """
         return self._migration_predictor(band_size)
 
-    @property
+
     def migration_distances_span(self):
-        min_band = min(self.bands.values())
-        max_band = max(self.bands.values())
+        min_band = min(self.bands.keys())
+        max_band = max(self.bands.keys())
         return [self.compute_migration_distance(band)
                 for band in (max_band, min_band)]
 
