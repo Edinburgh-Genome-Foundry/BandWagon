@@ -153,17 +153,20 @@ class GelSimulator:
         ax.axhline(y, xmin=xmin, xmax=xmax, color=color, linewidth=linewidth,
                    linestyle=linestyle, **kw)
 
-    def plot_band_pattern_label(self, ax, label, x_coord, tilt_angle=0):
+    def plot_band_pattern_label(self, ax, label, x_coord,
+                                label_fontdict=None):
         """Write the label at the top of a band pattern
         """
+        fontdict = {"color": "black", 'family': 'sans-serif', "weight": "bold",
+                    "size": 13}
+        if label_fontdict is not None:
+            fontdict.update(label_fontdict)
+
         ax.text(
             x_coord, 0.05 * self.ladder.migration_distances_span()[1], label,
             horizontalalignment="center",
             verticalalignment="bottom",
-            fontdict={"color": "black",
-                      'family': 'sans-serif', "weight": "bold"},
-            fontsize=13,
-            rotation=tilt_angle,
+            fontdict=fontdict,
             transform=ax.transData,
         )
 
@@ -176,7 +179,8 @@ class GelSimulator:
 
     def plot_bands_pattern(self, ax, bands, label=None, x_coord=1,
                            color="black", with_size_labels=True, width=0.3,
-                           band_thickness=4, label_tilt_angle=0):
+                           band_thickness=4, label_tilt_angle=0,
+                           label_fontdict=None):
 
         """Plot all bands in a same column and add a label for the pattern
         """
@@ -187,12 +191,13 @@ class GelSimulator:
 
         if label is not None:
             self.plot_band_pattern_label(ax, label=label, x_coord=x_coord,
-                                         tilt_angle=label_tilt_angle)
+                                         label_fontdict=label_fontdict)
 
 
 
     def plot_ladder(self, ax, label="ladder", x_coord=1, color="r",
-                    label_tilt_angle=0, with_size_labels=True):
+                    label_tilt_angle=0, with_size_labels=True,
+                    label_fontdict=None):
         """Plot this simulator's ladder on a Matplotlib ax.
 
         (usually the first thing you want to plot)
@@ -200,7 +205,8 @@ class GelSimulator:
         bands = sorted(self.ladder.bands.keys())
         self.plot_bands_pattern(ax, bands, label=label, x_coord=x_coord,
                                 color=color, with_size_labels=with_size_labels,
-                                label_tilt_angle=label_tilt_angle)
+                                label_tilt_angle=label_tilt_angle,
+                                label_fontdict=label_fontdict)
 
     def plot_digestion_result(self, ax, sequence, enzymes, linear=True,
                               label=None, x_coord=1, color="k",
