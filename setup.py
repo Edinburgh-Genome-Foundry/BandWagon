@@ -12,6 +12,6 @@ setup(name='gelsimulator',
       long_description=open('README.rst').read(),
       license='MIT',
       keywords="Gel Agarose Simulation Matplotlib",
-      packages= find_packages(exclude='docs'),
-      install_requires=("biopython", "matplotlib", "numpy", "scipy")
+      packages=find_packages(exclude='docs'),
+      install_requires=("biopython", "matplotlib", "numpy")
 )

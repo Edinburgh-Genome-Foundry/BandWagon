@@ -1,5 +1,4 @@
 import numpy as np
-from scipy.optimize import curve_fit
 
 class GelLadder:
     """Class to represent gel ladders. These ladders serve as a scale for
@@ -7,9 +6,9 @@ class GelLadder:
 
     def __init__(self, bands):
         self.bands = bands
-        self.compute_migration_distance_predictor()
+        self.compute_migration_distance_parameters()
 
-    def compute_migration_distance_predictor(self):
+    def compute_migration_distance_parameters(self):
         """Fit the ladder's band with a mathematical model
 
         This allows to then predict how far new bands will migrate with respect
@@ -20,33 +19,35 @@ class GelLadder:
             for a in
             zip(*sorted(self.bands.items()))
         ]
-        a_est, b_est = np.polyfit(sizes, np.log(distances), 1)
 
-        def predict_migration_distance(size, a, b, c):
-            return np.exp(a * size + b) + c
-        (a, b, c), _ = curve_fit(
-            predict_migration_distance,
-            sizes,
-            distances,
-            [a_est, b_est, 0]
+        # This very hackish function fitting gets rid of the scipy dependency
+        (a_est, b_est), r, _, _, _ = min(
+            [
+                np.polyfit(sizes, np.log(distances-c), 1, full=True)
+                for c in np.linspace(0, 0.9*min(distances), 10)
+            ],
+            key = lambda abr: (abr[1]**2).sum()
         )
+        self.parameters = a_est, b_est
 
-        def migration_predictor(size):
-            return predict_migration_distance(size, a, b, c) - c
-        self._migration_predictor = migration_predictor
 
-    def compute_migration_distance(self, band_size):
+    def band_size_to_migration(self, band_size):
         """Compute how far a fragment of size `band_size` will migrate.
 
         This uses a mathematical fit of the ladder's bands.
         """
-        return self._migration_predictor(band_size)
+        a, b = self.parameters
+        return np.exp(a * band_size + b)
+
+    def migration_to_band_size(self, migration):
+        a, b = self.parameters
+        return (np.log(migration) - b) / a
 
 
     def migration_distances_span(self):
         min_band = min(self.bands.keys())
         max_band = max(self.bands.keys())
-        return [self.compute_migration_distance(band)
+        return [self.band_size_to_migration(band)
                 for band in (max_band, min_band)]
 
 

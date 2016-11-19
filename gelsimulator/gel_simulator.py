@@ -1,5 +1,7 @@
+from collections import OrderedDict
 import numpy as np
 from .tools import compute_digestion_bands
+import matplotlib.pyplot as plt
 
 
 class GelSimulator:
@@ -85,9 +87,8 @@ class GelSimulator:
           have the same thickness undepending on the size
 
         """
-        distance = self.ladder.compute_migration_distance(band_size)
-        # patch = FancyBboxPatch([x_coord-0.4, -distance-0.2)
-        ax.plot([x_coord - width/2.0, x_coord + width/2.0],
+        distance = self.ladder.band_size_to_migration(band_size)
+        ax.plot([x_coord - width / 2.0, x_coord + width / 2.0],
                 [-distance, -distance],
                 lw=band_thickness, c=color)
 
@@ -117,7 +118,7 @@ class GelSimulator:
 
         """
         size_label = self.format_band_size_label(band_size)
-        distance = self.ladder.compute_migration_distance(band_size)
+        distance = self.ladder.band_size_to_migration(band_size)
         fontdict = {"color": 'white', 'family': 'sans-serif',
                     "weight": "bold", "size": 10}
         if label_fontdict is not None:
@@ -149,7 +150,7 @@ class GelSimulator:
         Useful for comparing a series of band patterns with some expected
         band lengths.
         """
-        y = -self.ladder.compute_migration_distance(band_size)
+        y = -self.ladder.band_size_to_migration(band_size)
         ax.axhline(y, xmin=xmin, xmax=xmax, color=color, linewidth=linewidth,
                    linestyle=linestyle, **kw)
 
@@ -171,17 +172,19 @@ class GelSimulator:
         )
 
     def color_band_zone(self, ax, x_coord, width=0.3, facecolor=None,
-                        edgecolor="black", linewidth=0.5):
+                        edgecolor="black", linewidth=0.5, zorder=-1000,
+                        ladder_only=False):
         ymax = self.ladder.migration_distances_span()[1]
-        ax.fill_between([x_coord-width, x_coord+width], [-ymax, -ymax],
+        if not ladder_only:
+            ymax *= 3
+        ax.fill_between([x_coord - width, x_coord + width], [-ymax, -ymax],
                         facecolor=facecolor, edgecolor=edgecolor,
-                        linewidth=linewidth)
+                        linewidth=linewidth, zorder=zorder)
 
     def plot_bands_pattern(self, ax, bands, label=None, x_coord=1,
                            color="black", with_size_labels=True, width=0.3,
-                           band_thickness=4, label_tilt_angle=0,
+                           band_thickness=2, label_tilt_angle=0,
                            label_fontdict=None):
-
         """Plot all bands in a same column and add a label for the pattern
         """
         for band in bands:
@@ -193,7 +196,47 @@ class GelSimulator:
             self.plot_band_pattern_label(ax, label=label, x_coord=x_coord,
                                          label_fontdict=label_fontdict)
 
-
+    def plot_bands_patterns(self, patterns, ax=None, color='black',
+                            with_size_labels=False, band_thickness=2,
+                            plot_ladder=False, ladder_label="L",
+                            plot_ladder_ticks=False,
+                            plot_labels=True, patterns_labels_fontdict=None,
+                            ylabel=None, ylabel_fontdict=None,
+                            background_colors=("#e2edff", "#fffae2")):
+        if ax is None:
+            fig, ax = plt.subplots(1, figsize=(0.5 * len(patterns), 3))
+        if not isinstance(patterns, list):
+            sort = not isinstance(patterns, OrderedDict)
+            patterns = list(patterns.keys())
+            if sort:
+                patterns = sorted(patterns)
+        self.format_ax(ax)
+        if ylabel is not None:
+            yfontdict = dict(weight="bold", size=10)
+            if ylabel_fontdict is not None:
+                yfontdict.update(ylabel_fontdict)
+            ax.set_ylabel(ylabel, fontdict=yfontdict, labelpad=8)
+        if plot_ladder:
+            self.plot_ladder(ax, label=ladder_label,
+                             label_fontdict=dict(size=7, rotation=20),
+                             with_size_labels=with_size_labels,
+                             band_thickness=band_thickness)
+        if plot_ladder_ticks:
+            self.plot_ladder_ticks(ax)
+        for i, (name, pattern) in enumerate(patterns):
+            x_coord = i + (2 if plot_ladder else 1)
+            bgcolor = background_colors[i % 2]
+            self.color_band_zone(ax, x_coord=x_coord, facecolor=bgcolor,
+                                 linewidth=0, width=.5, zorder=-10000)
+            pfontdict = dict(size=7, rotation=20)
+            if patterns_labels_fontdict is not None:
+                pfontdict.update(patterns_labels_fontdict)
+            self.plot_bands_pattern(ax, pattern, x_coord=x_coord,
+                                    label=name if plot_labels else None,
+                                    label_fontdict=pfontdict,
+                                    with_size_labels=with_size_labels,
+                                    band_thickness=band_thickness)
+        return ax
 
     def plot_ladder(self, ax, label="ladder", x_coord=1, color="r",
                     label_tilt_angle=0, with_size_labels=True,
@@ -207,6 +250,30 @@ class GelSimulator:
                                 color=color, with_size_labels=with_size_labels,
                                 label_tilt_angle=label_tilt_angle,
                                 label_fontdict=label_fontdict)
+
+    def plot_ladder_ticks(self, ax, bands=3, fontdict=None):
+        """
+
+        Parameters
+        ----------
+
+        bands
+          can be a list or a number
+
+        """
+        ticks_fontdict = dict(size=6, rotation=90)
+        if fontdict is not None:
+            ticks_fontdict.update(fontdict)
+        if isinstance(bands, int):
+            bmin, bmax = self.ladder.migration_distances_span()
+            migrations = np.linspace(bmin, bmax, bands)
+            bands = [self.ladder.migration_to_band_size(m) for m in migrations]
+            bands = [int(np.round(b, -2)) for b in bands]  # round to 100
+        yticks = [-self.ladder.band_size_to_migration(b) for b in bands]
+        ax.set_yticks(yticks)
+        ax.set_yticklabels(bands, fontdict=ticks_fontdict)
+        ax.yaxis.set_ticks_position('left')
+
 
     def plot_digestion_result(self, ax, sequence, enzymes, linear=True,
                               label=None, x_coord=1, color="k",
@@ -244,3 +311,25 @@ class GelSimulator:
         self.plot_bands_pattern(ax, bands, label=label, x_coord=x_coord,
                                 color=color, with_size_labels=with_size_labels,
                                 label_tilt_angle=label_tilt_angle)
+
+        def plot_digestions_results(self, sequences, enzymes, linear=True,
+                                    ylabel="auto",
+                                    **plot_bands_patterns_kwargs):
+            """ bla.
+
+            Parameters
+            ----------
+
+            """
+            if not isinstance(sequences, OrderedDict):
+                sequences = OrderedDict([e for e in sorted(sequences.items())])
+            patterns = OrderedDict([
+                (name, compute_digestion_bands(sequence, enzymes,
+                                               linear=linear))
+                for name, sequence in sequences.items()
+            ])
+            if plot_bands_patterns_kwargs.get(ylabel, None) is None:
+                plot_bands_patterns_kwargs["ylabel"] = " + ".join(enzymes)
+            ax = self.plot_bands_patterns(patterns,
+                                          **plot_bands_patterns_kwargs)
+            return ax
