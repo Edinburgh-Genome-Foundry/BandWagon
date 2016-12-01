@@ -4,7 +4,7 @@ The following example shows how to compute digestion bands in the case of
 a linear fragment, a circular fragment, and a multi-enzymes digestion.
 """
 
-from gelsimulator import compute_digestion_bands
+from bandwagon import compute_digestion_bands
 
 # Read the sequence (a string of the form 'ATGTGTGGTA...' etc.)
 with open("example_sequence.txt", "r") as f:

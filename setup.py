@@ -3,9 +3,9 @@ ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-exec(open('gelsimulator/version.py').read()) # loads __version__
+exec(open('bandwagon/version.py').read()) # loads __version__
 
-setup(name='gelsimulator',
+setup(name='bandwagon',
       version=__version__,
       author='Zulko',
       description='Simulate DNA band patterns for gel migration experiments',

@@ -2,6 +2,15 @@ import numpy as np
 from copy import deepcopy
 import matplotlib.pyplot as plt
 
+try:
+    from bokeh.plotting import ColumnDataSource, figure
+    from bokeh.models import HoverTool, Range1d, FixedTicker
+    from .bokeh_tools import FixedTickFormatter
+    import pandas
+    BOKEH_PANDAS_AVAILABLE = True
+except ImportError:
+    BOKEH_PANDAS_AVAILABLE = False
+
 
 def updated_dict(dic1, dic2):
     if dic2 is not None:
@@ -65,7 +74,7 @@ class Band:
     def to_json(self, ladder=None):
         return {prop: self.__dict__[prop] for prop in
                 ["dna_size", "band_color", "band_width", "band_thickness",
-                 "label", "display_label"]}
+                 "label", "html", "migration_distance"]}
 
     def modified(self, **attributes):
         new_obj = deepcopy(self)
@@ -76,7 +85,7 @@ class Band:
 class BandsPattern:
 
     def __init__(self, bands, ladder=None, label=None, label_fontdict=None,
-                 bg_color=None, bg_width=1.0, global_bands_props=None):
+                 background_color=None, width=1.0, global_bands_props=None):
         self.bands = [
             Band(band, ladder=ladder) if isinstance(band, (int, float))
             else band
@@ -86,8 +95,8 @@ class BandsPattern:
                                    else global_bands_props)
         self.label = label
         self.label_fontdict = label_fontdict
-        self.bg_color = bg_color
-        self.bg_width = bg_width
+        self.background_color = background_color
+        self.width = width
         self.initialize()
 
     def initialize(self):
@@ -121,12 +130,15 @@ class BandsPattern:
             return [b.modified(**self.global_bands_props) for b in self.bands]
 
     def plot_background(self, ax, x_coord):
-        if self.bg_color is None:
+        if self.background_color is None:
             return
-        ax.fill_between([x_coord - self.bg_width / 2.0,
-                         x_coord + self.bg_width / 2.0],
-                        [-1000, -1000],
-                        facecolor=self.bg_color, linewidth=0, zorder=-1000)
+        ax.axvspan(xmin=x_coord - self.width / 2.0,
+                   xmax=x_coord + self.width / 2.0,
+                   color=self.background_color, zorder=-1000)
+        # ax.fill_between([x_coord - self.width / 2.0,
+        #                  x_coord + self.width / 2.0],
+        #                 [-1000, -1000], facecolor=self.background_color,
+        #                 linewidth=0, zorder=-1000)
 
     def plot_bands(self, ax, x_coord):
         for band in self.processed_bands():
@@ -136,10 +148,15 @@ class BandsPattern:
         if self.label in (None, ""):
             return
         fontdict = updated_dict({"color": "black", 'family': 'sans-serif',
-                                 "weight": "bold", "size": 10, "rotation": 90},
+                                 "weight": "bold", "size": 11, "rotation": 90},
                                 self.label_fontdict)
+        if 10 < fontdict["rotation"] < 80:
+            alignment, shift = "left", -0.2
+        else:
+            alignment, shift = "center", 0
         ax.text(
-            x_coord, 0, " " + self.label, horizontalalignment="center",
+            x_coord + shift, 0, "  " + self.label,
+            horizontalalignment=alignment,
             verticalalignment="bottom", fontdict=fontdict,
             transform=ax.transData,
         )
@@ -158,13 +175,16 @@ class BandsPattern:
         new_obj.initialize()
         return new_obj
 
+    def to_json(self):
+        return
+
 
 class BandsPatternsSet:
 
     def __init__(self, patterns, ladder=None, label=None, label_fontdict=None,
                  global_patterns_props=None, ladder_ticks=None,
                  ticks_fontdict=None,
-                 alternate_bg_colors=("#e2edff", "#fffae2")):
+                 alternate_background_colors=("#e2edff", "#fffae2")):
         self.patterns = [
             BandsPattern(p, ladder=ladder) if isinstance(p, (tuple, list))
             else p
@@ -174,7 +194,7 @@ class BandsPatternsSet:
         self.label_fontdict = label_fontdict
         self.global_patterns_props = ({} if global_patterns_props is None
                                       else global_patterns_props)
-        self.alternate_bg_colors = alternate_bg_colors
+        self.alternate_background_colors = alternate_background_colors
         self.ladder = ladder
         self.ladder_ticks = ladder_ticks
         self.ticks_fontdict = ticks_fontdict
@@ -183,10 +203,11 @@ class BandsPatternsSet:
         new_patterns = []
         for i, pattern in enumerate(self.patterns):
             pattern = pattern.modified(**self.global_patterns_props)
-            if pattern.bg_color is None:
-                if self.alternate_bg_colors is not None:
-                    ind = i % len(self.alternate_bg_colors)
-                    pattern.bg_color = self.alternate_bg_colors[ind]
+            if pattern.background_color is None:
+                if self.alternate_background_colors is not None:
+                    ind = i % len(self.alternate_background_colors)
+                    color = self.alternate_background_colors[ind]
+                    pattern.background_color = color
             new_patterns.append(pattern)
         return new_patterns
 
@@ -234,3 +255,69 @@ class BandsPatternsSet:
         self.plot_ladder_ticks(ax)
         self.plot_patterns(ax)
         return ax
+
+    def plot_with_bokeh(self, visible_bands=12, band_width_pixels=40):
+
+        if not BOKEH_PANDAS_AVAILABLE:
+            raise ImportError("Install Bokeh and Pandas to use this feature")
+        max_x = min(visible_bands, len(self.patterns) + 1)
+        max_migration = self.ladder.migration_distances.max()
+        mmin, mmax = self.ladder.migration_distance_span
+        hw = 0.002 * abs(mmax - mmin)
+        fig = figure(tools=[HoverTool(tooltips="@html", names=["bands"])] +
+                           ["xwheel_zoom,xpan,reset, resize"],
+                     plot_height=300, plot_width=band_width_pixels * max_x,
+                     x_range=Range1d(0.5, max_x),  # labels,
+                     y_range=Range1d(-1.1 * max_migration, 0),
+                     logo=None, toolbar_location="right",
+                     x_axis_location="above",
+                     title_location="below",
+                     title=self.label)
+        fig.xaxis[0].ticker = FixedTicker(
+            ticks=range(1, len(self.patterns) + 1))
+        fig.xaxis[0].formatter = FixedTickFormatter(labels={
+            i + 1: "" if (pattern.label is None) else pattern.label
+            for i, pattern in enumerate(self.patterns)
+        })
+        fig.quad(
+            name="backgrounds", top="top", bottom="bottom", left="left",
+            right="right", color="color",
+            source=ColumnDataSource(pandas.DataFrame.from_records([
+                {
+                    "left": x_coord + 1 - 0.5 * pattern.width,
+                    "right": x_coord + 1 + 0.5 * pattern.width,
+                    "top": 0,
+                    "bottom": - 2 * max_migration,
+                    "color": pattern.background_color,
+                }
+                for x_coord, pattern in enumerate(self.processed_patterns())
+            ])))
+
+        fig.quad(
+            name="bands", top="top", bottom="bottom", left="left",
+            right="right", color="color",
+            source=ColumnDataSource(pandas.DataFrame.from_records([
+                {
+                    "left": np.round(x_coord + 1 - 0.5 * band.band_width, 2),
+                    "right": np.round(x_coord + 1 + 0.5 * band.band_width, 2),
+                    "top": - np.round(band.migration_distance -
+                                      hw * band.band_thickness, 2),
+                    "bottom": - np.round(band.migration_distance +
+                                         hw * band.band_thickness, 2),
+                    "color": band.band_color,
+                    "html": band.html if band.html else (
+                        band.label if band.label else (
+                            "%d bp" % band.dna_size))
+                }
+                for x_coord, pattern in enumerate(self.processed_patterns())
+                for band in pattern.bands
+            ])))
+
+        fig.yaxis.visible = False
+        fig.outline_line_color = None
+        fig.grid.grid_line_color = None
+        fig.xaxis.major_label_orientation = 0.6
+        fig.axis.major_tick_in = 0
+        fig.axis.major_tick_out = 2
+
+        return fig

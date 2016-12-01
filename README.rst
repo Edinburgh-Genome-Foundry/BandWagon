@@ -1,4 +1,4 @@
-GelSimulator.py
+BandWagon.py
 ================
 
 Gel Simulator is a Python library to predict gel migration patterns
@@ -7,7 +7,7 @@ single- and multiple-enzymes digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
 
-.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/multi_enzyme_mixes.png
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon.py/master/examples/multi_enzyme_mixes.png
     :align: center
 
 While fairly minimal, Gel Simulator was written so as to be easily reusable, customizable, and extensible.
@@ -17,7 +17,7 @@ License = MIT
 
 Gel Simulator is an open-source software originally written at the `Edinburgh Genome Foundry
 <http://edinburgh-genome-foundry.github.io/home.html>`_ by `Zulko <https://github.com/Zulko>`_
-and `released on Github <https://github.com/Edinburgh-Genome-Foundry/GelSimulator.py>`_ under the MIT licence.
+and `released on Github <https://github.com/Edinburgh-Genome-Foundry/BandWagon.py>`_ under the MIT licence.
 
 Everyone is welcome to contribute !
 
@@ -28,7 +28,7 @@ With PIP:
 
 .. code:: python
 
-    (sudo) pip install gelsimulator
+    (sudo) pip install bandwagon
 
 Gel Simulator can be installed by unzipping the source code in one directory and using this command:
 
@@ -52,7 +52,7 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion.
 
 ..  code:: python
 
-    from gelsimulator import compute_digestion_bands
+    from bandwagon import compute_digestion_bands
 
     # Read the sequence (a string of the form 'ATGTGTGGTA...' etc.)
     with open("example_sequence.txt", "r") as f:
@@ -78,14 +78,14 @@ by different restriction enzymes on a same DNA sequence:
 
 ..  code:: python
 
-    from gelsimulator import GelSimulator, LADDER_100_to_4k
+    from bandwagon import BandWagon, LADDER_100_to_4k
     import matplotlib.pyplot as plt
 
     with open("example_sequence.txt", "r") as f:
         sequence = f.read()
 
     enzymes = ["BamHI", "EcoRI", "EcoRV", "PstI", "SpeI", "XbaI"]
-    gel_simulator = GelSimulator(LADDER_100_to_4k)
+    gel_simulator = BandWagon(LADDER_100_to_4k)
 
     fig, ax = plt.subplots(1, figsize=(1.1*(len(enzymes)+1), 5))
     gel_simulator.format_ax(ax)
@@ -96,7 +96,7 @@ by different restriction enzymes on a same DNA sequence:
 
     fig.savefig("gel_simulation.png", bbox_inches="tight")
 
-.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/GelSimulator.py/master/examples/simple_gel_simulation.png
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon.py/master/examples/simple_gel_simulation.png
     :align: center
 
 Using a custom ladder
@@ -134,7 +134,7 @@ computed automatically. For instance:
         1650: 100,
         4000: 65
     })
-    gel_simulator = GelSimulator(custom_ladder)
+    gel_simulator = BandWagon(custom_ladder)
 
 
 See file `examples/gel_simulation_with_enzymes_mixes.py` for a more complete
