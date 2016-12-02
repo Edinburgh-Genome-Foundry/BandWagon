@@ -1,4 +1,4 @@
-from bokeh.properties import Dict, Int, String
+from bokeh.core.properties import Dict, Int, String
 from bokeh.models import TickFormatter
 from bokeh.util.compiler import CoffeeScript
 

@@ -1,6 +1,7 @@
 import numpy as np
 from copy import deepcopy
 import matplotlib.pyplot as plt
+from .tools import place_inset_ax_in_data_coordinates
 
 try:
     from bokeh.plotting import ColumnDataSource, figure
@@ -85,7 +86,8 @@ class Band:
 class BandsPattern:
 
     def __init__(self, bands, ladder=None, label=None, label_fontdict=None,
-                 background_color=None, width=1.0, global_bands_props=None):
+                 background_color=None, width=1.0, global_bands_props=None,
+                 gel_image=None, gel_image_width=0.2):
         self.bands = [
             Band(band, ladder=ladder) if isinstance(band, (int, float))
             else band
@@ -96,6 +98,8 @@ class BandsPattern:
         self.label = label
         self.label_fontdict = label_fontdict
         self.background_color = background_color
+        self.gel_image = gel_image
+        self.gel_image_width = gel_image_width
         self.width = width
         self.initialize()
 
@@ -135,10 +139,19 @@ class BandsPattern:
         ax.axvspan(xmin=x_coord - self.width / 2.0,
                    xmax=x_coord + self.width / 2.0,
                    color=self.background_color, zorder=-1000)
-        # ax.fill_between([x_coord - self.width / 2.0,
-        #                  x_coord + self.width / 2.0],
-        #                 [-1000, -1000], facecolor=self.background_color,
-        #                 linewidth=0, zorder=-1000)
+
+    def plot_gel_image(self, ax, x_coord):
+        if self.gel_image is None:
+            return
+        # bottom left width height
+        bbox = (x_coord + 0.45 - self.gel_image_width,
+                0.95 * ax.get_ylim()[0],
+                self.gel_image_width,
+                0.90 * abs(ax.get_ylim()[0]))
+        new_ax = place_inset_ax_in_data_coordinates(ax, bbox=bbox)
+        # new_ax.plot([0,1,2,3], [0,1,0,1])
+        new_ax.axis("off")
+        new_ax.imshow(+self.gel_image, interpolation="none", aspect='auto')
 
     def plot_bands(self, ax, x_coord):
         for band in self.processed_bands():
@@ -165,6 +178,8 @@ class BandsPattern:
         self.plot_background(ax, x_coord)
         self.plot_bands(ax, x_coord)
         self.plot_label(ax, x_coord)
+        self.plot_gel_image(ax, x_coord)
+
 
     def merge_with(self, other):
         return self.modified(bands=self.bands + other.bands)

@@ -1,6 +1,5 @@
 from .BandsPattern import Band, BandsPattern
 
-
 def generate_ladder(label, bands_migrations):
     """Generate a BandsPattern object meant to be used as a ladder.
 
@@ -17,6 +16,22 @@ def generate_ladder(label, bands_migrations):
         Band(size, migration_distance=migration - shift, band_color="#8B0000")
         for (size, migration) in bands_migrations.items()
     ], background_color="#ffffff", label=label)
+
+
+def ladder_from_aati_fa_calibration_table(filename=None, dataframe=None,
+                                          label=None):
+    """Requires pandas"""
+    if filename is not None:
+        import pandas
+        dataframe = pandas.read_csv(filename)
+
+    dataframe["migration"] = (1.1 * dataframe["Time (sec)"].max() -
+                              dataframe["Time (sec)"])
+
+    return generate_ladder(label, {
+        row["Ladder Size (bp)"]: row["migration"]
+        for i, row in dataframe.iterrows()
+    })
 
 LADDER_100_to_4k = generate_ladder("100-4k", {
     100: 205,
