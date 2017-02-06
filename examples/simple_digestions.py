@@ -20,4 +20,4 @@ patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
                                 label="Digestion results", ladder_ticks=3)
 
 ax = patterns_set.plot()
-ax.figure.savefig("simple_digestions.png", bbox_inches="tight", dpi=200)
+ax.figure.savefig("simple_digestions.png", bbox_inches="tight", dpi=120)

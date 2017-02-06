@@ -101,7 +101,6 @@ Let us know plot a series of 4 band patterns:
 
 .. figure:: ../examples/simple_band_patterns.png
    :align: center
-   :width: 350px
 
 Plotting a gel simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,7 +130,6 @@ Let us plot digestion patterns produced by different restriction enzymes on a sa
 
 .. figure:: ../examples/simple_digestions.png
    :align: center
-   :width: 450px
 
 Using a custom ladder
 ~~~~~~~~~~~~~~~~~~~~~~~
