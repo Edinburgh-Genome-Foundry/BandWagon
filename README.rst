@@ -8,7 +8,7 @@ single- and multiple-enzymes digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
 
-.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/multi_enzyme_mixes.png
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/mixed_digestions.png
     :align: center
 
 License = MIT
@@ -93,8 +93,8 @@ Plotting bands
     ax = patterns_set.plot()
     ax.figure.savefig("simple_band_patterns.png", bbox_inches="tight", dpi=200)
 
-    .. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/simple_band_patterns.png
-        :align: center
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/simple_band_patterns.png
+    :align: center
 
 Plotting a gel simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
