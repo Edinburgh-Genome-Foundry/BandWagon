@@ -3,14 +3,8 @@
 Bandwagon Reference manual
 ==========================
 
-.. autoclass:: bandwagon.BandsPattern.Band
+.. automodule:: bandwagon.BandsPattern
    :members:
-
-.. autoclass:: bandwagon.BandsPattern.BandsPattern
-  :members:
-
-.. autoclass:: bandwagon.BandsPattern.BandsPatternsSet
-  :members:
 
 
 Ladders utilities

@@ -13,7 +13,7 @@
 
   
   
-    <link rel="shortcut icon" href="_static/favicon.png"/>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -35,7 +35,6 @@
 
   
     <link rel="top" title="Bandwagon 0.1.0 documentation" href="index.html"/>
-        <link rel="next" title="Compute digestions bands" href="examples/compute_digestion_bands.html"/>
         <link rel="prev" title="BandWagon Documentation" href="index.html"/> 
 
   
@@ -144,8 +143,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="bandwagon-reference-manual">
-<h1>Bandwagon Reference manual<a class="headerlink" href="#bandwagon-reference-manual" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-bandwagon.BandsPattern">
+<span id="bandwagon-reference-manual"></span><h1>Bandwagon Reference manual<a class="headerlink" href="#module-bandwagon.BandsPattern" title="Permalink to this headline">¶</a></h1>
+<p>Define Bandwagon&#8217;s classes Band, BandPattern, BandsPatternsSet.</p>
 <dl class="class">
 <dt id="bandwagon.BandsPattern.Band">
 <em class="property">class </em><code class="descclassname">bandwagon.BandsPattern.</code><code class="descname">Band</code><span class="sig-paren">(</span><em>dna_size</em>, <em>migration_distance=None</em>, <em>ladder=None</em>, <em>band_color='#000000'</em>, <em>band_thickness=2</em>, <em>band_width=0.7</em>, <em>label=None</em>, <em>label_fontdict=None</em>, <em>html=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band" title="Permalink to this definition">¶</a></dt>
@@ -200,6 +200,26 @@ printing the bands sizes</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.modified" title="bandwagon.BandsPattern.Band.modified"><code class="xref py py-obj docutils literal"><span class="pre">modified</span></code></a>(**attributes)</td>
+<td>Return a new version of this band, with modified attributes.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.plot" title="bandwagon.BandsPattern.Band.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>(ax,&nbsp;x_coord)</td>
+<td>Plot the band&#8217;s line and label on the ax at the x-coordinate.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.to_json" title="bandwagon.BandsPattern.Band.to_json"><code class="xref py py-obj docutils literal"><span class="pre">to_json</span></code></a>([ladder])</td>
+<td>Return a dictionnary version of the band (for bakeh plotting)</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="bandwagon.BandsPattern.Band.modified">
 <code class="descname">modified</code><span class="sig-paren">(</span><em>**attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band.modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band.modified" title="Permalink to this definition">¶</a></dt>
@@ -288,6 +308,32 @@ being occupied by the pattern plot)</p>
 </tbody>
 </table>
 <p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration"><code class="xref py py-obj docutils literal"><span class="pre">dna_size_to_migration</span></code></a>(dna_sizes)</td>
+<td>Return the migration distances for the given dna sizes</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="bandwagon.BandsPattern.BandsPattern.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>()</td>
+<td>Create the variables necessary to compute some properties.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="bandwagon.BandsPattern.BandsPattern.merge_with"><code class="xref py py-obj docutils literal"><span class="pre">merge_with</span></code></a>(other)</td>
+<td>Merge this band pattern with another pattern&#8217;s bands</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size"><code class="xref py py-obj docutils literal"><span class="pre">migration_to_dna_size</span></code></a>(migration_distances)</td>
+<td>Return the dna sizes corresponding to the given migrations.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.modified" title="bandwagon.BandsPattern.BandsPattern.modified"><code class="xref py py-obj docutils literal"><span class="pre">modified</span></code></a>(**attributes)</td>
+<td>Return a version of this bands pattern with modified attributes.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.plot" title="bandwagon.BandsPattern.BandsPattern.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>(ax,&nbsp;x_coord)</td>
+<td>Plot background, bands, label, gel_image at the given x_coord.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">
 <code class="descname">dna_size_to_migration</code><span class="sig-paren">(</span><em>dna_sizes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.dna_size_to_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="Permalink to this definition">¶</a></dt>
@@ -381,6 +427,20 @@ background color set this color will override the
 </tbody>
 </table>
 <p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPatternsSet.plot" title="bandwagon.BandsPattern.BandsPatternsSet.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>([ax])</td>
+<td>Plot the band patterns on the given Matplotlib ax.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh" title="bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh"><code class="xref py py-obj docutils literal"><span class="pre">plot_with_bokeh</span></code></a>([max_visible_patterns,&nbsp;...])</td>
+<td>Return an interactive (browser-based) Bokeh figure of the patterns.</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="bandwagon.BandsPattern.BandsPatternsSet.plot">
 <code class="descname">plot</code><span class="sig-paren">(</span><em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPatternsSet.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPatternsSet.plot" title="Permalink to this definition">¶</a></dt>
@@ -463,8 +523,6 @@ times of the ladder and is generally in a file called something like
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="examples/compute_digestion_bands.html" class="btn btn-neutral float-right" title="Compute digestions bands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="BandWagon Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
