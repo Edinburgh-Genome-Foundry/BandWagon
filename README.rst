@@ -1,5 +1,8 @@
 BandWagon
 ==========
+.. image:: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon.svg?branch=master
+   :target: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon
+   :alt: Travis CI build status
 
 Bandwagon (full documentation `here
 <http://edinburgh-genome-foundry.github.io/BandWagon/>`_) is a Python library to predict and plot migration patterns
