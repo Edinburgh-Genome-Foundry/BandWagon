@@ -80,6 +80,8 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion:
 Plotting bands
 ~~~~~~~~~~~~~~~
 
+Let us know plot a series of 4 band patterns:
+
 ..  code:: python
 
    from bandwagon import BandsPattern, BandsPatternsSet, LADDER_100_to_4k
