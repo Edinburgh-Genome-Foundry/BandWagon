@@ -1,6 +1,6 @@
 """Simple gel simulation with gelsimulation.py.
 
-This example shows how to plot the the digestion patterns produced by different
+This example shows how to plot the digestion patterns produced by different
 restriction enzymes on a same DNA sequence.
 """
 
@@ -20,4 +20,4 @@ patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
                                 label="Digestion results", ladder_ticks=3)
 
 ax = patterns_set.plot()
-ax.figure.savefig("digestion_results.png", bbox_inches="tight", dpi=200)
+ax.figure.savefig("simple_digestions.png", bbox_inches="tight", dpi=200)

@@ -1,6 +1,7 @@
 """Basic useful functions for computing bands and comparing patterns."""
 
 from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
 
@@ -20,6 +21,8 @@ def compute_digestion_bands(sequence, enzymes, linear=True):
     linear
       True if the DNA fragment is linearized, False if it is circular
     """
+    if isinstance(sequence, SeqRecord):
+        sequence = sequence.seq
     if not isinstance(sequence, Seq):
         sequence = Seq(sequence)
 
@@ -32,32 +35,6 @@ def compute_digestion_bands(sequence, enzymes, linear=True):
         bands_sizes[0] += bands_sizes.pop()
     return sorted(bands_sizes)
 
-
-def bands_are_similar(b1, b2, tolerance):
-    return float(abs(b1 - b2)) / min(b1, b2) < tolerance
-
-
-def merge_bands_in_pattern(bands, tolerance):
-    bands = sorted(bands)
-    new_bands = [bands[0]]
-    for band in bands[1:]:
-        if bands_are_similar(band, new_bands[-1], tolerance):
-            new_bands[-1] = 0.5 * (band + new_bands[-1])
-        else:
-            new_bands.append(band)
-    return new_bands
-
-
-def bands_patterns_are_similar(bands1, bands2,
-                               tolerance=0.3, merge_tolerance=0.2):
-    if (bands1 == []) or (bands2 == []):
-        return False
-    bands1 = merge_bands_in_pattern(bands1, tolerance=merge_tolerance)
-    bands2 = merge_bands_in_pattern(bands2, tolerance=merge_tolerance)
-    return (len(bands1) == len(bands2)) and all(
-        bands_are_similar(b1, b2, tolerance)
-        for b1, b2 in zip(sorted(bands1), sorted(bands2))
-    )
 
 def place_inset_ax_in_data_coordinates(ax, bbox):
     """Return an ax inset in the given ax at the given bbox in
@@ -73,3 +50,15 @@ def place_inset_ax_in_data_coordinates(ax, bbox):
         bbox_to_anchor=[left, bottom, width, height],
         bbox_transform=ax.transData
     )
+
+def updated_dict(dic1, dic2):
+    """Return dic1 updated with dic2 if dic2 is not None.
+
+    Example
+    -------
+
+    >>> my_dict = updated_dict({"size": 7, "color": "r"}, some_defaults_dict)
+    """
+    if dic2 is not None:
+        dic1.update(dic2)
+    return dic1

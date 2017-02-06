@@ -22,7 +22,7 @@ patterns = [
 
 patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
                                 ladder=LADDER_100_to_4k,
-                                label="Digestion mixes", ladder_ticks=3)
+                                label="Digestion results", ladder_ticks=3)
 
 ax = patterns_set.plot()
 ax.figure.savefig("mixed_digestions.png", bbox_inches="tight", dpi=200)
