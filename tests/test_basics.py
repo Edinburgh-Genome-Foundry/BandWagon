@@ -1,7 +1,10 @@
 import os
 import itertools
 import pytest
-from bandwagon import (compute_digestion_bands, Band, BandsPattern,
+import matplotlib
+matplotlib.use("Agg")
+
+from bandwagon import (compute_digestion_bands, BandsPattern,
                        BandsPatternsSet, LADDER_100_to_4k)
 
 with open(os.path.join("tests", "example_sequence.txt"), "r") as f:

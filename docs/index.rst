@@ -6,8 +6,8 @@ BandWagon Documentation
    :width: 500px
    :align: center
 
-Bandwagon is a Python library to predict and plot gel migration patterns
-from enzymatic DNA digestions. It supports hundreds of enzymes (thanks to BioPython),
+Bandwagon is a Python library to predict and plot migration patterns
+from DNA digestions. It supports hundreds of different enzymes (thanks to BioPython),
 single- and multiple-enzymes digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
