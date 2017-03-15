@@ -13,5 +13,5 @@ setup(name='bandwagon',
       license='MIT',
       keywords="Gel Agarose Simulation Matplotlib",
       packages=find_packages(exclude='docs'),
-      install_requires=("biopython", "matplotlib", "numpy")
+      install_requires=("biopython", "matplotlib", "numpy", "scipy")
 )
