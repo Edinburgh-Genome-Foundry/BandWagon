@@ -4,6 +4,32 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
+import numpy as np
+
+def np_spline_interpolator(xx, yy, npoints=3, deg=2):
+    """A poorman's spline interpolator, not using Scipy.
+
+    It is slower and more naive than Scipy's actual interpolator, but really
+    does its job here of interpolating ladders.
+    """
+    radius = int((npoints - 1) / 2)
+    centers = xx[radius: -radius]
+    print (centers)
+    interpolators = [
+        np.polyfit(xx[i-radius: i+radius+1], yy[i-radius: i+radius+1], 2)
+        for i in range(radius, len(xx) - radius)
+    ]
+    def f(x):
+        ii = np.interp(np.array(x), centers, range(len(centers)),
+                       left=0, right=(len(centers)-1))
+        if hasattr(ii, '__iter__'):
+            return np.array([
+                np.polyval(interpolators[i], _x)
+                for (i, _x) in zip(ii.astype(int), x)
+            ])
+        else:
+            return np.polyval(interpolators[int(ii)], x)
+    return f
 
 def compute_digestion_bands(sequence, enzymes, linear=True):
     """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion

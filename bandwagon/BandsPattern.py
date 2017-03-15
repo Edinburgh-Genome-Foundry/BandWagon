@@ -1,9 +1,10 @@
 """Define Bandwagon's classes Band, BandPattern, BandsPatternsSet."""
 
 import numpy as np
+from scipy.interpolate import CubicSpline
 from copy import deepcopy
 import matplotlib.pyplot as plt
-from .tools import place_inset_ax_in_data_coordinates, updated_dict
+from .tools import (place_inset_ax_in_data_coordinates, updated_dict)
 
 try:
     from bokeh.plotting import ColumnDataSource, figure
@@ -13,9 +14,6 @@ try:
     BOKEH_PANDAS_AVAILABLE = True
 except ImportError:
     BOKEH_PANDAS_AVAILABLE = False
-
-
-
 
 
 class Band:
@@ -206,7 +204,7 @@ class BandsPattern:
         """Create the variables necessary to compute some properties.
 
         Concerned properties are ``self.dna_sizes``,
-        ``self.migration_distances``, ``self.migration_distance_span``,
+        ``self.migration_distances``, ``self.migration_distances_span``,
         ``self.dna_size_span``, and indirectly the functions
         ``dna_size_to_migration`` and ``migration_to_dna_size``.
         """
@@ -216,24 +214,32 @@ class BandsPattern:
             np.array(e)
             for e in zip(*[
                 (band.dna_size, band.migration_distance)
-                for band in sorted(self.bands, key=lambda b: b.dna_size)
+                for band in sorted(set(self.bands), key=lambda b: b.dna_size)
             ])
         ]
-        self.migration_distance_span = (min(self.migration_distances),
-                                        max(self.migration_distances))
+        self.migration_distances_span = (min(self.migration_distances),
+                                         max(self.migration_distances))
         self.dna_size_span = min(self.dna_sizes), max(self.dna_sizes)
+        self._dna_size_to_migration_interpolator = None
+        self._migration_to_dna_size_interpolator = None
 
     def dna_size_to_migration(self, dna_sizes):
         """Return the migration distances for the given dna sizes"""
-        return np.interp(dna_sizes, self.dna_sizes, self.migration_distances,
-                         left=max(self.migration_distances),
-                         right=min(self.migration_distances))
+        if self._dna_size_to_migration_interpolator is None:
+            self._dna_size_to_migration_interpolator = CubicSpline(
+                self.dna_sizes, self.migration_distances,
+                bc_type='natural'
+            )
+        return self._dna_size_to_migration_interpolator(dna_sizes)
 
     def migration_to_dna_size(self, migration_distances):
         """Return the dna sizes corresponding to the given migrations."""
-        return np.interp(migration_distances, self.migration_distances[::-1],
-                         self.dna_sizes[::-1], left=min(self.dna_sizes),
-                         right=max(self.dna_sizes))
+        if self._migration_to_dna_size_interpolator is None:
+            self._migration_to_dna_size_interpolator = CubicSpline(
+                self.migration_distances[::-1], self.dna_sizes[::-1],
+                bc_type='natural'
+            )
+        return self._migration_to_dna_size_interpolator(migration_distances)
 
     def _processed_bands(self):
         """Return the bands modified by ``self.global_bands_props``"""
@@ -355,7 +361,6 @@ class BandsPatternsSet:
       columns. Leave to None for no background. If some patterns have a
       background color set this color will override the
       ``alternate_background_colors``.
-
     """
 
     def __init__(self, patterns, ladder, label=None, label_fontdict=None,
@@ -401,9 +406,12 @@ class BandsPatternsSet:
         if self.ladder is None:
             raise ValueError("Provide a `ladder` to BandsPatternsSet to enable"
                              " ladder ticks display.")
-        fontdict = updated_dict(dict(size=7, rotation=90), self.ticks_fontdict)
+        fontdict = updated_dict(
+            dict(size=7, rotation=90, verticalalignment='center'),
+            self.ticks_fontdict
+        )
         if isinstance(ticks, int):
-            bmin, bmax = self.ladder.migration_distance_span
+            bmin, bmax = self.ladder.migration_distances_span
             migrations = np.linspace(bmin, bmax, ticks)
             ticks = [self.ladder.migration_to_dna_size(m) for m in migrations]
             ticks = [int(np.round(b, -2)) for b in ticks]  # round to 100
@@ -430,7 +438,7 @@ class BandsPatternsSet:
         ax.set_frame_on(False)
         ax.set_yticks([])
         ax.set_xticks([])
-        y1, y2 = self.ladder.migration_distance_span
+        y1, y2 = self.ladder.migration_distances_span
         ax.set_ylim(-1.1 * y2, 0)
 
     def plot(self, ax=None):
@@ -441,6 +449,7 @@ class BandsPatternsSet:
         self._plot_label(ax)
         self._plot_ladder_ticks(ax)
         self._plot_patterns(ax)
+        ax.set_xlim(xmin=0.5)
         return ax
 
     def plot_with_bokeh(self, max_visible_patterns=12, band_width_pixels=40):
@@ -462,7 +471,7 @@ class BandsPatternsSet:
             raise ImportError("Install Bokeh and Pandas to use this feature")
         max_x = min(max_visible_patterns, len(self.patterns) + 1)
         max_migration = self.ladder.migration_distances.max()
-        mmin, mmax = self.ladder.migration_distance_span
+        mmin, mmax = self.ladder.migration_distances_span
         hw = 0.002 * abs(mmax - mmin)
         fig = figure(tools=[HoverTool(tooltips="@html", names=["bands"])] +
                            ["xwheel_zoom,xpan,reset, resize"],
