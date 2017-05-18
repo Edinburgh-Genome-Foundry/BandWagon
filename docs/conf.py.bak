@@ -41,8 +41,8 @@ source_suffix = ['.rst']
 master_doc = 'index'
 
 # General information about the project.
-project = 'Bandwagon'
-copyright = '2016, Edinburgh Genome Foundry'
+project = u'Bandwagon'
+copyright = u'2016, Edinburgh Genome Foundry'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -200,8 +200,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Bandwagon.tex', 'Bandwagon Documentation',
-   'Zulko', 'manual'),
+  ('index', 'Bandwagon.tex', u'Bandwagon Documentation',
+   u'Zulko', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -230,8 +230,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'Bandwagon', 'PACKAGE_NAME Documentation',
-     ['Zulko'], 1)
+    ('index', 'Bandwagon', u'PACKAGE_NAME Documentation',
+     [u'Zulko'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -244,8 +244,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Bandwagon', 'Bandwagon Documentation',
-   'Zulko', 'Bandwagon', 'One line description of project.',
+  ('index', 'Bandwagon', u'Bandwagon Documentation',
+   u'Zulko', 'Bandwagon', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -265,10 +265,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = 'Bandwagon'
-epub_author = 'Zulko'
-epub_publisher = 'Zulko'
-epub_copyright = '2016, Zulko'
+epub_title = u'Bandwagon'
+epub_author = u'Zulko'
+epub_publisher = u'Zulko'
+epub_copyright = u'2016, Zulko'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

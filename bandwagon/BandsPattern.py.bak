@@ -483,7 +483,7 @@ class BandsPatternsSet:
                      title_location="below",
                      title=self.label)
         fig.xaxis[0].ticker = FixedTicker(
-            ticks=list(range(1, len(self.patterns) + 1)))
+            ticks=range(1, len(self.patterns) + 1))
         fig.xaxis[0].formatter = FixedTickFormatter(labels={
             i + 1: "" if (pattern.label is None) else pattern.label
             for i, pattern in enumerate(self.patterns)
