@@ -20,7 +20,7 @@ def np_spline_interpolator(xx, yy, npoints=3, deg=2):
         for i in range(radius, len(xx) - radius)
     ]
     def f(x):
-        ii = np.interp(np.array(x), centers, list(range(len(centers))),
+        ii = np.interp(np.array(x), centers, range(len(centers)),
                        left=0, right=(len(centers)-1))
         if hasattr(ii, '__iter__'):
             return np.array([
@@ -54,7 +54,7 @@ def compute_digestion_bands(sequence, enzymes, linear=True):
 
     batch = Restriction.RestrictionBatch(enzymes)
     cut_sites = batch.search(sequence, linear=linear)
-    cut_sites = [0] + sorted(sum(list(cut_sites.values()), [])) + [len(sequence)]
+    cut_sites = [0] + sorted(sum(cut_sites.values(), [])) + [len(sequence)]
     bands_sizes = [end - start for (start, end)
                    in zip(cut_sites, cut_sites[1:])]
     if not linear and len(bands_sizes) > 1:

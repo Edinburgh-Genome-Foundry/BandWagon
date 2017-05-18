@@ -11,13 +11,13 @@ with open("example_sequence.txt", "r") as f:
     sequence = f.read()
 
 # Compute digestion bands for a linear construct
-print((compute_digestion_bands(sequence, ["EcoRI"], linear=True)))
+print(compute_digestion_bands(sequence, ["EcoRI"], linear=True))
 # Result >>> [400, 1017, 3583]
 
 # Compute digestion bands for a circular construct
-print((compute_digestion_bands(sequence, ["EcoRI"], linear=False)))
+print(compute_digestion_bands(sequence, ["EcoRI"], linear=False))
 # Result >>> [1017, 3983]
 
 # Compute digestion bands for an enzymatic mix
-print((compute_digestion_bands(sequence, ["EcoRI", "BamHI"])))
+print(compute_digestion_bands(sequence, ["EcoRI", "BamHI"]))
 # Result >>> [400, 417, 600, 3583]
