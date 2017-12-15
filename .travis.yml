@@ -6,10 +6,11 @@ python:
 install:
   - pip install --upgrade pip setuptools wheel
   - pip install --only-binary=numpy,scipy numpy scipy
+  - pip install coveralls pytest-cov pytest
   - pip install -e .
 # command to run tests
 script:
-  - python -m pytest
+  - python -m pytest -v --cov moviepy --cov-report term-missing
 
 after_success:
   - coveralls
