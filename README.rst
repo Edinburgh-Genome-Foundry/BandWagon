@@ -28,19 +28,19 @@ Installation
 
 If you have pip installed, just type:
 
-.. code:: python
+.. code:: shell
 
     (sudo) pip install bandwagon
 
 Bandwagon can be installed by unzipping the source code in one directory and using this command:
 
-.. code:: python
+.. code:: shell
 
     (sudo) python setup.py install
 
 To create interactive bokeh plots you will need to additionally install Bokeh with
 
-.. code:: python
+.. code:: shell
 
     (sudo) pip install bokeh
 

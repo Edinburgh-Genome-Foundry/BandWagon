@@ -9,6 +9,8 @@ patterns = [
     BandsPattern([300, 400, 1500], ladder, label="C2"),
     BandsPattern([100, 1200, 1400, 3000], ladder, label="C3"),
     BandsPattern([100, 700], ladder, label="C4"),
+    BandsPattern([400, 700], ladder, label="C5"),
+    BandsPattern([400, 200, 1200], ladder, label="C6"),
 ]
 patterns_set = BandsPatternsSet(patterns=[ladder] + patterns, ladder=ladder,
                                 label="Digests", ladder_ticks=3)
