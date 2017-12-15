@@ -1,5 +1,10 @@
-BandWagon
-==========
+.. raw:: html
+
+    <p align="center">
+    <img alt="BandWagon Logo" title="BandWagon Logo" src="https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/docs/_static/images/title.png" width="500">
+    <br /><br />
+    </p>
+
 .. image:: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon.svg?branch=master
    :target: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon
    :alt: Travis CI build status
