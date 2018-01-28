@@ -1,5 +1,6 @@
 import numpy as np
 from copy import deepcopy
+from .tools import updated_dict
 
 class Band:
     """A band in a migration pattern.
