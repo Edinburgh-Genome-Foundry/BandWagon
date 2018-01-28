@@ -2,12 +2,15 @@ import os
 import itertools
 import pytest
 import matplotlib
+from bokeh.resources import CDN
+from bokeh.embed import file_html
 matplotlib.use("Agg")
+import matplotlib.image as mpimg
 
 from bandwagon import (compute_digestion_bands, BandsPattern,
                        BandsPatternsSet, LADDER_100_to_4k)
 
-with open(os.path.join("tests", "example_sequence.txt"), "r") as f:
+with open(os.path.join("tests", 'data', "example_sequence.txt"), "r") as f:
     example_sequence = f.read()
 ladder = LADDER_100_to_4k.modified(label="Ladder", background_color="#ffebe6")
 
@@ -36,12 +39,12 @@ def test_simple_band_pattern(tmpdir):
     assert os.path.exists(png_path)
 
 
-def test_simple_digestions(tmpdir):
+def test_simple_digestions_matplotlib_plot(tmpdir):
     png_path = os.path.join(str(tmpdir), "test.png")
     patterns = [
-        BandsPattern(compute_digestion_bands(example_sequence, [enzyme],
-                                             linear=True),
-                     ladder=LADDER_100_to_4k, label=enzyme)
+        BandsPattern(compute_digestion_bands(example_sequence, [enzyme]),
+                     ladder=LADDER_100_to_4k, label=enzyme,
+                     global_bands_props={'label': '=size'})
         for enzyme in ["BamHI", "EcoRI", "EcoRV", "PstI", "SpeI", "XbaI"]
     ]
     patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
@@ -51,6 +54,24 @@ def test_simple_digestions(tmpdir):
     ax = patterns_set.plot()
     ax.figure.savefig(png_path, bbox_inches="tight", dpi=200)
     assert os.path.exists(png_path)
+
+def test_simple_digestions_bokeh_plot(tmpdir):
+    patterns = [
+        BandsPattern(compute_digestion_bands(example_sequence, [enzyme]),
+                     ladder=LADDER_100_to_4k, label=enzyme,
+                     global_bands_props={'label': '=size'})
+        for enzyme in ["BamHI", "EcoRI", "EcoRV", "PstI", "SpeI", "XbaI"]
+    ]
+    patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
+                                    ladder=LADDER_100_to_4k,
+                                    label="Digestion results", ladder_ticks=3)
+
+    plot = patterns_set.plot_with_bokeh()
+    target_file = os.path.join(str(tmpdir), "plot_with_bokeh.html")
+    with open(target_file, "w+") as f:
+        f.write(file_html(plot, CDN, "Example Sequence"))
+    with open(target_file, 'r') as f:
+        assert len(f.read()) > 10000
 
 
 def test_mixed_digestions(tmpdir):
@@ -68,6 +89,24 @@ def test_mixed_digestions(tmpdir):
     patterns_set = BandsPatternsSet(patterns=[LADDER_100_to_4k] + patterns,
                                     ladder=LADDER_100_to_4k,
                                     label="Digestion results", ladder_ticks=3)
+    ax = patterns_set.plot()
+    ax.figure.savefig(png_path, bbox_inches="tight", dpi=200)
+    assert os.path.exists(png_path)
+
+def test_customized_band_pattern(tmpdir):
+    band_image_path = os.path.join('tests', 'data', 'band_image.png')
+    png_path = os.path.join(str(tmpdir), "test.png")
+    gel_image = mpimg.imread(band_image_path)
+    patterns = [
+        BandsPattern([100, 1500, 2000, 1000, 3500], ladder, label="C1",
+                     corner_note="corner note",
+                     corner_note_fontdict=None,
+                     background_color='#eeeeff',
+                     gel_image=gel_image)
+    ]
+    patterns_set = BandsPatternsSet(patterns=[ladder] + patterns,
+                                    ladder=ladder,
+                                    label="Digests", ladder_ticks=3)
     ax = patterns_set.plot()
     ax.figure.savefig(png_path, bbox_inches="tight", dpi=200)
     assert os.path.exists(png_path)

@@ -7,7 +7,7 @@ from .tools import (updated_dict)
 try:
     from bokeh.plotting import ColumnDataSource, figure
     from bokeh.models import HoverTool, Range1d, FixedTicker
-    from .bokeh_tools import FixedTickFormatter
+    from bokeh.models import FuncTickFormatter
     import pandas
     BOKEH_PANDAS_AVAILABLE = True
 except ImportError:
@@ -167,7 +167,7 @@ class BandsPatternsSet:
         mmin, mmax = self.ladder.migration_distances_span
         hw = 0.002 * abs(mmax - mmin)
         fig = figure(tools=[HoverTool(tooltips="@html", names=["bands"])] +
-                           ["xwheel_zoom,xpan,reset, resize"],
+                           ["xwheel_zoom,xpan,reset"],
                      plot_height=300, plot_width=band_width_pixels * max_x,
                      x_range=Range1d(0.5, max_x),  # labels,
                      y_range=Range1d(-1.1 * max_migration, 0),
@@ -175,12 +175,16 @@ class BandsPatternsSet:
                      x_axis_location="above",
                      title_location="below",
                      title=self.label)
-        fig.xaxis[0].ticker = FixedTicker(
-            ticks=range(1, len(self.patterns) + 1))
-        fig.xaxis[0].formatter = FixedTickFormatter(labels={
+        label_dict = {
             i + 1: "" if (pattern.label is None) else pattern.label
             for i, pattern in enumerate(self.patterns)
-        })
+        }
+        fig.xaxis[0].ticker = FixedTicker(
+            ticks=list(range(1, len(self.patterns) + 1)))
+        fig.xaxis.formatter = FuncTickFormatter(code="""
+            var labels = %s;
+            return labels[tick];
+        """ % label_dict)
         fig.quad(
             name="backgrounds", top="top", bottom="bottom", left="left",
             right="right", color="color",
