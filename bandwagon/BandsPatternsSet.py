@@ -78,12 +78,13 @@ class BandsPatternsSet:
         """
         new_patterns = []
         for i, pattern in enumerate(self.patterns):
-            pattern = pattern.modified(**self.global_patterns_props)
-            if pattern.background_color is None:
-                if self.alternate_background_colors is not None:
-                    ind = i % len(self.alternate_background_colors)
-                    color = self.alternate_background_colors[ind]
-                    pattern.background_color = color
+            if pattern is not None:
+                pattern = pattern.modified(**self.global_patterns_props)
+                if pattern.background_color is None:
+                    if self.alternate_background_colors is not None:
+                        ind = i % len(self.alternate_background_colors)
+                        color = self.alternate_background_colors[ind]
+                        pattern.background_color = color
             new_patterns.append(pattern)
         return new_patterns
 
@@ -124,7 +125,8 @@ class BandsPatternsSet:
         if xmax <= len(patterns) + 0.5:
             ax.set_xlim(xmax=len(patterns) + 0.5)
         for i, pattern in enumerate(self._processed_patterns()):
-            pattern.plot(ax, i + 1)
+            if pattern is not None:
+                pattern.plot(ax, i + 1)
 
     def _initialize_ax(self, ax):
         """Initialize the Matplotlib ax before plotting."""
@@ -162,7 +164,7 @@ class BandsPatternsSet:
 
         if not BOKEH_PANDAS_AVAILABLE:
             raise ImportError("Install Bokeh and Pandas to use this feature")
-        max_x = min(max_visible_patterns, len(self.patterns) + 1)
+        max_x = min(max_viBandsPatternsSetsible_patterns, len(self.patterns) + 1)
         max_migration = self.ladder.migration_distances.max()
         mmin, mmax = self.ladder.migration_distances_span
         hw = 0.002 * abs(mmax - mmin)
