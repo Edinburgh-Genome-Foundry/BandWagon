@@ -164,7 +164,7 @@ class BandsPatternsSet:
 
         if not BOKEH_PANDAS_AVAILABLE:
             raise ImportError("Install Bokeh and Pandas to use this feature")
-        max_x = min(max_viBandsPatternsSetsible_patterns, len(self.patterns) + 1)
+        max_x = min(max_visible_patterns, len(self.patterns) + 1)
         max_migration = self.ladder.migration_distances.max()
         mmin, mmax = self.ladder.migration_distances_span
         hw = 0.002 * abs(mmax - mmin)
