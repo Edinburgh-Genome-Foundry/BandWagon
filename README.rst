@@ -114,7 +114,7 @@ Plotting a gel simulation
 Let us plot digestion patterns produced by different restriction enzymes on a same DNA sequence:
 
 
-..  code:: python
+.. code:: python
 
     from bandwagon import (BandsPattern, BandsPatternsSet, LADDER_100_to_4k,
                            compute_digestion_bands)
@@ -137,18 +137,62 @@ Let us plot digestion patterns produced by different restriction enzymes on a sa
 .. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/simple_digestions.png
     :align: center
 
+If you have many sequences and digestions you can also use the utility ````
+
+.. code:: python
+    
+    from bandwagon import plot_all_digestion_patterns, LADDER_100_to_4k
+
+    plot_records_digestions(
+        records=records,
+        digestions=[('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)],
+        ladder=LADDER_100_to_4k,
+        target="records_digestions.pdf")
+
+    axes = plot_all_digestion_patterns(
+        records=records,
+        digestions=[('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)],
+        ladder=LADDER_100_to_4k
+    )
+    axes[0].figure.savefig("plot_all_digestion_patterns.png")
+
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/plot_all_digestion_patterns.png
+    :align: center
+
+Plotting patterns alongside annotated records
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also get a full report with indications of where in your sequences the
+bands are formed (which is useful for troubleshooting) as follows:
+
+.. code:: python
+    
+    from bandwagon import plot_records_digestions, LADDER_100_to_4k
+
+    plot_records_digestions(
+        records=records,
+        digestions=[('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)],
+        ladder=LADDER_100_to_4k,
+        target="records_digestions.pdf")
+
+You get a `PDF report <https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/plot_records_digestions_example.pdf>`_
+with one page per construct and digestion, looking like this:
+
+.. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/plot_records_digestions_example.png
+    :align: center
+
 Using a custom ladder
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 You can define a custom ladder by providing a dictionnary of the form
 
-..  code:: python
+.. code:: python
 
     { actual_size_of_the_fragment: observed_migration_distance }
 
 For instance here is how the  100b-4kb ladder (provided with BandWagon) is defined:
 
-..  code:: python
+.. code:: python
 
     from bandwagon import custom_ladder
 

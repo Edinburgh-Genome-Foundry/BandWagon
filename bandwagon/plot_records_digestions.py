@@ -1,6 +1,6 @@
 from copy import deepcopy
 import sys
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 from base64 import b64encode
 
 
@@ -129,11 +129,11 @@ def plot_records_digestions(records, digestions, ladder, target):
     
     full_report
     """
-    annotated_records = {}
+    annotated_records = OrderedDict()
     with PdfPages(target) as details_pdf:
         for record in records:
             record_label = record.id
-            annotated_records[record_label] = {}
+            annotated_records[record_label] = OrderedDict()
             for enzymes in digestions:
                 enzymes_label = " + ".join(sorted(enzymes))
                 basename = "%s--%s" % (record_label.replace(" ", "_"),
@@ -150,7 +150,7 @@ def plot_records_digestions(records, digestions, ladder, target):
 
 def plot_all_digestion_patterns(records, digestions, ladder, axes=None,
                                 group_by="digestions", show_band_sizes=False):
-    all_patterns = defaultdict(lambda *a: {})
+    all_patterns = OrderedDict()
     for record in records:
         linear = record.linear if hasattr(record, 'linear') else False
         for enzymes in digestions:
@@ -158,8 +158,12 @@ def plot_all_digestion_patterns(records, digestions, ladder, axes=None,
             bands = compute_digestion_bands(record.seq, enzymes, linear=linear)
             bands = sorted(bands)
             if group_by == "digestions":
+                if enzymes_label not in all_patterns:
+                    all_patterns[enzymes_label] = OrderedDict() 
                 all_patterns[enzymes_label][record.id] = bands
             else:
+                if record.id not in all_patterns:
+                    all_patterns[record.id] = OrderedDict()
                 all_patterns[record.id][enzymes_label] = bands
 
     Y = len(all_patterns)
