@@ -123,7 +123,7 @@ class BandsPatternsSet:
         xmin, xmax = ax.get_xlim()
         patterns = self._processed_patterns()
         if xmax <= len(patterns) + 0.5:
-            ax.set_xlim(xmax=len(patterns) + 0.5)
+            ax.set_xlim(right=len(patterns) + 0.5)
         for i, pattern in enumerate(self._processed_patterns()):
             if pattern is not None:
                 pattern.plot(ax, i + 1)
@@ -144,7 +144,7 @@ class BandsPatternsSet:
         self._plot_label(ax)
         self._plot_ladder_ticks(ax)
         self._plot_patterns(ax)
-        ax.set_xlim(xmin=0.5)
+        ax.set_xlim(left=0.5)
         return ax
 
     def plot_with_bokeh(self, max_visible_patterns=12, band_width_pixels=40):
@@ -173,7 +173,7 @@ class BandsPatternsSet:
                      plot_height=300, plot_width=band_width_pixels * max_x,
                      x_range=Range1d(0.5, max_x),  # labels,
                      y_range=Range1d(-1.1 * max_migration, 0),
-                     logo=None, toolbar_location="right",
+                     toolbar_location="right",
                      x_axis_location="above",
                      title_location="below",
                      title=self.label)

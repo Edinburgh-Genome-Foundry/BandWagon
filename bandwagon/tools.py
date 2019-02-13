@@ -1,10 +1,32 @@
 """Basic useful functions for computing bands and comparing patterns."""
 
 from Bio.Seq import Seq
+from copy import deepcopy
 from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
+from Bio import SeqIO
+from Bio.Alphabet import DNAAlphabet
+from Bio.SeqFeature import SeqFeature, FeatureLocation
 from mpl_toolkits.axes_grid.inset_locator import inset_axes
 import numpy as np
+
+def random_dna_sequence(length):
+    return "".join(["ATGC"[np.random.randint(0, 4)] for i in range(length)])
+
+def sequence_to_biopython_record(sequence, id='<unknown id>',
+                                 name='<unknown name>', features=()):
+    """Return a SeqRecord of the sequence, ready to be Genbanked."""
+    return SeqRecord(Seq(sequence, alphabet=DNAAlphabet()),
+                     id=id, name=name, features=list(features))
+
+def find_cut_sites(sequence, enzymes, linear=True):
+    if isinstance(sequence, str):
+        sequence = Seq(sequence)
+    if hasattr(sequence, 'seq'):
+        sequence = sequence.seq
+    batch = Restriction.RestrictionBatch(enzymes)
+    matches = batch.search(sequence, linear=linear)
+    return sorted(sum(matches.values(), []))
 
 def compute_digestion_bands(sequence, enzymes, linear=True):
     """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion
@@ -22,19 +44,30 @@ def compute_digestion_bands(sequence, enzymes, linear=True):
     linear
       True if the DNA fragment is linearized, False if it is circular
     """
-    if isinstance(sequence, SeqRecord):
-        sequence = sequence.seq
-    if not isinstance(sequence, Seq):
-        sequence = Seq(sequence)
-
-    batch = Restriction.RestrictionBatch(enzymes)
-    cut_sites = batch.search(sequence, linear=linear)
-    cut_sites = [0] + sorted(sum(cut_sites.values(), [])) + [len(sequence)]
+    cut_sites = find_cut_sites(sequence, enzymes, linear=linear)
+    cut_sites = [0] + cut_sites + [len(sequence)]
     bands_sizes = [end - start for (start, end)
                    in zip(cut_sites, cut_sites[1:])]
     if not linear and len(bands_sizes) > 1:
         bands_sizes[0] += bands_sizes.pop()
     return sorted(bands_sizes)
+
+def annotate_record(seqrecord, location="full", feature_type="misc_feature",
+                margin=0, **qualifiers):
+    """Add a feature to a Biopython SeqRecord. (also returns that same record)
+    """
+    if location == "full":
+        location = (margin, len(seqrecord)-margin)
+
+    strand = location[2] if (len(location) == 3) else 1
+    seqrecord.features.append(
+        SeqFeature(
+            FeatureLocation(location[0], location[1], strand),
+            qualifiers=qualifiers,
+            type=feature_type
+        )
+    )
+    return seqrecord
 
 
 def place_inset_ax_in_data_coordinates(ax, bbox):
@@ -63,3 +96,19 @@ def updated_dict(dic1, dic2):
     if dic2 is not None:
         dic1.update(dic2)
     return dic1
+
+def load_record(filename, linear=True, name="unnamed", fmt='auto'):
+    """Load a FASTA/Genbank/... record"""
+    if fmt is not 'auto':
+        record = SeqIO.read(filename, fmt)
+    elif filename.lower().endswith(("gb", "gbk")):
+        record = SeqIO.read(filename, "genbank")
+    elif filename.lower().endswith(('fa', 'fasta')):
+        record = SeqIO.read(filename, "fasta")
+    else:
+        raise ValueError('Unknown format for file: %s' % filename)
+    record.linear = linear
+    if name != "unnamed":
+        record.id = name
+        record.name = name.replace(" ", "_")[:20]
+    return record
