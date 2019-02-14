@@ -2,6 +2,7 @@ from copy import deepcopy
 import sys
 from collections import defaultdict, OrderedDict
 from base64 import b64encode
+import itertools
 
 
 
@@ -113,7 +114,8 @@ def plot_record_digestion(record_digestion, ladder,
     return (ax_bands, ax_record, ax_digest)
 
 
-def plot_records_digestions(records, digestions, ladder, target):
+def plot_records_digestions(target, ladder, records_and_digestions=None,
+                            records=None, digestions=None):
     """Plot records digestions in a multipage PDF file.
     
     Parameters
@@ -129,23 +131,25 @@ def plot_records_digestions(records, digestions, ladder, target):
     
     full_report
     """
+    if records_and_digestions is None:
+        records_and_digestions = itertools.product(records, digestions)
     annotated_records = OrderedDict()
     with PdfPages(target) as details_pdf:
-        for record in records:
+        for record, enzymes in records_and_digestions:
             record_label = record.id
-            annotated_records[record_label] = OrderedDict()
-            for enzymes in digestions:
-                enzymes_label = " + ".join(sorted(enzymes))
-                basename = "%s--%s" % (record_label.replace(" ", "_"),
-                                       "+".join(enzymes))
-                record_digestion = annotate_digestion_bands(
-                    record, enzymes, ladder)
-                record_digestion.id = basename
-                annotated_records[record_label][enzymes_label] = record_digestion
-                (ax, _, _) = plot_record_digestion(
-                    record_digestion, ladder, record_label, enzymes_label)
-                details_pdf.savefig(ax.figure, bbox_inches="tight")
-                plt.close(ax.figure)
+            if record_label not in annotated_records:
+                annotated_records[record_label] = OrderedDict()
+            enzymes_label = " + ".join(sorted(enzymes))
+            basename = "%s--%s" % (record_label.replace(" ", "_"),
+                                    "+".join(enzymes))
+            record_digestion = annotate_digestion_bands(
+                record, enzymes, ladder)
+            record_digestion.id = basename
+            annotated_records[record_label][enzymes_label] = record_digestion
+            (ax, _, _) = plot_record_digestion(
+                record_digestion, ladder, record_label, enzymes_label)
+            details_pdf.savefig(ax.figure, bbox_inches="tight")
+            plt.close(ax.figure)
     return annotated_records
 
 def plot_all_digestion_patterns(records, digestions, ladder, axes=None,

@@ -16,6 +16,12 @@ def test_plot_records_digestions(tmpdir):
     plot_records_digestions(records=records, digestions=digestions,
                             ladder=LADDER_100_to_4k, target=target)
 
+def test_plot_records_digestions_ziplist(tmpdir):
+    target = os.path.join(str(tmpdir), "test.pdf")
+    plot_records_digestions(
+        records_and_digestions=list(zip(records, digestions)),
+        ladder=LADDER_100_to_4k, target=target)
+
 def test_plot_all_digestion_patterns():
     plot_all_digestion_patterns(records=records, digestions=digestions,
                                 ladder=LADDER_100_to_4k)
