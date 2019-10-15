@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>License = MIT</title>
+      <title>Bandwagon</title>
     
       <link rel="stylesheet" href="_static/pygments.css">
       <link rel="stylesheet" href="_static/theme.css">
@@ -33,7 +33,7 @@
     <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
   <router-link to="#" class="home-link">
     
-      <span class="site-name">Bandwagon</span>
+      <img class="logo" src="_static/title.png" alt="doit logo"/>
     
   </router-link>
 
@@ -57,6 +57,15 @@
   
 
 
+
+  
+    <div class="nav-item">
+      <a href="https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer"
+        class="nav-link external">
+          Github <outboundlink/>
+      </a>
+    </div>
+  
 
     </navlinks>
   </div>
@@ -87,6 +96,15 @@
   
 
 
+
+  
+    <div class="nav-item">
+      <a href="https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer"
+        class="nav-link external">
+          Github <outboundlink/>
+      </a>
+    </div>
+  
 
             
           </navlinks><div id="searchbox" class="searchbox" role="search">
@@ -153,7 +171,7 @@
   <ul class="breadcrumbs">
     <li><a href="#">Docs</a> &raquo;</li>
     
-    <li>License = MIT</li>
+    <li>Bandwagon</li>
   </ul>
   
 
@@ -180,14 +198,16 @@ single- and multiple-enzymes digestions, and custom ladders.</p>
 <div class="figure align-center">
 <img alt="https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/mixed_digestions.png" src="https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/mixed_digestions.png" />
 </div>
+<div class="section" id="bandwagon">
+<h1>Bandwagon<a class="headerlink" href="#bandwagon" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="license-mit">
-<h1>License = MIT<a class="headerlink" href="#license-mit" title="Permalink to this headline">¶</a></h1>
+<h2>License = MIT<a class="headerlink" href="#license-mit" title="Permalink to this headline">¶</a></h2>
 <p>Bandwagon is an open-source software originally written at the <a class="reference external" href="http://edinburgh-genome-foundry.github.io/home.html">Edinburgh Genome Foundry</a> by <a class="reference external" href="https://github.com/Zulko">Zulko</a>
 and <a class="reference external" href="https://github.com/Edinburgh-Genome-Foundry/Bandwagon">released on Github</a> under the MIT licence (Copyright Edinburg Genome Foundry).</p>
 <p>Everyone is welcome to contribute !</p>
 </div>
 <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>If you have pip installed, just type:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>sudo<span class="o">)</span> pip install bandwagon
 </pre></div>
@@ -202,9 +222,9 @@ and <a class="reference external" href="https://github.com/Edinburgh-Genome-Foun
 </div>
 </div>
 <div class="section" id="examples-of-use">
-<h1>Examples of use<a class="headerlink" href="#examples-of-use" title="Permalink to this headline">¶</a></h1>
+<h2>Examples of use<a class="headerlink" href="#examples-of-use" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="computing-digestion-bands-sizes">
-<h2>Computing digestion bands sizes<a class="headerlink" href="#computing-digestion-bands-sizes" title="Permalink to this headline">¶</a></h2>
+<h3>Computing digestion bands sizes<a class="headerlink" href="#computing-digestion-bands-sizes" title="Permalink to this headline">¶</a></h3>
 <p>This first example shows how to compute digestion bands in the case of
 a linear fragment, a circular fragment, and a multi-enzymes digestion:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bandwagon</span> <span class="kn">import</span> <span class="n">compute_digestion_bands</span>
@@ -228,7 +248,7 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion:</p>
 </div>
 </div>
 <div class="section" id="plotting-bands">
-<h2>Plotting bands<a class="headerlink" href="#plotting-bands" title="Permalink to this headline">¶</a></h2>
+<h3>Plotting bands<a class="headerlink" href="#plotting-bands" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bandwagon</span> <span class="kn">import</span> <span class="n">BandsPattern</span><span class="p">,</span> <span class="n">BandsPatternsSet</span><span class="p">,</span> <span class="n">LADDER_100_to_4k</span>
 
 <span class="n">ladder</span> <span class="o">=</span> <span class="n">LADDER_100_to_4k</span><span class="o">.</span><span class="n">modified</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ladder&quot;</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;#ffffaf&quot;</span><span class="p">)</span>
@@ -250,7 +270,7 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion:</p>
 </div>
 </div>
 <div class="section" id="plotting-a-gel-simulation">
-<h2>Plotting a gel simulation<a class="headerlink" href="#plotting-a-gel-simulation" title="Permalink to this headline">¶</a></h2>
+<h3>Plotting a gel simulation<a class="headerlink" href="#plotting-a-gel-simulation" title="Permalink to this headline">¶</a></h3>
 <p>Let us plot digestion patterns produced by different restriction enzymes on a same DNA sequence:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bandwagon</span> <span class="kn">import</span> <span class="p">(</span><span class="n">BandsPattern</span><span class="p">,</span> <span class="n">BandsPatternsSet</span><span class="p">,</span> <span class="n">LADDER_100_to_4k</span><span class="p">,</span>
                        <span class="n">compute_digestion_bands</span><span class="p">)</span>
@@ -296,7 +316,7 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion:</p>
 </div>
 </div>
 <div class="section" id="plotting-patterns-alongside-annotated-records">
-<h2>Plotting patterns alongside annotated records<a class="headerlink" href="#plotting-patterns-alongside-annotated-records" title="Permalink to this headline">¶</a></h2>
+<h3>Plotting patterns alongside annotated records<a class="headerlink" href="#plotting-patterns-alongside-annotated-records" title="Permalink to this headline">¶</a></h3>
 <p>You can also get a full report with indications of where in your sequences the
 bands are formed (which is useful for troubleshooting) as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bandwagon</span> <span class="kn">import</span> <span class="n">plot_records_digestions</span><span class="p">,</span> <span class="n">LADDER_100_to_4k</span>
@@ -315,7 +335,7 @@ with one page per construct and digestion, looking like this:</p>
 </div>
 </div>
 <div class="section" id="using-a-custom-ladder">
-<h2>Using a custom ladder<a class="headerlink" href="#using-a-custom-ladder" title="Permalink to this headline">¶</a></h2>
+<h3>Using a custom ladder<a class="headerlink" href="#using-a-custom-ladder" title="Permalink to this headline">¶</a></h3>
 <p>You can define a custom ladder by providing a dictionnary of the form</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="n">actual_size_of_the_fragment</span><span class="p">:</span> <span class="n">observed_migration_distance</span> <span class="p">}</span>
 </pre></div>
@@ -369,6 +389,7 @@ fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
 </script>
 <iframe src="http://ghbtns.com/github-btn.html?user=Edinburgh-Genome-Foundry&repo=bandwagon&type=watch&count=true&size=large"
 allowtransparency="true" frameborder="0" scrolling="0" width="152px" height="30px" margin-bottom="30px"></iframe></div>
+</div>
 </div>
 
 

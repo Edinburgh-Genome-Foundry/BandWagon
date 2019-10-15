@@ -33,7 +33,7 @@
     <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
   <router-link to="index.html" class="home-link">
     
-      <span class="site-name">Bandwagon</span>
+      <img class="logo" src="_static/title.png" alt="doit logo"/>
     
   </router-link>
 
@@ -57,6 +57,15 @@
   
 
 
+
+  
+    <div class="nav-item">
+      <a href="https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer"
+        class="nav-link external">
+          Github <outboundlink/>
+      </a>
+    </div>
+  
 
     </navlinks>
   </div>
@@ -87,6 +96,15 @@
   
 
 
+
+  
+    <div class="nav-item">
+      <a href="https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer"
+        class="nav-link external">
+          Github <outboundlink/>
+      </a>
+    </div>
+  
 
             
           </navlinks><div id="searchbox" class="searchbox" role="search">
@@ -176,6 +194,7 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -189,14 +208,18 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern">BandsPattern (class in bandwagon.BandsPattern)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern">[1]</a>
+      <li><a href="ref.html#bandwagon.Band.Band">Band (class in bandwagon.Band)</a>
+</li>
+      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern">BandsPattern (class in bandwagon.BandsPattern)</a>
 </li>
       <li><a href="ref.html#bandwagon.BandsPatternsSet.BandsPatternsSet">BandsPatternsSet (class in bandwagon.BandsPatternsSet)</a>
 </li>
-      <li><a href="ref.html#module-bandwagon.BandsPattern">bandwagon.BandsPattern (module)</a>, <a href="ref.html#module-bandwagon.BandsPattern">[1]</a>
+      <li><a href="ref.html#module-bandwagon.Band">bandwagon.Band (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref.html#module-bandwagon.BandsPattern">bandwagon.BandsPattern (module)</a>
+</li>
       <li><a href="ref.html#module-bandwagon.BandsPatternsSet">bandwagon.BandsPatternsSet (module)</a>
 </li>
       <li><a href="ref.html#module-bandwagon.ladders">bandwagon.ladders (module)</a>
@@ -225,7 +248,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">dna_size_to_migration() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">[1]</a>
+      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">dna_size_to_migration() (bandwagon.BandsPattern.BandsPattern method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -233,7 +256,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.initialize">initialize() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.initialize">[1]</a>
+      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.initialize">initialize() (bandwagon.BandsPattern.BandsPattern method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -249,35 +272,49 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.merge_with">merge_with() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.merge_with">[1]</a>
+      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.merge_with">merge_with() (bandwagon.BandsPattern.BandsPattern method)</a>
+</li>
+      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size">migration_to_dna_size() (bandwagon.BandsPattern.BandsPattern method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size">migration_to_dna_size() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size">[1]</a>
+      <li><a href="ref.html#bandwagon.Band.Band.modified">modified() (bandwagon.Band.Band method)</a>
+
+      <ul>
+        <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.modified">(bandwagon.BandsPattern.BandsPattern method)</a>
 </li>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.modified">modified() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.modified">[1]</a>
-</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.plot">plot() (bandwagon.BandsPattern.BandsPattern method)</a>, <a href="ref.html#bandwagon.BandsPattern.BandsPattern.plot">[1]</a>
+      <li><a href="ref.html#bandwagon.Band.Band.plot">plot() (bandwagon.Band.Band method)</a>
 
       <ul>
+        <li><a href="ref.html#bandwagon.BandsPattern.BandsPattern.plot">(bandwagon.BandsPattern.BandsPattern method)</a>
+</li>
         <li><a href="ref.html#bandwagon.BandsPatternsSet.BandsPatternsSet.plot">(bandwagon.BandsPatternsSet.BandsPatternsSet method)</a>
 </li>
       </ul></li>
-      <li><a href="ref.html#bandwagon.plot_records_digestions.plot_all_digestion_patterns">plot_all_digestion_patterns() (in module bandwagon.plot_records_digestions)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref.html#bandwagon.plot_records_digestions.plot_all_digestion_patterns">plot_all_digestion_patterns() (in module bandwagon.plot_records_digestions)</a>
+</li>
       <li><a href="ref.html#bandwagon.plot_records_digestions.plot_record_digestion">plot_record_digestion() (in module bandwagon.plot_records_digestions)</a>
 </li>
       <li><a href="ref.html#bandwagon.plot_records_digestions.plot_records_digestions">plot_records_digestions() (in module bandwagon.plot_records_digestions)</a>
 </li>
       <li><a href="ref.html#bandwagon.BandsPatternsSet.BandsPatternsSet.plot_with_bokeh">plot_with_bokeh() (bandwagon.BandsPatternsSet.BandsPatternsSet method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref.html#bandwagon.Band.Band.to_json">to_json() (bandwagon.Band.Band method)</a>
 </li>
   </ul></td>
 </tr></table>
