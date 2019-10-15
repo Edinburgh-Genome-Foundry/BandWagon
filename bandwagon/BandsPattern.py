@@ -37,6 +37,9 @@ class BandsPattern:
     corner_note_fontdict
       A dict indicating the format of the label if any provided. For instance
       ``{'size': 6, 'color': '#0011aa'}``
+    
+    circularity
+      Another type of (top-right) corner note, either "circular" or "linear".
 
     background_color
       Background color of the column in which the pattern is plotted. Either
@@ -228,13 +231,13 @@ class BandsPattern:
         if self.circularity in (None, ""):
             return
         fontdict = updated_dict(
-            {"size": 5, "rotation": 90, "stretch": "condensed"},
+            {"size": 5.5, "rotation": 90, "stretch": "condensed"},
             self.corner_note_fontdict,
         )
         ax.text(
             x_coord + self.width / 2.1,
             0,
-            "LINEAR" if self.circularity == "linear" else "CIRCULAR",
+            "LINEAR " if self.circularity == "linear" else "CIRCULAR ",
             horizontalalignment="right",
             verticalalignment="top",
             fontdict=fontdict,

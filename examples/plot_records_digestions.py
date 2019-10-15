@@ -4,7 +4,7 @@ import os
 
 records = [
     load_record(os.path.join('records', filename),
-                name=filename, linear=False)
+                id=filename, topology='circular')
     for filename in sorted(os.listdir('records'))
 ]
 digestions= [

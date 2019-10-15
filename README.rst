@@ -137,10 +137,10 @@ Let us plot digestion patterns produced by different restriction enzymes on a sa
 .. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/simple_digestions.png
     :align: center
 
-If you have many sequences and digestions you can also use the utility ````
+If you have many sequences and digestions you can also use the utility ``plot_records_digestions``
 
 .. code:: python
-    
+
     from bandwagon import plot_all_digestion_patterns, LADDER_100_to_4k
 
     plot_records_digestions(
@@ -166,7 +166,7 @@ You can also get a full report with indications of where in your sequences the
 bands are formed (which is useful for troubleshooting) as follows:
 
 .. code:: python
-    
+
     from bandwagon import plot_records_digestions, LADDER_100_to_4k
 
     plot_records_digestions(

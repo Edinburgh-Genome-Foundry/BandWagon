@@ -6,7 +6,7 @@ import os
 records_folder = os.path.join('tests', 'data', 'records')
 records = [
     load_record(os.path.join(records_folder, filename),
-                name=filename, linear=False)
+                id=filename, topology="circular")
     for filename in os.listdir(records_folder)
 ]
 digestions= [('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)]
