@@ -71,7 +71,7 @@ def test_simple_digestions_bokeh_plot(tmpdir):
     with open(target_file, "w+") as f:
         f.write(file_html(plot, CDN, "Example Sequence"))
     with open(target_file, 'r') as f:
-        assert len(f.read()) > 10000
+        assert len(f.read()) > 9950
 
 
 def test_mixed_digestions(tmpdir):
