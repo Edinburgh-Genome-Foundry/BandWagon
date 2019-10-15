@@ -13,7 +13,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from .Band import Band
 from .BandsPattern import BandsPattern
 from .BandsPatternsSet import BandsPatternsSet
-from .tools import find_cut_sites, annotate_record,compute_digestion_bands
+from .tools import find_cut_sites, annotate_record, compute_digestion_bands
 
 try:
     from dna_features_viewer import BiopythonTranslator

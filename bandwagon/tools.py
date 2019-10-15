@@ -7,7 +7,7 @@ from Bio import Restriction
 from Bio import SeqIO
 from Bio.Alphabet import DNAAlphabet
 from Bio.SeqFeature import SeqFeature, FeatureLocation
-from mpl_toolkits.axes_grid.inset_locator import inset_axes
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import numpy as np
 
 def random_dna_sequence(length):
