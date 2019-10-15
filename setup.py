@@ -12,7 +12,7 @@ setup(
     author="Zulko",
     description="Simulate DNA band patterns for gel migration experiments",
     url="https://github.com/Edinburgh-Genome-Foundry/BandWagon",
-    long_description=open("README.rst").read(),
+    long_description=open("pypi-readme.rst").read(),
     license="MIT",
     keywords="Gel Agarose Simulation Matplotlib",
     packages=find_packages(exclude="docs"),

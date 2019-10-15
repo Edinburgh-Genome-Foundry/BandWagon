@@ -5,7 +5,7 @@ python:
 install:
   - pip install --upgrade pip setuptools wheel
   - pip install --only-binary=numpy,scipy numpy scipy
-  - pip install coveralls pytest-cov==2.6 pytest
+  - pip install coveralls pytest-cov==2.6 pytest==3.2.3
   - pip install bokeh pandas dna_features_viewer
   - pip install -e .
 # command to run tests
