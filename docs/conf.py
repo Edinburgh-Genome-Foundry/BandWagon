@@ -33,14 +33,26 @@ extensions = [
     "numpydoc",
     "sphinx.ext.autosummary",
 ]
+numpydoc_show_class_members = False
 html_theme = "press"
-
+pygments_style = "monokai"
 html_css_files = ["css/press_main.css"]
 
 
 def setup(app):
     app.add_stylesheet("css/press_main.css")
 
+
+html_theme_options = {
+    "external_links": [
+        (
+            "Github",
+            "https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer",
+        )
+    ]
+}
+
+html_logo = "_static/images/title.png"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -130,7 +142,6 @@ exclude_patterns = ["_build"]
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 html_favicon = "favicon.ico"
-pygments_style = "monokai"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -268,7 +279,7 @@ texinfo_documents = [
 epub_title = u"Bandwagon"
 epub_author = u"Zulko"
 epub_publisher = u"Zulko"
-epub_copyright = u"2016, Zulko"
+epub_copyright = u"2019, Edinburgh Genome Foundry"
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

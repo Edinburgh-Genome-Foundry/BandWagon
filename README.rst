@@ -23,6 +23,9 @@ It uses Matplotlib to produce plots like this one:
 .. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/mixed_digestions.png
     :align: center
 
+Bandwagon
+=========
+
 License = MIT
 --------------
 

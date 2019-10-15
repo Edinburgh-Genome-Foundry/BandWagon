@@ -1,5 +1,3 @@
-.. reference ::
-
 Bandwagon Reference manual
 ==========================
 
@@ -24,7 +22,7 @@ BandsPattern
 Band
 ----
 
-.. automodule:: bandwagon.BandsPattern
+.. automodule:: bandwagon.Band
    :members:
 
 Plots
