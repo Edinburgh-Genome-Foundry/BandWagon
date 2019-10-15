@@ -1,390 +1,242 @@
-
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Bandwagon Reference manual &mdash; Bandwagon 0.1.0 documentation</title>
-  
-
-  
-  
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
-  
-
-  
-
-  
-  
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Bandwagon Reference manual</title>
     
+      <link rel="stylesheet" href="_static/pygments.css">
+      <link rel="stylesheet" href="_static/theme.css">
+      <link rel="stylesheet" href="_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="_static/css/press_main.css" type="text/css" />
+          <link rel="stylesheet" href="_static/css/press_main.css" type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
 
-  
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-    <link rel="stylesheet" href="_static/css/main.css" type="text/css" />
-  
-
-  
-    <link rel="top" title="Bandwagon 0.1.0 documentation" href="index.html"/>
-        <link rel="prev" title="BandWagon Documentation" href="index.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
-</head>
-
-<body class="wy-body-for-nav" role="document">
-
-  <div class="wy-grid-for-nav">
-
+      
+      <script src="_static/theme-vendors.js"></script>
+      <script src="_static/theme.js" defer></script>
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
-          
+      <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Compute digestions bands" href="examples/compute_digestion_bands.html" />
+  <link rel="prev" title="License = MIT" href="index.html" /> 
+  </head>
 
-          
-            <a href="index.html" class="icon icon-home"> Bandwagon
-          
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">Bandwagon</span>
+    
+  </router-link>
 
-          
-          </a>
+  <div class="links">
+    <navlinks class="can-hide">
 
-          
-            
-            
-              <div class="version">
-                0.1.0
-              </div>
-            
-          
+  
+    <div class="nav-item">
+      <a href="index.html#using-a-custom-ladder"
+         class="nav-link  router-link-active">
+         Reference
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Examples
+      </a>
+    </div>
+  
 
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
 
-          
-        </div>
 
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">BandWagon Documentation</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Reference</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Bandwagon Reference manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-bandwagon.ladders">Ladders utilities</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Examples</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="examples/compute_digestion_bands.html">Compute digestions bands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/simple_band_patterns.html">Simple Bands patterns</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples/mixed_digestions.html">Digestions with mixed enzymes</a></li>
-</ul>
+    </navlinks>
+  </div>
+</navbar>
 
-            
-          
-        </div>
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
       </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Bandwagon</a>
-      </nav>
-
-
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
+        <sidebar @toggle-sidebar="toggleSidebar">
           
-
- 
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Bandwagon Reference manual</li>
-      <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/ref.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-  </ul>
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+          <navlinks>
             
-  <div class="section" id="module-bandwagon.BandsPattern">
-<span id="bandwagon-reference-manual"></span><h1>Bandwagon Reference manual<a class="headerlink" href="#module-bandwagon.BandsPattern" title="Permalink to this headline">¶</a></h1>
-<p>Define Bandwagon&#8217;s classes Band, BandPattern, BandsPatternsSet.</p>
-<dl class="class">
-<dt id="bandwagon.BandsPattern.Band">
-<em class="property">class </em><code class="descclassname">bandwagon.BandsPattern.</code><code class="descname">Band</code><span class="sig-paren">(</span><em>dna_size</em>, <em>migration_distance=None</em>, <em>ladder=None</em>, <em>band_color='#000000'</em>, <em>band_thickness=2</em>, <em>band_width=0.7</em>, <em>label=None</em>, <em>label_fontdict=None</em>, <em>html=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band" title="Permalink to this definition">¶</a></dt>
-<dd><p>A band in a migration pattern.</p>
-<p>This class controls all visual aspects of the band (form, color, label...).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dna_size</strong></p>
-<p><strong>migration_distance</strong></p>
+
+  
+    <div class="nav-item">
+      <a href="index.html#using-a-custom-ladder"
+         class="nav-link  router-link-active">
+         Reference
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Examples
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#using-a-custom-ladder">Reference</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">Bandwagon Reference manual</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#module-bandwagon.ladders" class="reference internal">Ladders utilities</a></li>
+                
+                  <li class="toctree-l2"><a href="#module-bandwagon.BandsPatternsSet" class="reference internal">BandsPatternsSet</a></li>
+                
+                  <li class="toctree-l2"><a href="#module-bandwagon.BandsPattern" class="reference internal">BandsPattern</a></li>
+                
+                  <li class="toctree-l2"><a href="#module-bandwagon.BandsPattern" class="reference internal">Band</a></li>
+                
+                  <li class="toctree-l2"><a href="#module-bandwagon.plot_records_digestions" class="reference internal">Plots</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#using-a-custom-ladder">Examples</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="examples/compute_digestion_bands.html" class="reference internal ">Compute digestions bands</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="examples/simple_band_patterns.html" class="reference internal ">Simple Bands patterns</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="examples/mixed_digestions.html" class="reference internal ">Digestions with mixed enzymes</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>Bandwagon Reference manual</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← License = MIT</a>
+  </li>
+  <li class="next">
+    <a href="examples/compute_digestion_bands.html"
+       title="next chapter">Compute digestions bands →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="bandwagon-reference-manual">
+<h1>Bandwagon Reference manual<a class="headerlink" href="#bandwagon-reference-manual" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-bandwagon.ladders">
+<span id="ladders-utilities"></span><h2>Ladders utilities<a class="headerlink" href="#module-bandwagon.ladders" title="Permalink to this headline">¶</a></h2>
+<p>Definition of custom ladders for BandWagon.</p>
+<dl class="function">
+<dt id="bandwagon.ladders.custom_ladder">
+<code class="sig-prename descclassname">bandwagon.ladders.</code><code class="sig-name descname">custom_ladder</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">bands_migrations</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/ladders.html#custom_ladder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.ladders.custom_ladder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a BandsPattern object meant to be used as a ladder.</p>
+<p>By default the ladder is dark red on a white background.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bandwagon.ladders.ladder_from_aati_fa_calibration_table">
+<code class="sig-prename descclassname">bandwagon.ladders.</code><code class="sig-name descname">ladder_from_aati_fa_calibration_table</code><span class="sig-paren">(</span><em class="sig-param">filepath=None</em>, <em class="sig-param">dataframe=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/ladders.html#ladder_from_aati_fa_calibration_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.ladders.ladder_from_aati_fa_calibration_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a BandPattern from an AATI Fragment Analyzer calibration file.</p>
+<p>The calibration table is generated after each run from the migration
+times of the ladder and is generally in a file called something like
+<code class="docutils literal notranslate"><span class="pre">2016</span> <span class="pre">11</span> <span class="pre">08</span> <span class="pre">16H</span> <span class="pre">57M</span> <span class="pre">Size</span> <span class="pre">Calibration.csv</span></code>.</p>
+<p>This method requires Pandas installed.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filepath</strong></p>
 <blockquote>
-<div><p>Observed migration distance of the band. Useful if you are using this
-band to define a ladder, otherwise keep to None.</p>
+<div><p>Path to the calibration file.</p>
 </div></blockquote>
-<p><strong>ladder</strong></p>
+<p><strong>dataframe</strong></p>
 <blockquote>
-<div><p>Ladder used to determine the migration distance of the band, if no
-<code class="docutils literal"><span class="pre">migration_distance</span></code> was provided.</p>
-</div></blockquote>
-<p><strong>band_color</strong></p>
-<blockquote>
-<div><p>Color of the band. Can be a color name (like &#8216;black&#8217;, &#8216;red&#8217;...) or
-an hexadecimal code like &#8216;#001aff&#8217; (this format is mandatory if you
-want to export to browser-based display.</p>
-</div></blockquote>
-<p><strong>band_thickness</strong></p>
-<blockquote>
-<div><p>Thickness of the band in pixels.</p>
-</div></blockquote>
-<p><strong>band_width</strong></p>
-<blockquote>
-<div><p>Proportion of the column width that is occupied by the band (the columns
-for each band pattern have a width of 1.0)</p>
+<div><p>Pandas dataframe obtained by reading the file, can be provided instead of
+<code class="docutils literal notranslate"><span class="pre">filepath</span></code></p>
 </div></blockquote>
 <p><strong>label</strong></p>
 <blockquote>
-<div><p>Label to be printed on the band, if any provided. Set to &#8216;=size&#8217; for
-printing the bands sizes</p>
+<div><p>Label that will be given to the ladder when plotted.</p>
 </div></blockquote>
-<p><strong>label_fontdict</strong></p>
-<blockquote>
-<div><p>A dict indicating the format of the label if any provided. For isinstance
-<code class="docutils literal"><span class="pre">{'size':</span> <span class="pre">7,</span> <span class="pre">'weight':'bold',</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
-</div></blockquote>
-<p><strong>html</strong></p>
-<blockquote class="last">
-<div><p>Html appearing when hovering the band.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code>()</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.modified" title="bandwagon.BandsPattern.Band.modified"><code class="xref py py-obj docutils literal"><span class="pre">modified</span></code></a>(**attributes)</td>
-<td>Return a new version of this band, with modified attributes.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.plot" title="bandwagon.BandsPattern.Band.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>(ax,&nbsp;x_coord)</td>
-<td>Plot the band&#8217;s line and label on the ax at the x-coordinate.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.Band.to_json" title="bandwagon.BandsPattern.Band.to_json"><code class="xref py py-obj docutils literal"><span class="pre">to_json</span></code></a>([ladder])</td>
-<td>Return a dictionnary version of the band (for bakeh plotting)</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="bandwagon.BandsPattern.Band.modified">
-<code class="descname">modified</code><span class="sig-paren">(</span><em>**attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band.modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band.modified" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a new version of this band, with modified attributes.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="bandwagon.BandsPattern.Band.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>ax</em>, <em>x_coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot the band&#8217;s line and label on the ax at the x-coordinate.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.Band.to_json">
-<code class="descname">to_json</code><span class="sig-paren">(</span><em>ladder=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#Band.to_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.Band.to_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a dictionnary version of the band (for bakeh plotting)</p>
-</dd></dl>
-
-</dd></dl>
-
+</div>
+<div class="section" id="module-bandwagon.BandsPatternsSet">
+<span id="bandspatternsset"></span><h2>BandsPatternsSet<a class="headerlink" href="#module-bandwagon.BandsPatternsSet" title="Permalink to this headline">¶</a></h2>
+<p>Define Bandwagon’s classes Band, BandPattern, BandsPatternsSet.</p>
 <dl class="class">
-<dt id="bandwagon.BandsPattern.BandsPattern">
-<em class="property">class </em><code class="descclassname">bandwagon.BandsPattern.</code><code class="descname">BandsPattern</code><span class="sig-paren">(</span><em>bands</em>, <em>ladder=None</em>, <em>label=None</em>, <em>label_fontdict=None</em>, <em>corner_note=None</em>, <em>corner_note_fontdict=None</em>, <em>background_color=None</em>, <em>width=1.0</em>, <em>global_bands_props=None</em>, <em>gel_image=None</em>, <em>gel_image_width=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bands set forming a migration pattern. Also used to define ladders.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>bands</strong></p>
-<blockquote>
-<div><p>Either a list of <code class="docutils literal"><span class="pre">Band</span></code> objects, or a list of DNA sizes e.g.
-<code class="docutils literal"><span class="pre">[800,</span> <span class="pre">654,</span> <span class="pre">1752]</span></code>. If the latter case, a <code class="docutils literal"><span class="pre">ladder</span></code> must be provided
-to determine the elements</p>
-</div></blockquote>
-<p><strong>ladder</strong></p>
-<blockquote>
-<div><p>A BandsPattern to use as a ladder in case <code class="docutils literal"><span class="pre">bands</span></code> is a list of DNA
-sizes. Else leave it to None.</p>
-</div></blockquote>
-<p><strong>label</strong></p>
-<blockquote>
-<div><p>Label to be printed on top of the band pattern</p>
-</div></blockquote>
-<p><strong>label_fontdict</strong></p>
-<blockquote>
-<div><p>A dict indicating the format of the label if any provided. For instance
-<code class="docutils literal"><span class="pre">{'size':</span> <span class="pre">7,</span> <span class="pre">'rotation':30,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
-</div></blockquote>
-<p><strong>corner_note</strong></p>
-<blockquote>
-<div><p>Note to be printed in small prints in the corner of the band lane.
-Useful to print e.g. the total sum of all bands, or some remark.</p>
-</div></blockquote>
-<p><strong>corner_note_fontdict</strong></p>
-<blockquote>
-<div><p>A dict indicating the format of the label if any provided. For instance
-<code class="docutils literal"><span class="pre">{'size':</span> <span class="pre">6,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
-</div></blockquote>
-<p><strong>background_color</strong></p>
-<blockquote>
-<div><p>Background color of the column in which the pattern is plotted. Either
-the name of a color or a html code (&#8216;#0012e4&#8217;).</p>
-</div></blockquote>
-<p><strong>width</strong></p>
-<blockquote>
-<div><p>Width of the column (better keep to 1.0 if you want my humble opinion)</p>
-</div></blockquote>
-<p><strong>global_bands_props</strong></p>
-<blockquote>
-<div><p>Dictionnary of band properties overwriting that of all bands in the
-pattern, e.g. <code class="docutils literal"><span class="pre">{'color':</span> <span class="pre">'#012ff45'}</span></code></p>
-</div></blockquote>
-<p><strong>gel_image</strong></p>
-<blockquote>
-<div><p>A numpy array of size w x h and values in 0-1 representing a gel image.
-This image will be superimposed on the right of the pattern&#8217;s color.</p>
-</div></blockquote>
-<p><strong>gel_image_width</strong></p>
-<blockquote class="last">
-<div><p>Width of the gel_image display (remember that the width of the column is
-1.0, so 0.2 means this &#8216;photo&#8217; will occupy 1/5 of the column, the rest
-being occupied by the pattern plot)</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration"><code class="xref py py-obj docutils literal"><span class="pre">dna_size_to_migration</span></code></a>(dna_sizes)</td>
-<td>Return the migration distances for the given dna sizes</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="bandwagon.BandsPattern.BandsPattern.initialize"><code class="xref py py-obj docutils literal"><span class="pre">initialize</span></code></a>()</td>
-<td>Create the variables necessary to compute some properties.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="bandwagon.BandsPattern.BandsPattern.merge_with"><code class="xref py py-obj docutils literal"><span class="pre">merge_with</span></code></a>(other)</td>
-<td>Merge this band pattern with another pattern&#8217;s bands</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size"><code class="xref py py-obj docutils literal"><span class="pre">migration_to_dna_size</span></code></a>(migration_distances)</td>
-<td>Return the dna sizes corresponding to the given migrations.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.modified" title="bandwagon.BandsPattern.BandsPattern.modified"><code class="xref py py-obj docutils literal"><span class="pre">modified</span></code></a>(**attributes)</td>
-<td>Return a version of this bands pattern with modified attributes.</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.plot" title="bandwagon.BandsPattern.BandsPattern.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>(ax,&nbsp;x_coord)</td>
-<td>Plot background, bands, label, gel_image at the given x_coord.</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">
-<code class="descname">dna_size_to_migration</code><span class="sig-paren">(</span><em>dna_sizes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.dna_size_to_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the migration distances for the given dna sizes</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.initialize">
-<code class="descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the variables necessary to compute some properties.</p>
-<p>Concerned properties are <code class="docutils literal"><span class="pre">self.dna_sizes</span></code>,
-<code class="docutils literal"><span class="pre">self.migration_distances</span></code>, <code class="docutils literal"><span class="pre">self.migration_distance_span</span></code>,
-<code class="docutils literal"><span class="pre">self.dna_size_span</span></code>, and indirectly the functions
-<code class="docutils literal"><span class="pre">dna_size_to_migration</span></code> and <code class="docutils literal"><span class="pre">migration_to_dna_size</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.merge_with">
-<code class="descname">merge_with</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.merge_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merge this band pattern with another pattern&#8217;s bands</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size">
-<code class="descname">migration_to_dna_size</code><span class="sig-paren">(</span><em>migration_distances</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.migration_to_dna_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the dna sizes corresponding to the given migrations.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.modified">
-<code class="descname">modified</code><span class="sig-paren">(</span><em>**attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.modified" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a version of this bands pattern with modified attributes.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPattern.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>ax</em>, <em>x_coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot background, bands, label, gel_image at the given x_coord.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="bandwagon.BandsPattern.BandsPatternsSet">
-<em class="property">class </em><code class="descclassname">bandwagon.BandsPattern.</code><code class="descname">BandsPatternsSet</code><span class="sig-paren">(</span><em>patterns</em>, <em>ladder</em>, <em>label=None</em>, <em>label_fontdict=None</em>, <em>global_patterns_props=None</em>, <em>ladder_ticks=None</em>, <em>ticks_fontdict=None</em>, <em>alternate_background_colors=('#e2edff'</em>, <em>'#fffae2')</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPatternsSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPatternsSet" title="Permalink to this definition">¶</a></dt>
+<dt id="bandwagon.BandsPatternsSet.BandsPatternsSet">
+<em class="property">class </em><code class="sig-prename descclassname">bandwagon.BandsPatternsSet.</code><code class="sig-name descname">BandsPatternsSet</code><span class="sig-paren">(</span><em class="sig-param">patterns</em>, <em class="sig-param">ladder</em>, <em class="sig-param">label=None</em>, <em class="sig-param">label_fontdict=None</em>, <em class="sig-param">global_patterns_props=None</em>, <em class="sig-param">ladder_ticks=None</em>, <em class="sig-param">ticks_fontdict=None</em>, <em class="sig-param">alternate_background_colors=('#e2edff'</em>, <em class="sig-param">'#fffae2')</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPatternsSet.html#BandsPatternsSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPatternsSet.BandsPatternsSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>A set of band patterns, that will be plotted next to one another.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>patterns</strong></p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>patterns</strong></p>
 <blockquote>
 <div><p>A list of patterns, in the order in which they will be displayed. Each
 pattern can be either a BandPattern object or a list of Band objects or
@@ -400,7 +252,7 @@ a list of DNA sizes.</p>
 </div></blockquote>
 <p><strong>label_fontdict</strong></p>
 <blockquote>
-<div><p>Font dictionnary for the label e.g. {&#8216;color&#8217;: &#8216;red&#8217;, &#8216;size&#8217;: 7}</p>
+<div><p>Font dictionnary for the label e.g. {‘color’: ‘red’, ‘size’: 7}</p>
 </div></blockquote>
 <p><strong>global_patterns_props</strong></p>
 <blockquote>
@@ -416,171 +268,516 @@ plot to guide the reading.</p>
 <div><p>Font dictionnary for the ticks indicating dna sizes.</p>
 </div></blockquote>
 <p><strong>alternate_background_colors</strong></p>
-<blockquote class="last">
+<blockquote>
 <div><p>Colors that will be alternated for the backgrounds of the different
 columns. Leave to None for no background. If some patterns have a
 background color set this color will override the
-<code class="docutils literal"><span class="pre">alternate_background_colors</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">alternate_background_colors</span></code>.</p>
 </div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPatternsSet.plot" title="bandwagon.BandsPattern.BandsPatternsSet.plot"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a>([ax])</td>
-<td>Plot the band patterns on the given Matplotlib ax.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPatternsSet.BandsPatternsSet.plot" title="bandwagon.BandsPatternsSet.BandsPatternsSet.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([ax])</p></td>
+<td><p>Plot the band patterns on the given Matplotlib ax.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh" title="bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh"><code class="xref py py-obj docutils literal"><span class="pre">plot_with_bokeh</span></code></a>([max_visible_patterns,&nbsp;...])</td>
-<td>Return an interactive (browser-based) Bokeh figure of the patterns.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPatternsSet.BandsPatternsSet.plot_with_bokeh" title="bandwagon.BandsPatternsSet.BandsPatternsSet.plot_with_bokeh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_with_bokeh</span></code></a>([max_visible_patterns, …])</p></td>
+<td><p>Return an interactive (browser-based) Bokeh figure of the patterns.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPatternsSet.plot">
-<code class="descname">plot</code><span class="sig-paren">(</span><em>ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPatternsSet.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPatternsSet.plot" title="Permalink to this definition">¶</a></dt>
+<dt id="bandwagon.BandsPatternsSet.BandsPatternsSet.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">ax=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPatternsSet.html#BandsPatternsSet.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPatternsSet.BandsPatternsSet.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the band patterns on the given Matplotlib ax.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh">
-<code class="descname">plot_with_bokeh</code><span class="sig-paren">(</span><em>max_visible_patterns=12</em>, <em>band_width_pixels=40</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPatternsSet.plot_with_bokeh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPatternsSet.plot_with_bokeh" title="Permalink to this definition">¶</a></dt>
+<dt id="bandwagon.BandsPatternsSet.BandsPatternsSet.plot_with_bokeh">
+<code class="sig-name descname">plot_with_bokeh</code><span class="sig-paren">(</span><em class="sig-param">max_visible_patterns=12</em>, <em class="sig-param">band_width_pixels=40</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPatternsSet.html#BandsPatternsSet.plot_with_bokeh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPatternsSet.BandsPatternsSet.plot_with_bokeh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an interactive (browser-based) Bokeh figure of the patterns.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>max_visible_patterns</strong></p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>max_visible_patterns</strong></p>
 <blockquote>
 <div><p>Max number of patterns that will be visible at the same time.
 A horizontal scroll will allow to see more patterns if there are more</p>
 </div></blockquote>
 <p><strong>band_width_pixels</strong></p>
-<blockquote class="last">
+<blockquote>
 <div><p>Size of a band width in pixels on the screen. Said otherwise, the
-final figure will have a width of <code class="docutils literal"><span class="pre">band_width_pixels</span> <span class="pre">*</span> <span class="pre">visible</span></code></p>
+final figure will have a width of <code class="docutils literal notranslate"><span class="pre">band_width_pixels</span> <span class="pre">*</span> <span class="pre">visible</span></code></p>
 </div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<div class="section" id="module-bandwagon.ladders">
-<span id="ladders-utilities"></span><h2>Ladders utilities<a class="headerlink" href="#module-bandwagon.ladders" title="Permalink to this headline">¶</a></h2>
-<p>Definition of custom ladders for BandWagon.</p>
-<dl class="function">
-<dt id="bandwagon.ladders.custom_ladder">
-<code class="descclassname">bandwagon.ladders.</code><code class="descname">custom_ladder</code><span class="sig-paren">(</span><em>label</em>, <em>bands_migrations</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/ladders.html#custom_ladder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.ladders.custom_ladder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a BandsPattern object meant to be used as a ladder.</p>
-<p>By default the ladder is dark red on a white background.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="bandwagon.ladders.ladder_from_aati_fa_calibration_table">
-<code class="descclassname">bandwagon.ladders.</code><code class="descname">ladder_from_aati_fa_calibration_table</code><span class="sig-paren">(</span><em>filepath=None</em>, <em>dataframe=None</em>, <em>label=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/ladders.html#ladder_from_aati_fa_calibration_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.ladders.ladder_from_aati_fa_calibration_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract a BandPattern from an AATI Fragment Analyzer calibration file.</p>
-<p>The calibration table is generated after each run from the migration
-times of the ladder and is generally in a file called something like
-<code class="docutils literal"><span class="pre">2016</span> <span class="pre">11</span> <span class="pre">08</span> <span class="pre">16H</span> <span class="pre">57M</span> <span class="pre">Size</span> <span class="pre">Calibration.csv</span></code>.</p>
-<p>This method requires Pandas installed.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filepath</strong></p>
+</div>
+<div class="section" id="module-bandwagon.BandsPattern">
+<span id="bandspattern"></span><h2>BandsPattern<a class="headerlink" href="#module-bandwagon.BandsPattern" title="Permalink to this headline">¶</a></h2>
+<p>Define Bandwagon’s classes Band, BandPattern, BandsPatternsSet.</p>
+<dl class="class">
+<dt id="bandwagon.BandsPattern.BandsPattern">
+<em class="property">class </em><code class="sig-prename descclassname">bandwagon.BandsPattern.</code><code class="sig-name descname">BandsPattern</code><span class="sig-paren">(</span><em class="sig-param">bands</em>, <em class="sig-param">ladder=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">label_fontdict=None</em>, <em class="sig-param">corner_note=None</em>, <em class="sig-param">corner_note_fontdict=None</em>, <em class="sig-param">circularity=None</em>, <em class="sig-param">background_color=None</em>, <em class="sig-param">width=1.0</em>, <em class="sig-param">global_bands_props=None</em>, <em class="sig-param">gel_image=None</em>, <em class="sig-param">gel_image_width=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bands set forming a migration pattern. Also used to define ladders.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bands</strong></p>
 <blockquote>
-<div><p>Path to the calibration file.</p>
+<div><p>Either a list of <code class="docutils literal notranslate"><span class="pre">Band</span></code> objects, or a list of DNA sizes e.g.
+<code class="docutils literal notranslate"><span class="pre">[800,</span> <span class="pre">654,</span> <span class="pre">1752]</span></code>. If the latter case, a <code class="docutils literal notranslate"><span class="pre">ladder</span></code> must be provided
+to determine the elements</p>
 </div></blockquote>
-<p><strong>dataframe</strong></p>
+<p><strong>ladder</strong></p>
 <blockquote>
-<div><p>Pandas dataframe obtained by reading the file, can be provided instead of
-<code class="docutils literal"><span class="pre">filepath</span></code></p>
+<div><p>A BandsPattern to use as a ladder in case <code class="docutils literal notranslate"><span class="pre">bands</span></code> is a list of DNA
+sizes. Else leave it to None.</p>
 </div></blockquote>
 <p><strong>label</strong></p>
-<blockquote class="last">
-<div><p>Label that will be given to the ladder when plotted.</p>
+<blockquote>
+<div><p>Label to be printed on top of the band pattern</p>
 </div></blockquote>
-</td>
+<p><strong>label_fontdict</strong></p>
+<blockquote>
+<div><p>A dict indicating the format of the label if any provided. For instance
+<code class="docutils literal notranslate"><span class="pre">{'size':</span> <span class="pre">7,</span> <span class="pre">'rotation':30,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
+</div></blockquote>
+<p><strong>corner_note</strong></p>
+<blockquote>
+<div><p>Note to be printed in small prints in the corner of the band lane.
+Useful to print e.g. the total sum of all bands, or some remark.</p>
+</div></blockquote>
+<p><strong>corner_note_fontdict</strong></p>
+<blockquote>
+<div><p>A dict indicating the format of the label if any provided. For instance
+<code class="docutils literal notranslate"><span class="pre">{'size':</span> <span class="pre">6,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
+</div></blockquote>
+<p><strong>circularity</strong></p>
+<blockquote>
+<div><p>Another type of (top-right) corner note, either “circular” or “linear”.</p>
+</div></blockquote>
+<p><strong>background_color</strong></p>
+<blockquote>
+<div><p>Background color of the column in which the pattern is plotted. Either
+the name of a color or a html code (‘#0012e4’).</p>
+</div></blockquote>
+<p><strong>width</strong></p>
+<blockquote>
+<div><p>Width of the column (better keep to 1.0 if you want my humble opinion)</p>
+</div></blockquote>
+<p><strong>global_bands_props</strong></p>
+<blockquote>
+<div><p>Dictionnary of band properties overwriting that of all bands in the
+pattern, e.g. <code class="docutils literal notranslate"><span class="pre">{'color':</span> <span class="pre">'#012ff45'}</span></code></p>
+</div></blockquote>
+<p><strong>gel_image</strong></p>
+<blockquote>
+<div><p>A numpy array of size w x h and values in 0-1 representing a gel image.
+This image will be superimposed on the right of the pattern’s color.</p>
+</div></blockquote>
+<p><strong>gel_image_width</strong></p>
+<blockquote>
+<div><p>Width of the gel_image display (remember that the width of the column is
+1.0, so 0.2 means this ‘photo’ will occupy 1/5 of the column, the rest
+being occupied by the pattern plot)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dna_size_to_migration</span></code></a>(dna_sizes)</p></td>
+<td><p>Return the migration distances for the given dna sizes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="bandwagon.BandsPattern.BandsPattern.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>()</p></td>
+<td><p>Create the variables necessary to compute some properties.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="bandwagon.BandsPattern.BandsPattern.merge_with"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_with</span></code></a>(other)</p></td>
+<td><p>Merge this band pattern with another pattern’s bands</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">migration_to_dna_size</span></code></a>(migration_distances)</p></td>
+<td><p>Return the dna sizes corresponding to the given migrations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.modified" title="bandwagon.BandsPattern.BandsPattern.modified"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modified</span></code></a>(**attributes)</p></td>
+<td><p>Return a version of this bands pattern with modified attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.plot" title="bandwagon.BandsPattern.BandsPattern.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(ax, x_coord)</p></td>
+<td><p>Plot background, bands, label, gel_image at the given x_coord.</p></td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">
+<code class="sig-name descname">dna_size_to_migration</code><span class="sig-paren">(</span><em class="sig-param">dna_sizes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.dna_size_to_migration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the migration distances for the given dna sizes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the variables necessary to compute some properties.</p>
+<p>Concerned properties are <code class="docutils literal notranslate"><span class="pre">self.dna_sizes</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self.migration_distances</span></code>, <code class="docutils literal notranslate"><span class="pre">self.migration_distances_span</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self.dna_size_span</span></code>, and indirectly the functions
+<code class="docutils literal notranslate"><span class="pre">dna_size_to_migration</span></code> and <code class="docutils literal notranslate"><span class="pre">migration_to_dna_size</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.merge_with">
+<code class="sig-name descname">merge_with</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.merge_with"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge this band pattern with another pattern’s bands</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size">
+<code class="sig-name descname">migration_to_dna_size</code><span class="sig-paren">(</span><em class="sig-param">migration_distances</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.migration_to_dna_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dna sizes corresponding to the given migrations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.modified">
+<code class="sig-name descname">modified</code><span class="sig-paren">(</span><em class="sig-param">**attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.modified"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a version of this bands pattern with modified attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bandwagon.BandsPattern.BandsPattern.plot">
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">x_coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.BandsPattern.BandsPattern.plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot background, bands, label, gel_image at the given x_coord.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bandwagon.BandsPattern">
+<span id="band"></span><h2>Band<a class="headerlink" href="#module-bandwagon.BandsPattern" title="Permalink to this headline">¶</a></h2>
+<p>Define Bandwagon’s classes Band, BandPattern, BandsPatternsSet.</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">bandwagon.BandsPattern.</code><code class="sig-name descname">BandsPattern</code><span class="sig-paren">(</span><em class="sig-param">bands</em>, <em class="sig-param">ladder=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">label_fontdict=None</em>, <em class="sig-param">corner_note=None</em>, <em class="sig-param">corner_note_fontdict=None</em>, <em class="sig-param">circularity=None</em>, <em class="sig-param">background_color=None</em>, <em class="sig-param">width=1.0</em>, <em class="sig-param">global_bands_props=None</em>, <em class="sig-param">gel_image=None</em>, <em class="sig-param">gel_image_width=0.2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bands set forming a migration pattern. Also used to define ladders.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bands</strong></p>
+<blockquote>
+<div><p>Either a list of <code class="docutils literal notranslate"><span class="pre">Band</span></code> objects, or a list of DNA sizes e.g.
+<code class="docutils literal notranslate"><span class="pre">[800,</span> <span class="pre">654,</span> <span class="pre">1752]</span></code>. If the latter case, a <code class="docutils literal notranslate"><span class="pre">ladder</span></code> must be provided
+to determine the elements</p>
+</div></blockquote>
+<p><strong>ladder</strong></p>
+<blockquote>
+<div><p>A BandsPattern to use as a ladder in case <code class="docutils literal notranslate"><span class="pre">bands</span></code> is a list of DNA
+sizes. Else leave it to None.</p>
+</div></blockquote>
+<p><strong>label</strong></p>
+<blockquote>
+<div><p>Label to be printed on top of the band pattern</p>
+</div></blockquote>
+<p><strong>label_fontdict</strong></p>
+<blockquote>
+<div><p>A dict indicating the format of the label if any provided. For instance
+<code class="docutils literal notranslate"><span class="pre">{'size':</span> <span class="pre">7,</span> <span class="pre">'rotation':30,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
+</div></blockquote>
+<p><strong>corner_note</strong></p>
+<blockquote>
+<div><p>Note to be printed in small prints in the corner of the band lane.
+Useful to print e.g. the total sum of all bands, or some remark.</p>
+</div></blockquote>
+<p><strong>corner_note_fontdict</strong></p>
+<blockquote>
+<div><p>A dict indicating the format of the label if any provided. For instance
+<code class="docutils literal notranslate"><span class="pre">{'size':</span> <span class="pre">6,</span> <span class="pre">'color':</span> <span class="pre">'#0011aa'}</span></code></p>
+</div></blockquote>
+<p><strong>circularity</strong></p>
+<blockquote>
+<div><p>Another type of (top-right) corner note, either “circular” or “linear”.</p>
+</div></blockquote>
+<p><strong>background_color</strong></p>
+<blockquote>
+<div><p>Background color of the column in which the pattern is plotted. Either
+the name of a color or a html code (‘#0012e4’).</p>
+</div></blockquote>
+<p><strong>width</strong></p>
+<blockquote>
+<div><p>Width of the column (better keep to 1.0 if you want my humble opinion)</p>
+</div></blockquote>
+<p><strong>global_bands_props</strong></p>
+<blockquote>
+<div><p>Dictionnary of band properties overwriting that of all bands in the
+pattern, e.g. <code class="docutils literal notranslate"><span class="pre">{'color':</span> <span class="pre">'#012ff45'}</span></code></p>
+</div></blockquote>
+<p><strong>gel_image</strong></p>
+<blockquote>
+<div><p>A numpy array of size w x h and values in 0-1 representing a gel image.
+This image will be superimposed on the right of the pattern’s color.</p>
+</div></blockquote>
+<p><strong>gel_image_width</strong></p>
+<blockquote>
+<div><p>Width of the gel_image display (remember that the width of the column is
+1.0, so 0.2 means this ‘photo’ will occupy 1/5 of the column, the rest
+being occupied by the pattern plot)</p>
+</div></blockquote>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration" title="bandwagon.BandsPattern.BandsPattern.dna_size_to_migration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dna_size_to_migration</span></code></a>(dna_sizes)</p></td>
+<td><p>Return the migration distances for the given dna sizes</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.initialize" title="bandwagon.BandsPattern.BandsPattern.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>()</p></td>
+<td><p>Create the variables necessary to compute some properties.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.merge_with" title="bandwagon.BandsPattern.BandsPattern.merge_with"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_with</span></code></a>(other)</p></td>
+<td><p>Merge this band pattern with another pattern’s bands</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.migration_to_dna_size" title="bandwagon.BandsPattern.BandsPattern.migration_to_dna_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">migration_to_dna_size</span></code></a>(migration_distances)</p></td>
+<td><p>Return the dna sizes corresponding to the given migrations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.modified" title="bandwagon.BandsPattern.BandsPattern.modified"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modified</span></code></a>(**attributes)</p></td>
+<td><p>Return a version of this bands pattern with modified attributes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#bandwagon.BandsPattern.BandsPattern.plot" title="bandwagon.BandsPattern.BandsPattern.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(ax, x_coord)</p></td>
+<td><p>Plot background, bands, label, gel_image at the given x_coord.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt>
+<code class="sig-name descname">dna_size_to_migration</code><span class="sig-paren">(</span><em class="sig-param">dna_sizes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.dna_size_to_migration"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return the migration distances for the given dna sizes</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.initialize"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Create the variables necessary to compute some properties.</p>
+<p>Concerned properties are <code class="docutils literal notranslate"><span class="pre">self.dna_sizes</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self.migration_distances</span></code>, <code class="docutils literal notranslate"><span class="pre">self.migration_distances_span</span></code>,
+<code class="docutils literal notranslate"><span class="pre">self.dna_size_span</span></code>, and indirectly the functions
+<code class="docutils literal notranslate"><span class="pre">dna_size_to_migration</span></code> and <code class="docutils literal notranslate"><span class="pre">migration_to_dna_size</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">merge_with</code><span class="sig-paren">(</span><em class="sig-param">other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.merge_with"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Merge this band pattern with another pattern’s bands</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">migration_to_dna_size</code><span class="sig-paren">(</span><em class="sig-param">migration_distances</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.migration_to_dna_size"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return the dna sizes corresponding to the given migrations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">modified</code><span class="sig-paren">(</span><em class="sig-param">**attributes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.modified"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return a version of this bands pattern with modified attributes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">ax</em>, <em class="sig-param">x_coord</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/BandsPattern.html#BandsPattern.plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Plot background, bands, label, gel_image at the given x_coord.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bandwagon.plot_records_digestions">
+<span id="plots"></span><h2>Plots<a class="headerlink" href="#module-bandwagon.plot_records_digestions" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bandwagon.plot_records_digestions.DigestGraphicTranslator">
+<em class="property">class </em><code class="sig-prename descclassname">bandwagon.plot_records_digestions.</code><code class="sig-name descname">DigestGraphicTranslator</code><span class="sig-paren">(</span><em class="sig-param">features_filters=()</em>, <em class="sig-param">features_properties=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#DigestGraphicTranslator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.DigestGraphicTranslator" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_box_color</span></code>(feature)</p></td>
+<td><p>Compute a box_color for this feature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_box_linewidth</span></code>(feature)</p></td>
+<td><p>Compute a box_linewidth for this feature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#bandwagon.plot_records_digestions.DigestGraphicTranslator.compute_feature_color" title="bandwagon.plot_records_digestions.DigestGraphicTranslator.compute_feature_color"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_color</span></code></a>(feature)</p></td>
+<td><p>Compute a color for this feature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_fontdict</span></code>(feature)</p></td>
+<td><p>Compute a font dict for this feature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_html</span></code>(feature)</p></td>
+<td><p>Gets the ‘label’ of the feature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_feature_label</span></code>(feature)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_filtered_features</span></code>(features)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate_feature</span></code>(feature)</p></td>
+<td><p>Translate a Biopython feature into a Dna Features Viewer feature.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">translate_record</span></code>(record[, record_class])</p></td>
+<td><p>Create a new GraphicRecord from a BioPython Record object.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="bandwagon.plot_records_digestions.DigestGraphicTranslator.compute_feature_color">
+<code class="sig-name descname">compute_feature_color</code><span class="sig-paren">(</span><em class="sig-param">feature</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#DigestGraphicTranslator.compute_feature_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.DigestGraphicTranslator.compute_feature_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a color for this feature.</p>
+<p>If the feature has a <code class="docutils literal notranslate"><span class="pre">color</span></code> qualifier it will be used. Otherwise,
+the classe’s <code class="docutils literal notranslate"><span class="pre">default_feature_color</span></code> is used.</p>
+<p>To change the behaviour, create a subclass of <code class="docutils literal notranslate"><span class="pre">BiopythonTranslator</span></code>
+and overwrite this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bandwagon.plot_records_digestions.annotate_digestion_bands">
+<code class="sig-prename descclassname">bandwagon.plot_records_digestions.</code><code class="sig-name descname">annotate_digestion_bands</code><span class="sig-paren">(</span><em class="sig-param">record</em>, <em class="sig-param">enzymes</em>, <em class="sig-param">ladder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#annotate_digestion_bands"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.annotate_digestion_bands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate the record to indicate the regions corresponding to bands.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bandwagon.plot_records_digestions.plot_all_digestion_patterns">
+<code class="sig-prename descclassname">bandwagon.plot_records_digestions.</code><code class="sig-name descname">plot_all_digestion_patterns</code><span class="sig-paren">(</span><em class="sig-param">records</em>, <em class="sig-param">digestions</em>, <em class="sig-param">ladder</em>, <em class="sig-param">axes=None</em>, <em class="sig-param">group_by='digestions'</em>, <em class="sig-param">show_band_sizes=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#plot_all_digestion_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.plot_all_digestion_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a grid (RECORD x DIGESTION) of predicted records digestions.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>records</strong></p>
+<blockquote>
+<div><p>List of biopython records whose digests need to be digested by the
+<code class="docutils literal notranslate"><span class="pre">digestions</span></code></p>
+</div></blockquote>
+<p><strong>digestions</strong></p>
+<blockquote>
+<div><p>List of tuples of enzyme names e.g. <code class="docutils literal notranslate"><span class="pre">[('BsaI',),`('MfeI',</span> <span class="pre">'BsmBI')...]</span></code>
+representing the digestions for the provided <code class="docutils literal notranslate"><span class="pre">records</span></code></p>
+</div></blockquote>
+<p><strong>ladder</strong></p>
+<blockquote>
+<div><p>A Ladder object representing the ladder to be used for placing the bands</p>
+</div></blockquote>
+<p><strong>axes</strong></p>
+<blockquote>
+<div><p>If None, new axes will be created.</p>
+</div></blockquote>
+<p><strong>group_by</strong></p>
+<blockquote>
+<div><p>Either “sequence” or “digestion”. Determines the plotting order.</p>
+</div></blockquote>
+<p><strong>show_band_sizes</strong></p>
+<blockquote>
+<div><p>If true, the band sizes will be printed on each band.</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="bandwagon.plot_records_digestions.plot_record_digestion">
+<code class="sig-prename descclassname">bandwagon.plot_records_digestions.</code><code class="sig-name descname">plot_record_digestion</code><span class="sig-paren">(</span><em class="sig-param">record_digestion</em>, <em class="sig-param">ladder</em>, <em class="sig-param">record_label</em>, <em class="sig-param">digestion_label</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#plot_record_digestion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.plot_record_digestion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the digestion along with a schema of cuts locations in the record.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record_digestion</strong></p>
+<blockquote>
+<div><p>Biopython record with features indicating bands</p>
+</div></blockquote>
+<p><strong>ladder</strong></p>
+<p><strong>record_label</strong></p>
+<blockquote>
+<div><p>Label to use as the title of the record digestion plot.</p>
+</div></blockquote>
+<p><strong>digestion_label</strong></p>
+<blockquote>
+<div><p>Label to use as the title of the bands pattern(s)</p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="bandwagon.plot_records_digestions.plot_records_digestions">
+<code class="sig-prename descclassname">bandwagon.plot_records_digestions.</code><code class="sig-name descname">plot_records_digestions</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">ladder</em>, <em class="sig-param">records_and_digestions=None</em>, <em class="sig-param">records=None</em>, <em class="sig-param">digestions=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bandwagon/plot_records_digestions.html#plot_records_digestions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bandwagon.plot_records_digestions.plot_records_digestions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot records digestions in a multipage PDF file.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>records_and_digestions</strong></p>
+<blockquote>
+<div><p>A list [(record, digestion), …] where record is a Genbank record and
+digestions a tuple of enzymes. Alternatively, a list of <code class="docutils literal notranslate"><span class="pre">records</span></code> and
+<code class="docutils literal notranslate"><span class="pre">digestions</span></code> can be provided.</p>
+</div></blockquote>
+<p><strong>records</strong></p>
+<blockquote>
+<div><p>List of biopython records whose digests need to be digested by the
+<code class="docutils literal notranslate"><span class="pre">digestions</span></code></p>
+</div></blockquote>
+<p><strong>digestions</strong></p>
+<blockquote>
+<div><p>List of tuples of enzyme names e.g. <code class="docutils literal notranslate"><span class="pre">[('BsaI',),`('MfeI',</span> <span class="pre">'BsmBI')...]</span></code>
+representing the digestions for the provided <code class="docutils literal notranslate"><span class="pre">records</span></code></p>
+</div></blockquote>
+<p><strong>ladder</strong></p>
+<blockquote>
+<div><p>A Ladder object representing the ladder to be used for placing the bands</p>
+</div></blockquote>
+<p><strong>target</strong></p>
+<blockquote>
+<div><p>path to a PDF file, or file-like object.</p>
+</div></blockquote>
+<p><strong>full_report</strong></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
 </div>
 
 
-           </div>
           </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="index.html" class="btn btn-neutral" title="BandWagon Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="index.html"
+       title="previous chapter">← License = MIT</a>
+  </li>
+  <li class="next">
+    <a href="examples/compute_digestion_bands.html"
+       title="next chapter">Compute digestions bands →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2019, Edinburgh Genome Foundry.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
     </div>
-  
-
-  <hr/>
-
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2016, Edinburgh Genome Foundry.
-
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
-</footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.1.0',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
-      });
-  </script>
-   
-
-</body>
+    
+    
+  </body>
 </html>

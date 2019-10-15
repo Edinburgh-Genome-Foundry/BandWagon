@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>bandwagon.plot_records_digestions</title>
+    
+      <link rel="stylesheet" href="../../_static/pygments.css">
+      <link rel="stylesheet" href="../../_static/theme.css">
+      <link rel="stylesheet" href="../../_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="../../_static/css/press_main.css" type="text/css" />
+          <link rel="stylesheet" href="../../_static/css/press_main.css" type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+
+      
+      <script src="../../_static/theme-vendors.js"></script>
+      <script src="../../_static/theme.js" defer></script>
+    
+      <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <link rel="index" title="Index" href="../../genindex.html" />
+  <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../../index.html" class="home-link">
+    
+      <span class="site-name">Bandwagon</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="../../index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Reference
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../../index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Examples
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="../../index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Reference
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../../index.html#using-a-custom-ladder"
+         class="nav-link ">
+         Examples
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">Quick search</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="Search" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../index.html#using-a-custom-ladder">Reference</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../../ref.html" class="reference internal ">Bandwagon Reference manual</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../../index.html#using-a-custom-ladder">Examples</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../../examples/compute_digestion_bands.html" class="reference internal ">Compute digestions bands</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../../examples/simple_band_patterns.html" class="reference internal ">Simple Bands patterns</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../../examples/mixed_digestions.html" class="reference internal ">Digestions with mixed enzymes</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="../index.html">Module code</a> &raquo;</li>
+    
+    <li>bandwagon.plot_records_digestions</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <h1>Source code for bandwagon.plot_records_digestions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="k">import</span> <span class="n">b64encode</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.gridspec</span> <span class="k">as</span> <span class="nn">gridspec</span>
+<span class="kn">from</span> <span class="nn">matplotlib.backends.backend_pdf</span> <span class="k">import</span> <span class="n">PdfPages</span>
+
+<span class="kn">from</span> <span class="nn">.Band</span> <span class="k">import</span> <span class="n">Band</span>
+<span class="kn">from</span> <span class="nn">.BandsPattern</span> <span class="k">import</span> <span class="n">BandsPattern</span>
+<span class="kn">from</span> <span class="nn">.BandsPatternsSet</span> <span class="k">import</span> <span class="n">BandsPatternsSet</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">find_cut_sites</span><span class="p">,</span>
+    <span class="n">annotate_record</span><span class="p">,</span>
+    <span class="n">compute_digestion_bands</span><span class="p">,</span>
+    <span class="n">record_is_linear</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">dna_features_viewer</span> <span class="k">import</span> <span class="n">BiopythonTranslator</span>
+
+    <span class="k">class</span> <span class="nc">DigestGraphicTranslator</span><span class="p">(</span><span class="n">BiopythonTranslator</span><span class="p">):</span>
+<div class="viewcode-block" id="DigestGraphicTranslator.compute_feature_color"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.DigestGraphicTranslator.compute_feature_color">[docs]</a>        <span class="k">def</span> <span class="nf">compute_feature_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">feature</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;band_label&quot;</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;#e5d740&quot;</span>
+            <span class="k">elif</span> <span class="s2">&quot;source&quot;</span> <span class="ow">in</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;#ff8282&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;#eaedff&quot;</span></div>
+
+
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+
+<div class="viewcode-block" id="DigestGraphicTranslator"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.DigestGraphicTranslator">[docs]</a>    <span class="k">class</span> <span class="nc">DigestGraphicTranslator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Not available, install dna_features_viewer.</span>
+<span class="sd">        </span>
+<span class="sd">        pip install dna_features_viewer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;You need to install dna_features_viewer to plot&quot;</span>
+                <span class="s2">&quot; annotated digestion graphics. Use &quot;</span>
+                <span class="s2">&quot;&#39;pip install dna_features_viewer&#39;&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="annotate_digestion_bands"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.annotate_digestion_bands">[docs]</a><span class="k">def</span> <span class="nf">annotate_digestion_bands</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">enzymes</span><span class="p">,</span> <span class="n">ladder</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Annotate the record to indicate the regions corresponding to bands.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">linear</span> <span class="o">=</span> <span class="n">record_is_linear</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">seq</span>
+    <span class="n">all_cuts</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">record</span><span class="p">)]</span> <span class="o">+</span> <span class="n">find_cut_sites</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">enzymes</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="n">linear</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">all_cuts</span><span class="p">,</span> <span class="n">all_cuts</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">linear</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">bands</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">bands</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">band0</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">),</span> <span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">bands</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="n">bands</span> <span class="o">=</span> <span class="p">[</span><span class="n">band0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">band0</span>
+    <span class="n">sorted_bands</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bands</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">new_record</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">record</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sorted_bands</span><span class="p">,</span> <span class="s2">&quot;abcdefghijkl&quot;</span><span class="p">):</span>
+        <span class="n">band_size</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">band</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">band</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">formatted_size</span> <span class="o">=</span> <span class="n">Band</span><span class="o">.</span><span class="n">_format_dna_size</span><span class="p">(</span><span class="n">band_size</span><span class="p">)</span>
+        <span class="n">annotate_record</span><span class="p">(</span>
+            <span class="n">new_record</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">band</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> - </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">formatted_size</span><span class="p">),</span>
+            <span class="n">feature_type</span><span class="o">=</span><span class="s2">&quot;misc_feature&quot;</span><span class="p">,</span>
+            <span class="n">band_label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+            <span class="n">band_size</span><span class="o">=</span><span class="n">band_size</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_record</span></div>
+
+
+<div class="viewcode-block" id="plot_record_digestion"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.plot_record_digestion">[docs]</a><span class="k">def</span> <span class="nf">plot_record_digestion</span><span class="p">(</span>
+    <span class="n">record_digestion</span><span class="p">,</span> <span class="n">ladder</span><span class="p">,</span> <span class="n">record_label</span><span class="p">,</span> <span class="n">digestion_label</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot the digestion along with a schema of cuts locations in the record.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    record_digestion</span>
+<span class="sd">      Biopython record with features indicating bands</span>
+
+<span class="sd">    ladder</span>
+
+<span class="sd">    record_label</span>
+<span class="sd">      Label to use as the title of the record digestion plot.</span>
+
+<span class="sd">    digestion_label</span>
+<span class="sd">      Label to use as the title of the bands pattern(s)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">ax_bands</span><span class="p">,</span> <span class="n">ax_record</span><span class="p">,</span> <span class="n">ax_digest</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="p">(</span><span class="n">gs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">gs</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:],</span> <span class="n">gs</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:])</span>
+    <span class="p">]</span>
+    <span class="n">ax_digest</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax_digest</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;BANDS&quot;</span><span class="p">)</span>
+    <span class="n">topology</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span> <span class="k">if</span> <span class="n">record_is_linear</span><span class="p">(</span><span class="n">record_digestion</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;circular&quot;</span>
+    <span class="n">ax_record</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">record_label</span><span class="p">,</span> <span class="n">topology</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+
+    <span class="n">bands</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s2">&quot;band_label&quot;</span><span class="p">],</span>
+                <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">[</span><span class="s2">&quot;band_size&quot;</span><span class="p">],</span>
+                <span class="n">feature</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">start</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">record_digestion</span><span class="o">.</span><span class="n">features</span>
+            <span class="k">if</span> <span class="n">feature</span><span class="o">.</span><span class="n">qualifiers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;band_label&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">start</span> <span class="ow">in</span> <span class="n">bands</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ax_digest</span><span class="p">,</span> <span class="n">ax_record</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">size</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="n">gr_record</span><span class="p">,</span> <span class="n">gr_digestion</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">DigestGraphicTranslator</span><span class="p">([</span><span class="n">fl</span><span class="p">])</span><span class="o">.</span><span class="n">translate_record</span><span class="p">(</span><span class="n">record_digestion</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">fl</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;band_label&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;homology&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">qualifiers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="p">[])),</span>
+            <span class="k">lambda</span> <span class="n">f</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;band_label&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">qualifiers</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+    <span class="n">gr_digestion</span><span class="o">.</span><span class="n">split_overflowing_features_circularly</span><span class="p">()</span>
+    <span class="n">gr_digestion</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_digest</span><span class="p">)</span>
+    <span class="n">gr_record</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax_record</span><span class="p">,</span> <span class="n">with_ruler</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">linear</span> <span class="o">=</span> <span class="n">record_is_linear</span><span class="p">(</span><span class="n">record_digestion</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">BandsPattern</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">Band</span><span class="p">(</span><span class="n">dnasize</span><span class="p">,</span> <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">dnasize</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">bands</span>
+        <span class="p">],</span>
+        <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">,</span>
+        <span class="n">circularity</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span> <span class="k">if</span> <span class="n">linear</span> <span class="k">else</span> <span class="s1">&#39;circular&#39;</span>
+    <span class="p">)</span>
+    <span class="n">patternset</span> <span class="o">=</span> <span class="n">BandsPatternsSet</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">pattern</span><span class="p">],</span>
+        <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">,</span>
+        <span class="n">ladder_ticks</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">ticks_fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">digestion_label</span><span class="p">,</span>
+        <span class="n">label_fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">patternset</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax_bands</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ax_bands</span><span class="p">,</span> <span class="n">ax_record</span><span class="p">,</span> <span class="n">ax_digest</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="plot_records_digestions"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.plot_records_digestions">[docs]</a><span class="k">def</span> <span class="nf">plot_records_digestions</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">,</span> <span class="n">ladder</span><span class="p">,</span> <span class="n">records_and_digestions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">records</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">digestions</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot records digestions in a multipage PDF file.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    records_and_digestions</span>
+<span class="sd">      A list [(record, digestion), ...] where record is a Genbank record and</span>
+<span class="sd">      digestions a tuple of enzymes. Alternatively, a list of ``records`` and</span>
+<span class="sd">      ``digestions`` can be provided.</span>
+
+<span class="sd">    records</span>
+<span class="sd">      List of biopython records whose digests need to be digested by the</span>
+<span class="sd">      ``digestions``</span>
+<span class="sd">    </span>
+<span class="sd">    digestions</span>
+<span class="sd">      List of tuples of enzyme names e.g. ``[(&#39;BsaI&#39;,),`(&#39;MfeI&#39;, &#39;BsmBI&#39;)...]``</span>
+<span class="sd">      representing the digestions for the provided ``records``</span>
+<span class="sd">    </span>
+<span class="sd">    ladder</span>
+<span class="sd">      A Ladder object representing the ladder to be used for placing the bands</span>
+<span class="sd">      </span>
+<span class="sd">    </span>
+<span class="sd">    target</span>
+<span class="sd">      path to a PDF file, or file-like object.</span>
+<span class="sd">    </span>
+<span class="sd">    full_report</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">records_and_digestions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">records_and_digestions</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="n">digestions</span><span class="p">)</span>
+    <span class="n">annotated_records</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">PdfPages</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="k">as</span> <span class="n">details_pdf</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">record</span><span class="p">,</span> <span class="n">enzymes</span> <span class="ow">in</span> <span class="n">records_and_digestions</span><span class="p">:</span>
+            <span class="n">record_label</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span>
+            <span class="k">if</span> <span class="n">record_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">annotated_records</span><span class="p">:</span>
+                <span class="n">annotated_records</span><span class="p">[</span><span class="n">record_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="n">enzymes_label</span> <span class="o">=</span> <span class="s2">&quot; + &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">enzymes</span><span class="p">))</span>
+            <span class="n">basename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">--</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">record_label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">enzymes</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">record_digestion</span> <span class="o">=</span> <span class="n">annotate_digestion_bands</span><span class="p">(</span>
+                <span class="n">record</span><span class="p">,</span> <span class="n">enzymes</span><span class="p">,</span> <span class="n">ladder</span>
+            <span class="p">)</span>
+            <span class="n">record_digestion</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">basename</span>
+            <span class="n">annotated_records</span><span class="p">[</span><span class="n">record_label</span><span class="p">][</span><span class="n">enzymes_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">record_digestion</span>
+            <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="o">=</span> <span class="n">plot_record_digestion</span><span class="p">(</span>
+                <span class="n">record_digestion</span><span class="p">,</span> <span class="n">ladder</span><span class="p">,</span> <span class="n">record_label</span><span class="p">,</span> <span class="n">enzymes_label</span>
+            <span class="p">)</span>
+            <span class="n">details_pdf</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">annotated_records</span></div>
+
+
+<div class="viewcode-block" id="plot_all_digestion_patterns"><a class="viewcode-back" href="../../ref.html#bandwagon.plot_records_digestions.plot_all_digestion_patterns">[docs]</a><span class="k">def</span> <span class="nf">plot_all_digestion_patterns</span><span class="p">(</span>
+    <span class="n">records</span><span class="p">,</span>
+    <span class="n">digestions</span><span class="p">,</span>
+    <span class="n">ladder</span><span class="p">,</span>
+    <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">group_by</span><span class="o">=</span><span class="s2">&quot;digestions&quot;</span><span class="p">,</span>
+    <span class="n">show_band_sizes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Plot a grid (RECORD x DIGESTION) of predicted records digestions.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    records</span>
+<span class="sd">      List of biopython records whose digests need to be digested by the</span>
+<span class="sd">      ``digestions``</span>
+<span class="sd">    </span>
+<span class="sd">    digestions</span>
+<span class="sd">      List of tuples of enzyme names e.g. ``[(&#39;BsaI&#39;,),`(&#39;MfeI&#39;, &#39;BsmBI&#39;)...]``</span>
+<span class="sd">      representing the digestions for the provided ``records``</span>
+
+<span class="sd">    ladder</span>
+<span class="sd">      A Ladder object representing the ladder to be used for placing the bands</span>
+<span class="sd">    axes</span>
+<span class="sd">      If None, new axes will be created.</span>
+
+<span class="sd">    group_by</span>
+<span class="sd">      Either &quot;sequence&quot; or &quot;digestion&quot;. Determines the plotting order.</span>
+
+<span class="sd">    show_band_sizes</span>
+<span class="sd">      If true, the band sizes will be printed on each band.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">all_patterns</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">records</span><span class="p">:</span>
+        <span class="n">linear</span> <span class="o">=</span> <span class="n">record_is_linear</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">enzymes</span> <span class="ow">in</span> <span class="n">digestions</span><span class="p">:</span>
+            <span class="n">enzymes_label</span> <span class="o">=</span> <span class="s2">&quot; + &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">enzymes</span><span class="p">))</span>
+            <span class="n">bands</span> <span class="o">=</span> <span class="n">compute_digestion_bands</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">seq</span><span class="p">,</span> <span class="n">enzymes</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="n">linear</span><span class="p">)</span>
+            <span class="n">bands</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bands</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">group_by</span> <span class="o">==</span> <span class="s2">&quot;digestions&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">enzymes_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_patterns</span><span class="p">:</span>
+                    <span class="n">all_patterns</span><span class="p">[</span><span class="n">enzymes_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+                <span class="n">all_patterns</span><span class="p">[</span><span class="n">enzymes_label</span><span class="p">][</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">bands</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">all_patterns</span><span class="p">:</span>
+                    <span class="n">all_patterns</span><span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+                <span class="n">all_patterns</span><span class="p">[</span><span class="n">record</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">enzymes_label</span><span class="p">]</span> <span class="o">=</span> <span class="n">bands</span>
+
+    <span class="n">Y</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_patterns</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">all_patterns</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span> <span class="o">*</span> <span class="n">X</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">Y</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">Y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes</span><span class="p">]</span>
+    <span class="n">bands_props</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;band_thickness&quot;</span><span class="p">:</span> <span class="mf">2.5</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">show_band_sizes</span><span class="p">:</span>
+        <span class="n">bands_props</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;=size&quot;</span><span class="p">,</span> <span class="n">label_fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">cat1</span><span class="p">,</span> <span class="n">cat2s</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">all_patterns</span><span class="o">.</span><span class="n">items</span><span class="p">())):</span>
+        <span class="n">pattern_set</span> <span class="o">=</span> <span class="n">BandsPatternsSet</span><span class="p">(</span>
+            <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">BandsPattern</span><span class="p">(</span>
+                    <span class="n">_bands</span><span class="p">,</span>
+                    <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">cat2</span> <span class="k">if</span> <span class="p">(</span><span class="n">ax</span> <span class="o">==</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">label_fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">70</span><span class="p">),</span>
+                    <span class="n">global_bands_props</span><span class="o">=</span><span class="n">bands_props</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">for</span> <span class="n">cat2</span><span class="p">,</span> <span class="n">_bands</span> <span class="ow">in</span> <span class="n">cat2s</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">],</span>
+            <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">,</span>
+            <span class="n">ladder_ticks</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+            <span class="n">ticks_fontdict</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">),</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">cat1</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">pattern_set</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">axes</span></div>
+</pre></div>
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+</ul><div class="footer" role="contentinfo">
+      &#169; Copyright 2019, Edinburgh Genome Foundry.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+    </div>
+    
+    
+  </body>
+</html>
