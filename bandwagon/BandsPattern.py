@@ -60,7 +60,10 @@ class BandsPattern:
       Width of the gel_image display (remember that the width of the column is
       1.0, so 0.2 means this 'photo' will occupy 1/5 of the column, the rest
       being occupied by the pattern plot)
-     """
+    
+    indicate_no_cut
+      If True, a "UNCUT" message will be added under the single band
+    """
 
     def __init__(
         self,
@@ -76,6 +79,7 @@ class BandsPattern:
         global_bands_props=None,
         gel_image=None,
         gel_image_width=0.2,
+        band_is_uncut=False
     ):
         self.bands = [
             Band(band, ladder=ladder)
@@ -96,6 +100,7 @@ class BandsPattern:
         self.corner_note = corner_note
         self.corner_note_fontdict = corner_note_fontdict
         self.circularity = circularity
+        self.band_is_uncut = band_is_uncut
         self.initialize()
 
     def initialize(self):
@@ -244,6 +249,24 @@ class BandsPattern:
             transform=ax.transData,
             alpha=0.3,
         )
+    
+    def _plot_band_is_uncut(self, ax, x_coord):
+        if not self.band_is_uncut:
+            return
+        max_ladder_migration_distance = max(self.ladder.migration_distances)
+        uncut_label_space = max_ladder_migration_distance / 30.0
+        fontdict = updated_dict(
+            {"size": 5.5}, self.corner_note_fontdict
+        )
+        ax.text(
+            x_coord,
+            -self.bands[0].migration_distance - uncut_label_space,
+            "UNCUT",
+            horizontalalignment="center",
+            verticalalignment="top",
+            fontdict=fontdict,
+            transform=ax.transData,
+        )
 
     def plot(self, ax, x_coord):
         """Plot background, bands, label, gel_image at the given x_coord."""
@@ -253,6 +276,7 @@ class BandsPattern:
         self._plot_gel_image(ax, x_coord)
         self._plot_corner_note(ax, x_coord)
         self._plot_circularity(ax, x_coord)
+        self._plot_band_is_uncut(ax, x_coord)
 
     def merge_with(self, other):
         """Merge this band pattern with another pattern's bands"""

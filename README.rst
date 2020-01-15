@@ -146,12 +146,6 @@ If you have many sequences and digestions you can also use the utility ``plot_re
 
     from bandwagon import plot_all_digestion_patterns, LADDER_100_to_4k
 
-    plot_records_digestions(
-        records=records,
-        digestions=[('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)],
-        ladder=LADDER_100_to_4k,
-        target="records_digestions.pdf")
-
     axes = plot_all_digestion_patterns(
         records=records,
         digestions=[('BamHI', 'NcoI'), ('BsaI', 'XbaI'), ('StyI',)],

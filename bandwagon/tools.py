@@ -29,6 +29,7 @@ def sequence_to_biopython_record(
 
 
 def find_cut_sites(sequence, enzymes, linear=True):
+    """Return the list of indices of cut sites in the given sequence."""
     if isinstance(sequence, str):
         sequence = Seq(sequence)
     if hasattr(sequence, "seq"):
@@ -38,7 +39,7 @@ def find_cut_sites(sequence, enzymes, linear=True):
     return sorted(sum(matches.values(), []))
 
 
-def compute_digestion_bands(sequence, enzymes, linear=True):
+def compute_digestion_bands(sequence, enzymes, linear="auto_or_true"):
     """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion
 
     Parameters
@@ -52,8 +53,17 @@ def compute_digestion_bands(sequence, enzymes, linear=True):
       e.g. `["EcoRI", "BamHI"]`
 
     linear
-      True if the DNA fragment is linearized, False if it is circular
+      True if the DNA fragment is linearized, False if it is circular. If you
+      leave it to the default "auto_or_true", the function will read the
+      topology from the sequence if it is a record with
+      ``record.annotations['topology']`` set to "circular" or "linear", else it
+      will default to true
     """
+    if linear == "auto_or_true":
+        linear = True
+        if hasattr(sequence, "annotations"):
+            if sequence.annotations.get("topology", None) == "circular":
+                linear = False
     cut_sites = find_cut_sites(sequence, enzymes, linear=linear)
     cut_sites = [0] + cut_sites + [len(sequence)]
     bands_sizes = [

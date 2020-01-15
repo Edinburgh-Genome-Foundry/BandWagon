@@ -47,7 +47,7 @@ html_theme_options = {
     "external_links": [
         (
             "Github",
-            "https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer",
+            "https://github.com/Edinburgh-Genome-Foundry/bandwagon",
         )
     ]
 }
