@@ -50,11 +50,11 @@ Bandwagon can be installed by unzipping the source code in one directory and usi
 
     (sudo) python setup.py install
 
-To create interactive bokeh plots you will need to additionally install Bokeh with
+To create interactive bokeh plots you will need to additionally install Bokeh and Pandas with
 
 .. code:: shell
 
-    (sudo) pip install bokeh
+    (sudo) pip install bokeh pandas
 
 
 

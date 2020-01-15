@@ -22,5 +22,6 @@ setup(
         "numpy",
         "scipy",
         "snapgene_reader",
+        "dna_features_viewer"
     ),
 )
