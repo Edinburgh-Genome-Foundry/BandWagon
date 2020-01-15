@@ -222,6 +222,7 @@ def plot_all_digestion_patterns(
     axes=None,
     group_by="digestions",
     show_band_sizes=False,
+    plot_ladder=False
 ):
     """Plot a grid (RECORD x DIGESTION) of predicted records digestions.
     
@@ -253,15 +254,16 @@ def plot_all_digestion_patterns(
         for enzymes in digestions:
             enzymes_label = " + ".join(sorted(enzymes))
             bands = compute_digestion_bands(record.seq, enzymes, linear=linear)
+            cuts = find_cut_sites(record.seq, enzymes)
             bands = sorted(bands)
             if group_by == "digestions":
                 if enzymes_label not in all_patterns:
                     all_patterns[enzymes_label] = OrderedDict()
-                all_patterns[enzymes_label][record.id] = bands
+                all_patterns[enzymes_label][record.id] = (bands, cuts)
             else:
                 if record.id not in all_patterns:
                     all_patterns[record.id] = OrderedDict()
-                all_patterns[record.id][enzymes_label] = bands
+                all_patterns[record.id][enzymes_label] = (bands, cuts)
 
     Y = len(all_patterns)
     X = len(list(all_patterns.values())[0])
@@ -273,17 +275,21 @@ def plot_all_digestion_patterns(
     if show_band_sizes:
         bands_props.update(dict(label="=size", label_fontdict=dict(size=6)))
     for ax, (cat1, cat2s) in zip(axes, sorted(all_patterns.items())):
+        patterns = [
+            BandsPattern(
+                _bands,
+                ladder=ladder,
+                label=cat2 if (ax == axes[0]) else None,
+                label_fontdict=dict(rotation=70),
+                global_bands_props=bands_props,
+                band_is_uncut=len(_cuts) == 0
+            )
+            for cat2, (_bands, _cuts) in cat2s.items()
+        ]
+        if plot_ladder:
+            patterns = [ladder] + patterns
         pattern_set = BandsPatternsSet(
-            patterns=[
-                BandsPattern(
-                    _bands,
-                    ladder=ladder,
-                    label=cat2 if (ax == axes[0]) else None,
-                    label_fontdict=dict(rotation=70),
-                    global_bands_props=bands_props,
-                )
-                for cat2, _bands in cat2s.items()
-            ],
+            patterns=patterns,
             ladder=ladder,
             ladder_ticks=4,
             ticks_fontdict=dict(size=9),
