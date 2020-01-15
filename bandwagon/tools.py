@@ -1,5 +1,5 @@
 """Basic useful functions for computing bands and comparing patterns."""
-
+import os
 from Bio.Seq import Seq
 from copy import deepcopy
 from Bio.SeqRecord import SeqRecord
@@ -10,6 +10,7 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from snapgene_reader import snapgene_file_to_seqrecord
 import numpy as np
+
 
 
 def random_dna_sequence(length):

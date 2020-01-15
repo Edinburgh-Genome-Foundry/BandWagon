@@ -145,7 +145,7 @@ def plot_record_digestion(
             for label, dnasize, _ in bands
         ],
         ladder=ladder,
-        circularity='linear' if linear else 'circular'
+        circularity="linear" if linear else "circular",
     )
     patternset = BandsPatternsSet(
         [pattern],
@@ -222,7 +222,7 @@ def plot_all_digestion_patterns(
     axes=None,
     group_by="digestions",
     show_band_sizes=False,
-    plot_ladder=False
+    plot_ladder=False,
 ):
     """Plot a grid (RECORD x DIGESTION) of predicted records digestions.
     
@@ -282,7 +282,7 @@ def plot_all_digestion_patterns(
                 label=cat2 if (ax == axes[0]) else None,
                 label_fontdict=dict(rotation=70),
                 global_bands_props=bands_props,
-                band_is_uncut=len(_cuts) == 0
+                band_is_uncut=len(_cuts) == 0,
             )
             for cat2, (_bands, _cuts) in cat2s.items()
         ]
