@@ -30,6 +30,7 @@ def test_simple_band_pattern(tmpdir):
         BandsPattern([300, 400, 1500], ladder, label="C2"),
         BandsPattern([100, 1200, 1400, 3000], ladder, label="C3"),
         BandsPattern([100, 700], ladder, label="C4"),
+        BandsPattern([200], ladder, label="C4", band_is_uncut=True),
     ]
     patterns_set = BandsPatternsSet(patterns=[ladder] + patterns,
                                     ladder=ladder,
