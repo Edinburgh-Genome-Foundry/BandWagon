@@ -145,7 +145,7 @@ def plot_record_digestion(
             for label, dnasize, _ in bands
         ],
         ladder=ladder,
-        circularity="linear" if linear else "circular",
+        topology="linear" if linear else "circular",
     )
     patternset = BandsPatternsSet(
         [pattern],
@@ -250,7 +250,8 @@ def plot_all_digestion_patterns(
     """
     all_patterns = OrderedDict()
     for record in records:
-        linear = record_is_linear(record, default=False)
+        topology = record.annotations.get(topology, 'linear')
+        linear = (topology == 'linear')
         for enzymes in digestions:
             enzymes_label = " + ".join(sorted(enzymes))
             bands = compute_digestion_bands(record.seq, enzymes, linear=linear)

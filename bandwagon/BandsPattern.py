@@ -38,7 +38,7 @@ class BandsPattern:
       A dict indicating the format of the label if any provided. For instance
       ``{'size': 6, 'color': '#0011aa'}``
     
-    circularity
+    topology
       Another type of (top-right) corner note, either "circular" or "linear".
 
     background_color
@@ -61,7 +61,7 @@ class BandsPattern:
       1.0, so 0.2 means this 'photo' will occupy 1/5 of the column, the rest
       being occupied by the pattern plot)
     
-    indicate_no_cut
+    band_is_uncut
       If True, a "UNCUT" message will be added under the single band
     """
 
@@ -73,7 +73,7 @@ class BandsPattern:
         label_fontdict=None,
         corner_note=None,
         corner_note_fontdict=None,
-        circularity=None,
+        topology=None,
         background_color=None,
         width=1.0,
         global_bands_props=None,
@@ -99,7 +99,7 @@ class BandsPattern:
         self.width = width
         self.corner_note = corner_note
         self.corner_note_fontdict = corner_note_fontdict
-        self.circularity = circularity
+        self.topology = topology
         self.band_is_uncut = band_is_uncut
         self.initialize()
 
@@ -232,8 +232,8 @@ class BandsPattern:
             transform=ax.transData,
         )
 
-    def _plot_circularity(self, ax, x_coord):
-        if self.circularity in (None, ""):
+    def _plot_topology(self, ax, x_coord):
+        if self.topology in (None, ""):
             return
         fontdict = updated_dict(
             {"size": 5.5, "rotation": 90, "stretch": "condensed"},
@@ -242,7 +242,7 @@ class BandsPattern:
         ax.text(
             x_coord + self.width / 2.1,
             0,
-            "LINEAR " if self.circularity == "linear" else "CIRCULAR ",
+            "LINEAR " if self.topology == "linear" else "CIRCULAR ",
             horizontalalignment="right",
             verticalalignment="top",
             fontdict=fontdict,
@@ -275,7 +275,7 @@ class BandsPattern:
         self._plot_label(ax, x_coord)
         self._plot_gel_image(ax, x_coord)
         self._plot_corner_note(ax, x_coord)
-        self._plot_circularity(ax, x_coord)
+        self._plot_topology(ax, x_coord)
         self._plot_band_is_uncut(ax, x_coord)
 
     def merge_with(self, other):
