@@ -250,7 +250,7 @@ def plot_all_digestion_patterns(
     """
     all_patterns = OrderedDict()
     for record in records:
-        topology = record.annotations.get(topology, 'linear')
+        topology = record.annotations.get('topology', 'linear')
         linear = (topology == 'linear')
         for enzymes in digestions:
             enzymes_label = " + ".join(sorted(enzymes))
