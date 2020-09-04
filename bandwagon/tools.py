@@ -4,7 +4,6 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
 from Bio import SeqIO
-from Bio.Alphabet import DNAAlphabet
 from Bio.SeqFeature import SeqFeature, FeatureLocation
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from snapgene_reader import snapgene_file_to_seqrecord
@@ -19,12 +18,7 @@ def sequence_to_biopython_record(
     sequence, id="<unknown id>", name="<unknown name>", features=()
 ):
     """Return a SeqRecord of the sequence, ready to be Genbanked."""
-    return SeqRecord(
-        Seq(sequence, alphabet=DNAAlphabet()),
-        id=id,
-        name=name,
-        features=list(features),
-    )
+    return SeqRecord(Seq(sequence), id=id, name=name, features=list(features),)
 
 
 def find_cut_sites(sequence, enzymes, linear=True):
