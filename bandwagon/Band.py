@@ -2,6 +2,7 @@ import numpy as np
 from copy import deepcopy
 from .tools import updated_dict
 
+
 class Band:
     """A band in a migration pattern.
 
@@ -30,22 +31,32 @@ class Band:
 
     band_width
       Proportion of the column width that is occupied by the band (the columns
-      for each band pattern have a width of 1.0)
+      for each band pattern have a width of 1.0).
 
     label
       Label to be printed on the band, if any provided. Set to '=size' for
-      printing the bands sizes
+      printing the band sizes.
 
     label_fontdict
-      A dict indicating the format of the label if any provided. For isinstance
-      ``{'size': 7, 'weight':'bold', 'color': '#0011aa'}``
+      A dict indicating the format of the label if any provided. For instance
+      ``{'size': 7, 'weight':'bold', 'color': '#0011aa'}``.
 
     html
       Html appearing when hovering the band.
     """
-    def __init__(self, dna_size, migration_distance=None, ladder=None,
-                 band_color="#000000", band_thickness=2, band_width=0.7,
-                 label=None, label_fontdict=None, html=None):
+
+    def __init__(
+        self,
+        dna_size,
+        migration_distance=None,
+        ladder=None,
+        band_color="#000000",
+        band_thickness=2,
+        band_width=0.7,
+        label=None,
+        label_fontdict=None,
+        html=None,
+    ):
         self.dna_size = dna_size
         if ladder is not None:
             migration_distance = ladder.dna_size_to_migration(dna_size)
@@ -74,25 +85,30 @@ class Band:
 
     def _plot_band(self, ax, x_coord):
         """Plot the band's line on the matplotlib ax at the x-coordinate."""
-        ax.plot([x_coord - self.band_width / 2.0,
-                 x_coord + self.band_width / 2.0],
-                [-self.migration_distance, -self.migration_distance],
-                lw=self.band_thickness, c=self.band_color)
+        ax.plot(
+            [x_coord - self.band_width / 2.0, x_coord + self.band_width / 2.0],
+            [-self.migration_distance, -self.migration_distance],
+            lw=self.band_thickness,
+            c=self.band_color,
+        )
 
     def _plot_label(self, ax, x_coord):
         """Plot the label on (top of) the band."""
         if self.label is None:
             return
-        fontdict = updated_dict({"color": 'white', 'family': 'sans-serif',
-                                 "weight": "bold", "size": 10},
-                                self.label_fontdict)
+        fontdict = updated_dict(
+            {"color": "white", "family": "sans-serif", "weight": "bold", "size": 10},
+            self.label_fontdict,
+        )
         ax.text(
-            x_coord, -self.migration_distance, self.label,
+            x_coord,
+            -self.migration_distance,
+            self.label,
             horizontalalignment="center",
             verticalalignment="center",
             fontdict=fontdict,
             transform=ax.transData,
-            bbox=dict(boxstyle="round", fc=self.band_color, lw=0)
+            bbox=dict(boxstyle="round", fc=self.band_color, lw=0),
         )
 
     def plot(self, ax, x_coord):
@@ -101,10 +117,19 @@ class Band:
         self._plot_label(ax, x_coord)
 
     def to_json(self, ladder=None):
-        """Return a dictionnary version of the band (for bakeh plotting)"""
-        return {prop: self.__dict__[prop] for prop in
-                ["dna_size", "band_color", "band_width", "band_thickness",
-                 "label", "html", "migration_distance"]}
+        """Return a dictionary version of the band (for bokeh plotting)."""
+        return {
+            prop: self.__dict__[prop]
+            for prop in [
+                "dna_size",
+                "band_color",
+                "band_width",
+                "band_thickness",
+                "label",
+                "html",
+                "migration_distance",
+            ]
+        }
 
     def modified(self, **attributes):
         """Return a new version of this band, with modified attributes."""

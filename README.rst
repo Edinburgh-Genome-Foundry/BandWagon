@@ -16,7 +16,7 @@
 Bandwagon (full documentation `here
 <http://edinburgh-genome-foundry.github.io/BandWagon/>`_) is a Python library to predict and plot migration patterns
 from DNA digestions. It supports hundreds of different enzymes (thanks to BioPython),
-single- and multiple-enzymes digestions, and custom ladders.
+single- and multiple-enzyme digestions, and custom ladders.
 
 It uses Matplotlib to produce plots like this one:
 
@@ -31,9 +31,9 @@ License = MIT
 
 Bandwagon is an open-source software originally written at the `Edinburgh Genome Foundry
 <http://edinburgh-genome-foundry.github.io/home.html>`_ by `Zulko <https://github.com/Zulko>`_
-and `released on Github <https://github.com/Edinburgh-Genome-Foundry/Bandwagon>`_ under the MIT licence (Copyright Edinburg Genome Foundry).
+and `released on Github <https://github.com/Edinburgh-Genome-Foundry/Bandwagon>`_ under the MIT license (Copyright 2019 Edinburgh Genome Foundry).
 
-Everyone is welcome to contribute !
+Everyone is welcome to contribute!
 
 Installation
 --------------
@@ -62,8 +62,8 @@ Examples of use
 ----------------
 
 
-Computing digestion bands sizes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Computing digestion band sizes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This first example shows how to compute digestion bands in the case of
 a linear fragment, a circular fragment, and a multi-enzymes digestion:
@@ -112,9 +112,9 @@ Plotting bands
     :align: center
 
 Plotting a gel simulation
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Let us plot digestion patterns produced by different restriction enzymes on a same DNA sequence:
+Let us plot digestion patterns produced by different restriction enzymes on the same DNA sequence:
 
 
 .. code:: python
@@ -181,7 +181,7 @@ with one page per construct and digestion, looking like this:
 Using a custom ladder
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-You can define a custom ladder by providing a dictionnary of the form
+You can define a custom ladder by providing a dictionary of the form
 
 .. code:: python
 

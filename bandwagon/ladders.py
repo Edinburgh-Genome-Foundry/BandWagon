@@ -24,11 +24,7 @@ def custom_ladder(label, bands_migrations):
         shift = min_migrations - 0.1 * ladder_span
     return BandsPattern(
         [
-            Band(
-                size,
-                migration_distance=migration - shift,
-                band_color="#8B0000",
-            )
+            Band(size, migration_distance=migration - shift, band_color="#8B0000",)
             for (size, migration) in bands_migrations.items()
         ],
         background_color="#ffffff",
@@ -36,9 +32,7 @@ def custom_ladder(label, bands_migrations):
     )
 
 
-def ladder_from_aati_fa_calibration_table(
-    filepath=None, dataframe=None, label=None
-):
+def ladder_from_aati_fa_calibration_table(filepath=None, dataframe=None, label=None):
     """Extract a BandPattern from an AATI Fragment Analyzer calibration file.
 
     The calibration table is generated after each run from the migration
@@ -55,7 +49,7 @@ def ladder_from_aati_fa_calibration_table(
 
     dataframe
       Pandas dataframe obtained by reading the file, can be provided instead of
-      ``filepath``
+      ``filepath``.
 
     label
       Label that will be given to the ladder when plotted.
@@ -72,11 +66,9 @@ def ladder_from_aati_fa_calibration_table(
 
     return custom_ladder(
         label,
-        {
-            row["Ladder Size (bp)"]: row["migration"]
-            for i, row in dataframe.iterrows()
-        },
+        {row["Ladder Size (bp)"]: row["migration"] for i, row in dataframe.iterrows()},
     )
+
 
 LADDER_100_to_4k = custom_ladder(
     "100-4k",
@@ -95,4 +87,3 @@ LADDER_100_to_4k = custom_ladder(
         4000: 65,
     },
 )
-

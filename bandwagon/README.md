@@ -1,6 +1,6 @@
 # Code organization
 
-This document walks you trough the DNA Chisel code. Please request changes if anything is unclear.
+This document walks you through the BandWagon code. Please request changes if anything is unclear.
 
 **Core classes**
 

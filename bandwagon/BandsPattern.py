@@ -16,19 +16,19 @@ class BandsPattern:
 
     bands
       Either a list of ``Band`` objects, or a list of DNA sizes e.g.
-      ``[800, 654, 1752]``. If the latter case, a ``ladder`` must be provided
-      to determine the elements
+      ``[800, 654, 1752]``. In the latter case, a ``ladder`` must be provided
+      to determine the elements.
 
     ladder
       A BandsPattern to use as a ladder in case ``bands`` is a list of DNA
       sizes. Else leave it to None.
 
     label
-      Label to be printed on top of the band pattern
+      Label to be printed on top of the band pattern.
 
     label_fontdict
       A dict indicating the format of the label if any provided. For instance
-      ``{'size': 7, 'rotation':30, 'color': '#0011aa'}``
+      ``{'size': 7, 'rotation':30, 'color': '#0011aa'}``.
 
     corner_note
       Note to be printed in small prints in the corner of the band lane.
@@ -36,8 +36,8 @@ class BandsPattern:
 
     corner_note_fontdict
       A dict indicating the format of the label if any provided. For instance
-      ``{'size': 6, 'color': '#0011aa'}``
-    
+      ``{'size': 6, 'color': '#0011aa'}``.
+
     topology
       Another type of (top-right) corner note, either "circular" or "linear".
 
@@ -49,8 +49,8 @@ class BandsPattern:
       Width of the column (better keep to 1.0 if you want my humble opinion)
 
     global_bands_props
-      Dictionnary of band properties overwriting that of all bands in the
-      pattern, e.g. ``{'color': '#012ff45'}``
+      Dictionary of band properties overwriting that of all bands in the
+      pattern, e.g. ``{'color': '#012ff45'}``.
 
     gel_image
       A numpy array of size w x h and values in 0-1 representing a gel image.
@@ -59,10 +59,10 @@ class BandsPattern:
     gel_image_width
       Width of the gel_image display (remember that the width of the column is
       1.0, so 0.2 means this 'photo' will occupy 1/5 of the column, the rest
-      being occupied by the pattern plot)
-    
+      being occupied by the pattern plot).
+
     band_is_uncut
-      If True, a "UNCUT" message will be added under the single band
+      If True, a "UNCUT" message will be added under the single band.
     """
 
     def __init__(
@@ -79,12 +79,10 @@ class BandsPattern:
         global_bands_props=None,
         gel_image=None,
         gel_image_width=0.2,
-        band_is_uncut=False
+        band_is_uncut=False,
     ):
         self.bands = [
-            Band(band, ladder=ladder)
-            if isinstance(band, (int, float))
-            else band
+            Band(band, ladder=ladder) if isinstance(band, (int, float)) else band
             for band in bands
         ]
         self.global_bands_props = (
@@ -118,9 +116,7 @@ class BandsPattern:
             for e in zip(
                 *[
                     (band.dna_size, band.migration_distance)
-                    for band in sorted(
-                        set(self.bands), key=lambda b: b.dna_size
-                    )
+                    for band in sorted(set(self.bands), key=lambda b: b.dna_size)
                 ]
             )
         ]
@@ -133,7 +129,7 @@ class BandsPattern:
         self._migration_to_dna_size_interpolator = None
 
     def dna_size_to_migration(self, dna_sizes):
-        """Return the migration distances for the given dna sizes"""
+        """Return the migration distances for the given dna sizes."""
         if self._dna_size_to_migration_interpolator is None:
             self._dna_size_to_migration_interpolator = CubicSpline(
                 self.dna_sizes, self.migration_distances, bc_type="natural"
@@ -144,21 +140,19 @@ class BandsPattern:
         """Return the dna sizes corresponding to the given migrations."""
         if self._migration_to_dna_size_interpolator is None:
             self._migration_to_dna_size_interpolator = CubicSpline(
-                self.migration_distances[::-1],
-                self.dna_sizes[::-1],
-                bc_type="natural",
+                self.migration_distances[::-1], self.dna_sizes[::-1], bc_type="natural",
             )
         return self._migration_to_dna_size_interpolator(migration_distances)
 
     def _processed_bands(self):
-        """Return the bands modified by ``self.global_bands_props``"""
+        """Return the bands modified by ``self.global_bands_props``."""
         if self.global_bands_props == {}:
             return self.bands
         else:
             return [b.modified(**self.global_bands_props) for b in self.bands]
 
     def _plot_background(self, ax, x_coord):
-        """Return the bands modified by ``self.global_bands_props``"""
+        """Return the bands modified by ``self.global_bands_props``."""
         if self.background_color is None:
             return
         ax.axvspan(
@@ -169,7 +163,7 @@ class BandsPattern:
         )
 
     def _plot_gel_image(self, ax, x_coord):
-        """Plot the gel image ('photo') at the given coordinates"""
+        """Plot the gel image ('photo') at the given coordinates."""
         if self.gel_image is None:
             return
         # bottom left width height
@@ -249,15 +243,13 @@ class BandsPattern:
             transform=ax.transData,
             alpha=0.3,
         )
-    
+
     def _plot_band_is_uncut(self, ax, x_coord):
         if not self.band_is_uncut:
             return
         max_ladder_migration_distance = max(self.ladder.migration_distances)
         uncut_label_space = max_ladder_migration_distance / 30.0
-        fontdict = updated_dict(
-            {"size": 5.5}, self.corner_note_fontdict
-        )
+        fontdict = updated_dict({"size": 5.5}, self.corner_note_fontdict)
         ax.text(
             x_coord,
             -self.bands[0].migration_distance - uncut_label_space,
@@ -279,7 +271,7 @@ class BandsPattern:
         self._plot_band_is_uncut(ax, x_coord)
 
     def merge_with(self, other):
-        """Merge this band pattern with another pattern's bands"""
+        """Merge this band pattern with another pattern's bands."""
         return self.modified(bands=self.bands + other.bands)
 
     def modified(self, **attributes):

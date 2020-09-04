@@ -1,9 +1,6 @@
 from copy import deepcopy
-import sys
-from collections import defaultdict, OrderedDict
-from base64 import b64encode
+from collections import OrderedDict
 import itertools
-
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -36,7 +33,7 @@ except ImportError:
 
     class DigestGraphicTranslator:
         """Not available, install dna_features_viewer.
-        
+
         pip install dna_features_viewer
         """
 
@@ -81,15 +78,13 @@ def annotate_digestion_bands(record, enzymes, ladder):
     return new_record
 
 
-def plot_record_digestion(
-    record_digestion, ladder, record_label, digestion_label
-):
+def plot_record_digestion(record_digestion, ladder, record_label, digestion_label):
     """Plot the digestion along with a schema of cuts locations in the record.
-    
+
     Parameters
     ----------
     record_digestion
-      Biopython record with features indicating bands
+      Biopython record with features indicating bands.
 
     ladder
 
@@ -97,7 +92,7 @@ def plot_record_digestion(
       Label to use as the title of the record digestion plot.
 
     digestion_label
-      Label to use as the title of the bands pattern(s)
+      Label to use as the title of the bands pattern(s).
 
     """
     gs = gridspec.GridSpec(4, 10)
@@ -140,10 +135,7 @@ def plot_record_digestion(
     gr_record.plot(ax=ax_record, with_ruler=False)
     linear = record_is_linear(record_digestion, default=False)
     pattern = BandsPattern(
-        [
-            Band(dnasize, ladder=ladder, label=label)
-            for label, dnasize, _ in bands
-        ],
+        [Band(dnasize, ladder=ladder, label=label) for label, dnasize, _ in bands],
         ladder=ladder,
         topology="linear" if linear else "circular",
     )
@@ -163,7 +155,7 @@ def plot_records_digestions(
     target, ladder, records_and_digestions=None, records=None, digestions=None
 ):
     """Plot records digestions in a multipage PDF file.
-    
+
     Parameters
     ----------
 
@@ -174,19 +166,18 @@ def plot_records_digestions(
 
     records
       List of biopython records whose digests need to be digested by the
-      ``digestions``
-    
+      ``digestions``.
+
     digestions
       List of tuples of enzyme names e.g. ``[('BsaI',),`('MfeI', 'BsmBI')...]``
-      representing the digestions for the provided ``records``
-    
+      representing the digestions for the provided ``records``.
+
     ladder
-      A Ladder object representing the ladder to be used for placing the bands
-      
-    
+      A Ladder object representing the ladder to be used for placing the bands.
+
     target
       path to a PDF file, or file-like object.
-    
+
     full_report
     """
     if records_and_digestions is None:
@@ -198,13 +189,8 @@ def plot_records_digestions(
             if record_label not in annotated_records:
                 annotated_records[record_label] = OrderedDict()
             enzymes_label = " + ".join(sorted(enzymes))
-            basename = "%s--%s" % (
-                record_label.replace(" ", "_"),
-                "+".join(enzymes),
-            )
-            record_digestion = annotate_digestion_bands(
-                record, enzymes, ladder
-            )
+            basename = "%s--%s" % (record_label.replace(" ", "_"), "+".join(enzymes),)
+            record_digestion = annotate_digestion_bands(record, enzymes, ladder)
             record_digestion.id = basename
             annotated_records[record_label][enzymes_label] = record_digestion
             (ax, _, _) = plot_record_digestion(
@@ -225,20 +211,20 @@ def plot_all_digestion_patterns(
     plot_ladder=False,
 ):
     """Plot a grid (RECORD x DIGESTION) of predicted records digestions.
-    
+
     Parameters
     ----------
     records
       List of biopython records whose digests need to be digested by the
-      ``digestions``
-    
+      ``digestions``.
+
     digestions
       List of tuples of enzyme names e.g. ``[('BsaI',),`('MfeI', 'BsmBI')...]``
-      representing the digestions for the provided ``records``
+      representing the digestions for the provided ``records``.
 
     ladder
       A Ladder object representing the ladder to be used for placing the bands
-    axes
+    axes.
       If None, new axes will be created.
 
     group_by
@@ -250,8 +236,8 @@ def plot_all_digestion_patterns(
     """
     all_patterns = OrderedDict()
     for record in records:
-        topology = record.annotations.get('topology', 'linear')
-        linear = (topology == 'linear')
+        topology = record.annotations.get("topology", "linear")
+        linear = topology == "linear"
         for enzymes in digestions:
             enzymes_label = " + ".join(sorted(enzymes))
             bands = compute_digestion_bands(record.seq, enzymes, linear=linear)

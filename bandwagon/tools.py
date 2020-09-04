@@ -1,7 +1,6 @@
 """Basic useful functions for computing bands and comparing patterns."""
 import os
 from Bio.Seq import Seq
-from copy import deepcopy
 from Bio.SeqRecord import SeqRecord
 from Bio import Restriction
 from Bio import SeqIO
@@ -10,7 +9,6 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 from snapgene_reader import snapgene_file_to_seqrecord
 import numpy as np
-
 
 
 def random_dna_sequence(length):
@@ -41,24 +39,24 @@ def find_cut_sites(sequence, enzymes, linear=True):
 
 
 def compute_digestion_bands(sequence, enzymes, linear="auto_or_true"):
-    """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion
+    """Return the band sizes [75, 2101, ...] resulting from enzymatic digestion.
 
     Parameters
     ----------
 
     sequence
-      Sequence to be digested. Either a string ("ATGC...") or a BioPython `Seq`
+      Sequence to be digested. Either a string ("ATGC...") or a BioPython `Seq`.
 
     enzymes
       list of all enzymes placed at the same time in the digestion mix
-      e.g. `["EcoRI", "BamHI"]`
+      e.g. `["EcoRI", "BamHI"]`.
 
     linear
       True if the DNA fragment is linearized, False if it is circular. If you
       leave it to the default "auto_or_true", the function will read the
       topology from the sequence if it is a record with
       ``record.annotations['topology']`` set to "circular" or "linear", else it
-      will default to true
+      will default to True.
     """
     if linear == "auto_or_true":
         linear = True
@@ -67,22 +65,16 @@ def compute_digestion_bands(sequence, enzymes, linear="auto_or_true"):
                 linear = False
     cut_sites = find_cut_sites(sequence, enzymes, linear=linear)
     cut_sites = [0] + cut_sites + [len(sequence)]
-    bands_sizes = [
-        end - start for (start, end) in zip(cut_sites, cut_sites[1:])
-    ]
+    bands_sizes = [end - start for (start, end) in zip(cut_sites, cut_sites[1:])]
     if not linear and len(bands_sizes) > 1:
         bands_sizes[0] += bands_sizes.pop()
     return sorted(bands_sizes)
 
 
 def annotate_record(
-    seqrecord,
-    location="full",
-    feature_type="misc_feature",
-    margin=0,
-    **qualifiers
+    seqrecord, location="full", feature_type="misc_feature", margin=0, **qualifiers
 ):
-    """Add a feature to a Biopython SeqRecord. (also returns that same record)
+    """Add a feature to a Biopython SeqRecord. (also returns that same record).
     """
     if location == "full":
         location = (margin, len(seqrecord) - margin)
@@ -100,7 +92,7 @@ def annotate_record(
 
 def place_inset_ax_in_data_coordinates(ax, bbox):
     """Return an ax inset in the given ax at the given bbox in
-    data coordinates (left, bottom, width, height)"""
+    data coordinates (left, bottom, width, height)."""
 
     left, bottom, width, height = bbox
     pixels_data_00 = ax.transData.transform([0, 0])
@@ -129,7 +121,6 @@ def updated_dict(dic1, dic2):
     return dic1
 
 
-
 def load_record(
     record_file,
     topology="auto",
@@ -147,7 +138,7 @@ def load_record(
     record_file
       A genbank file, a fasta file, a snapgene file, or a filelike object
       (at which case the format, genbank or fasta, must be given with
-      ``file_format``)
+      ``file_format``).
 
     topology
       Either circular or linear or auto. If auto, then will attempt to read
@@ -172,7 +163,7 @@ def load_record(
     file_format
       Indicates the file format for the parser, when record_file is a filelike
       object.
-  
+
     """
     if file_format is not None:
         record = SeqIO.read(record_file, file_format)
@@ -204,11 +195,12 @@ def load_record(
 
 
 def record_is_linear(record, default=True):
-    """Return True if record.annotations['topology'] == 'linear'"""
+    """Return True if record.annotations['topology'] == 'linear'."""
     if "topology" not in record.annotations:
         return default
     else:
         return record.annotations["topology"] == "linear"
+
 
 def set_record_topology(record, topology, pass_if_already_set=False):
     """Set record.annotations['topology'] (if not already set?)"""
