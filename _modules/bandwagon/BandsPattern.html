@@ -14,10 +14,10 @@
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
 
       <!-- sphinx script_files -->
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
 
       
       <script src="../../_static/theme-vendors.js"></script>
@@ -187,11 +187,11 @@
 <span></span><span class="sd">&quot;&quot;&quot;Define Bandwagon&#39;s classes Band, BandPattern, BandsPatternsSet.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">CubicSpline</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">.tools</span> <span class="k">import</span> <span class="n">place_inset_ax_in_data_coordinates</span><span class="p">,</span> <span class="n">updated_dict</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">CubicSpline</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">place_inset_ax_in_data_coordinates</span><span class="p">,</span> <span class="n">updated_dict</span>
 
-<span class="kn">from</span> <span class="nn">.Band</span> <span class="k">import</span> <span class="n">Band</span>
+<span class="kn">from</span> <span class="nn">.Band</span> <span class="kn">import</span> <span class="n">Band</span>
 
 
 <div class="viewcode-block" id="BandsPattern"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern">[docs]</a><span class="k">class</span> <span class="nc">BandsPattern</span><span class="p">:</span>
@@ -202,19 +202,19 @@
 
 <span class="sd">    bands</span>
 <span class="sd">      Either a list of ``Band`` objects, or a list of DNA sizes e.g.</span>
-<span class="sd">      ``[800, 654, 1752]``. If the latter case, a ``ladder`` must be provided</span>
-<span class="sd">      to determine the elements</span>
+<span class="sd">      ``[800, 654, 1752]``. In the latter case, a ``ladder`` must be provided</span>
+<span class="sd">      to determine the elements.</span>
 
 <span class="sd">    ladder</span>
 <span class="sd">      A BandsPattern to use as a ladder in case ``bands`` is a list of DNA</span>
 <span class="sd">      sizes. Else leave it to None.</span>
 
 <span class="sd">    label</span>
-<span class="sd">      Label to be printed on top of the band pattern</span>
+<span class="sd">      Label to be printed on top of the band pattern.</span>
 
 <span class="sd">    label_fontdict</span>
 <span class="sd">      A dict indicating the format of the label if any provided. For instance</span>
-<span class="sd">      ``{&#39;size&#39;: 7, &#39;rotation&#39;:30, &#39;color&#39;: &#39;#0011aa&#39;}``</span>
+<span class="sd">      ``{&#39;size&#39;: 7, &#39;rotation&#39;:30, &#39;color&#39;: &#39;#0011aa&#39;}``.</span>
 
 <span class="sd">    corner_note</span>
 <span class="sd">      Note to be printed in small prints in the corner of the band lane.</span>
@@ -222,9 +222,9 @@
 
 <span class="sd">    corner_note_fontdict</span>
 <span class="sd">      A dict indicating the format of the label if any provided. For instance</span>
-<span class="sd">      ``{&#39;size&#39;: 6, &#39;color&#39;: &#39;#0011aa&#39;}``</span>
-<span class="sd">    </span>
-<span class="sd">    circularity</span>
+<span class="sd">      ``{&#39;size&#39;: 6, &#39;color&#39;: &#39;#0011aa&#39;}``.</span>
+
+<span class="sd">    topology</span>
 <span class="sd">      Another type of (top-right) corner note, either &quot;circular&quot; or &quot;linear&quot;.</span>
 
 <span class="sd">    background_color</span>
@@ -235,8 +235,8 @@
 <span class="sd">      Width of the column (better keep to 1.0 if you want my humble opinion)</span>
 
 <span class="sd">    global_bands_props</span>
-<span class="sd">      Dictionnary of band properties overwriting that of all bands in the</span>
-<span class="sd">      pattern, e.g. ``{&#39;color&#39;: &#39;#012ff45&#39;}``</span>
+<span class="sd">      Dictionary of band properties overwriting that of all bands in the</span>
+<span class="sd">      pattern, e.g. ``{&#39;color&#39;: &#39;#012ff45&#39;}``.</span>
 
 <span class="sd">    gel_image</span>
 <span class="sd">      A numpy array of size w x h and values in 0-1 representing a gel image.</span>
@@ -245,10 +245,13 @@
 <span class="sd">    gel_image_width</span>
 <span class="sd">      Width of the gel_image display (remember that the width of the column is</span>
 <span class="sd">      1.0, so 0.2 means this &#39;photo&#39; will occupy 1/5 of the column, the rest</span>
-<span class="sd">      being occupied by the pattern plot)</span>
-<span class="sd">     &quot;&quot;&quot;</span>
+<span class="sd">      being occupied by the pattern plot).</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+<span class="sd">    band_is_uncut</span>
+<span class="sd">      If True, a &quot;UNCUT&quot; message will be added under the single band.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">bands</span><span class="p">,</span>
         <span class="n">ladder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -256,17 +259,16 @@
         <span class="n">label_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">corner_note</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">corner_note_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">circularity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">topology</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">background_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
         <span class="n">global_bands_props</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">gel_image</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">gel_image_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+        <span class="n">band_is_uncut</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bands</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">Band</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
-            <span class="k">else</span> <span class="n">band</span>
+            <span class="n">Band</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">band</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">else</span> <span class="n">band</span>
             <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">bands</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">global_bands_props</span> <span class="o">=</span> <span class="p">(</span>
@@ -281,7 +283,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">corner_note</span> <span class="o">=</span> <span class="n">corner_note</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">corner_note_fontdict</span> <span class="o">=</span> <span class="n">corner_note_fontdict</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">circularity</span> <span class="o">=</span> <span class="n">circularity</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">=</span> <span class="n">topology</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">band_is_uncut</span> <span class="o">=</span> <span class="n">band_is_uncut</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
 
 <div class="viewcode-block" id="BandsPattern.initialize"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -299,9 +302,7 @@
             <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
                 <span class="o">*</span><span class="p">[</span>
                     <span class="p">(</span><span class="n">band</span><span class="o">.</span><span class="n">dna_size</span><span class="p">,</span> <span class="n">band</span><span class="o">.</span><span class="n">migration_distance</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
-                        <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">dna_size</span>
-                    <span class="p">)</span>
+                    <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="o">.</span><span class="n">dna_size</span><span class="p">)</span>
                 <span class="p">]</span>
             <span class="p">)</span>
         <span class="p">]</span>
@@ -314,7 +315,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_migration_to_dna_size_interpolator</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="BandsPattern.dna_size_to_migration"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern.dna_size_to_migration">[docs]</a>    <span class="k">def</span> <span class="nf">dna_size_to_migration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna_sizes</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the migration distances for the given dna sizes&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the migration distances for the given dna sizes.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna_size_to_migration_interpolator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dna_size_to_migration_interpolator</span> <span class="o">=</span> <span class="n">CubicSpline</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dna_sizes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">migration_distances</span><span class="p">,</span> <span class="n">bc_type</span><span class="o">=</span><span class="s2">&quot;natural&quot;</span>
@@ -325,21 +326,19 @@
         <span class="sd">&quot;&quot;&quot;Return the dna sizes corresponding to the given migrations.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_migration_to_dna_size_interpolator</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_migration_to_dna_size_interpolator</span> <span class="o">=</span> <span class="n">CubicSpline</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">migration_distances</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">dna_sizes</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                <span class="n">bc_type</span><span class="o">=</span><span class="s2">&quot;natural&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">migration_distances</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">dna_sizes</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">bc_type</span><span class="o">=</span><span class="s2">&quot;natural&quot;</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_migration_to_dna_size_interpolator</span><span class="p">(</span><span class="n">migration_distances</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_processed_bands</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the bands modified by ``self.global_bands_props``&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the bands modified by ``self.global_bands_props``.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_bands_props</span> <span class="o">==</span> <span class="p">{}:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bands</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">modified</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">global_bands_props</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_plot_background</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the bands modified by ``self.global_bands_props``&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return the bands modified by ``self.global_bands_props``.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span>
@@ -350,7 +349,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_plot_gel_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plot the gel image (&#39;photo&#39;) at the given coordinates&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Plot the gel image (&#39;photo&#39;) at the given coordinates.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gel_image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="c1"># bottom left width height</span>
@@ -413,8 +412,8 @@
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_plot_circularity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">circularity</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_plot_topology</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
             <span class="k">return</span>
         <span class="n">fontdict</span> <span class="o">=</span> <span class="n">updated_dict</span><span class="p">(</span>
             <span class="p">{</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">,</span> <span class="s2">&quot;rotation&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s2">&quot;stretch&quot;</span><span class="p">:</span> <span class="s2">&quot;condensed&quot;</span><span class="p">},</span>
@@ -423,12 +422,28 @@
         <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
             <span class="n">x_coord</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mf">2.1</span><span class="p">,</span>
             <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;LINEAR &quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">circularity</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span> <span class="k">else</span> <span class="s2">&quot;CIRCULAR &quot;</span><span class="p">,</span>
+            <span class="s2">&quot;LINEAR &quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">==</span> <span class="s2">&quot;linear&quot;</span> <span class="k">else</span> <span class="s2">&quot;CIRCULAR &quot;</span><span class="p">,</span>
             <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
             <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
             <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
             <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_plot_band_is_uncut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">band_is_uncut</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">max_ladder_migration_distance</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ladder</span><span class="o">.</span><span class="n">migration_distances</span><span class="p">)</span>
+        <span class="n">uncut_label_space</span> <span class="o">=</span> <span class="n">max_ladder_migration_distance</span> <span class="o">/</span> <span class="mf">30.0</span>
+        <span class="n">fontdict</span> <span class="o">=</span> <span class="n">updated_dict</span><span class="p">({</span><span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">},</span> <span class="bp">self</span><span class="o">.</span><span class="n">corner_note_fontdict</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">x_coord</span><span class="p">,</span>
+            <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">bands</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">migration_distance</span> <span class="o">-</span> <span class="n">uncut_label_space</span><span class="p">,</span>
+            <span class="s2">&quot;UNCUT&quot;</span><span class="p">,</span>
+            <span class="n">horizontalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+            <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transData</span><span class="p">,</span>
         <span class="p">)</span>
 
 <div class="viewcode-block" id="BandsPattern.plot"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern.plot">[docs]</a>    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">):</span>
@@ -438,10 +453,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_plot_label</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plot_gel_image</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_plot_corner_note</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_circularity</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_topology</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_plot_band_is_uncut</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_coord</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BandsPattern.merge_with"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern.merge_with">[docs]</a>    <span class="k">def</span> <span class="nf">merge_with</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Merge this band pattern with another pattern&#39;s bands&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Merge this band pattern with another pattern&#39;s bands.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">modified</span><span class="p">(</span><span class="n">bands</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bands</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">bands</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BandsPattern.modified"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPattern.BandsPattern.modified">[docs]</a>    <span class="k">def</span> <span class="nf">modified</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">attributes</span><span class="p">):</span>
@@ -458,7 +474,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2019, Edinburgh Genome Foundry.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
 </div>
             </div>
           </div>

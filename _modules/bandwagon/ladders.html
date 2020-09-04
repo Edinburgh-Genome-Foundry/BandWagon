@@ -14,10 +14,10 @@
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
 
       <!-- sphinx script_files -->
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
 
       
       <script src="../../_static/theme-vendors.js"></script>
@@ -186,7 +186,7 @@
   <h1>Source code for bandwagon.ladders</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Definition of custom ladders for BandWagon.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.BandsPattern</span> <span class="k">import</span> <span class="n">Band</span><span class="p">,</span> <span class="n">BandsPattern</span>
+<span class="kn">from</span> <span class="nn">.BandsPattern</span> <span class="kn">import</span> <span class="n">Band</span><span class="p">,</span> <span class="n">BandsPattern</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">pandas</span>
@@ -210,11 +210,7 @@
         <span class="n">shift</span> <span class="o">=</span> <span class="n">min_migrations</span> <span class="o">-</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">ladder_span</span>
     <span class="k">return</span> <span class="n">BandsPattern</span><span class="p">(</span>
         <span class="p">[</span>
-            <span class="n">Band</span><span class="p">(</span>
-                <span class="n">size</span><span class="p">,</span>
-                <span class="n">migration_distance</span><span class="o">=</span><span class="n">migration</span> <span class="o">-</span> <span class="n">shift</span><span class="p">,</span>
-                <span class="n">band_color</span><span class="o">=</span><span class="s2">&quot;#8B0000&quot;</span><span class="p">,</span>
-            <span class="p">)</span>
+            <span class="n">Band</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">migration_distance</span><span class="o">=</span><span class="n">migration</span> <span class="o">-</span> <span class="n">shift</span><span class="p">,</span> <span class="n">band_color</span><span class="o">=</span><span class="s2">&quot;#8B0000&quot;</span><span class="p">,)</span>
             <span class="k">for</span> <span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">migration</span><span class="p">)</span> <span class="ow">in</span> <span class="n">bands_migrations</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">],</span>
         <span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;#ffffff&quot;</span><span class="p">,</span>
@@ -222,9 +218,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ladder_from_aati_fa_calibration_table"><a class="viewcode-back" href="../../ref.html#bandwagon.ladders.ladder_from_aati_fa_calibration_table">[docs]</a><span class="k">def</span> <span class="nf">ladder_from_aati_fa_calibration_table</span><span class="p">(</span>
-    <span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span>
-<span class="p">):</span>
+<div class="viewcode-block" id="ladder_from_aati_fa_calibration_table"><a class="viewcode-back" href="../../ref.html#bandwagon.ladders.ladder_from_aati_fa_calibration_table">[docs]</a><span class="k">def</span> <span class="nf">ladder_from_aati_fa_calibration_table</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Extract a BandPattern from an AATI Fragment Analyzer calibration file.</span>
 
 <span class="sd">    The calibration table is generated after each run from the migration</span>
@@ -241,7 +235,7 @@
 
 <span class="sd">    dataframe</span>
 <span class="sd">      Pandas dataframe obtained by reading the file, can be provided instead of</span>
-<span class="sd">      ``filepath``</span>
+<span class="sd">      ``filepath``.</span>
 
 <span class="sd">    label</span>
 <span class="sd">      Label that will be given to the ladder when plotted.</span>
@@ -258,11 +252,9 @@
 
     <span class="k">return</span> <span class="n">custom_ladder</span><span class="p">(</span>
         <span class="n">label</span><span class="p">,</span>
-        <span class="p">{</span>
-            <span class="n">row</span><span class="p">[</span><span class="s2">&quot;Ladder Size (bp)&quot;</span><span class="p">]:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;migration&quot;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()</span>
-        <span class="p">},</span>
+        <span class="p">{</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Ladder Size (bp)&quot;</span><span class="p">]:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;migration&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()},</span>
     <span class="p">)</span></div>
+
 
 <span class="n">LADDER_100_to_4k</span> <span class="o">=</span> <span class="n">custom_ladder</span><span class="p">(</span>
     <span class="s2">&quot;100-4k&quot;</span><span class="p">,</span>
@@ -281,7 +273,6 @@
         <span class="mi">4000</span><span class="p">:</span> <span class="mi">65</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">)</span>
-
 </pre></div>
 
           </div>
@@ -290,7 +281,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2019, Edinburgh Genome Foundry.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
 </div>
             </div>
           </div>

@@ -14,10 +14,10 @@
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
 
       <!-- sphinx script_files -->
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
 
       
       <script src="../../_static/theme-vendors.js"></script>
@@ -188,18 +188,20 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">.tools</span> <span class="k">import</span> <span class="p">(</span><span class="n">updated_dict</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">updated_dict</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="k">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">figure</span>
-    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="k">import</span> <span class="n">HoverTool</span><span class="p">,</span> <span class="n">Range1d</span><span class="p">,</span> <span class="n">FixedTicker</span>
-    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="k">import</span> <span class="n">FuncTickFormatter</span>
+    <span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">figure</span>
+    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">HoverTool</span><span class="p">,</span> <span class="n">Range1d</span><span class="p">,</span> <span class="n">FixedTicker</span>
+    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">FuncTickFormatter</span>
     <span class="kn">import</span> <span class="nn">pandas</span>
+
     <span class="n">BOKEH_PANDAS_AVAILABLE</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="n">BOKEH_PANDAS_AVAILABLE</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="kn">from</span> <span class="nn">.BandsPattern</span> <span class="k">import</span> <span class="n">BandsPattern</span>
+<span class="kn">from</span> <span class="nn">.BandsPattern</span> <span class="kn">import</span> <span class="n">BandsPattern</span>
+
 
 <div class="viewcode-block" id="BandsPatternsSet"><a class="viewcode-back" href="../../ref.html#bandwagon.BandsPatternsSet.BandsPatternsSet">[docs]</a><span class="k">class</span> <span class="nc">BandsPatternsSet</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; A set of band patterns, that will be plotted next to one another.</span>
@@ -216,16 +218,16 @@
 <span class="sd">      A BandsPattern to use as a ladder.</span>
 
 <span class="sd">    label</span>
-<span class="sd">      A label that will be displayed vertically on the left of the final plot</span>
+<span class="sd">      A label that will be displayed vertically on the left of the final plot.</span>
 
 <span class="sd">    label_fontdict</span>
-<span class="sd">      Font dictionnary for the label e.g. {&#39;color&#39;: &#39;red&#39;, &#39;size&#39;: 7}</span>
+<span class="sd">      Font dictionary for the label e.g. {&#39;color&#39;: &#39;red&#39;, &#39;size&#39;: 7}.</span>
 
 <span class="sd">    global_patterns_props</span>
-<span class="sd">      Properties that override that of each pattern in the set</span>
+<span class="sd">      Properties that override that of each pattern in the set.</span>
 
 <span class="sd">    ladder_ticks</span>
-<span class="sd">      List of dna sizes that will be represented by ticks on the left of the</span>
+<span class="sd">      List of DNA sizes that will be represented by ticks on the left of the</span>
 <span class="sd">      plot to guide the reading.</span>
 
 <span class="sd">    ticks_fontdict</span>
@@ -238,19 +240,26 @@
 <span class="sd">      ``alternate_background_colors``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">ladder</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">global_patterns_props</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ladder_ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">ticks_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">alternate_background_colors</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;#e2edff&quot;</span><span class="p">,</span> <span class="s2">&quot;#fffae2&quot;</span><span class="p">)):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">patterns</span><span class="p">,</span>
+        <span class="n">ladder</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">label_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">global_patterns_props</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ladder_ticks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">ticks_fontdict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">alternate_background_colors</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;#e2edff&quot;</span><span class="p">,</span> <span class="s2">&quot;#fffae2&quot;</span><span class="p">),</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">patterns</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">BandsPattern</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
-            <span class="k">else</span> <span class="n">p</span>
+            <span class="n">BandsPattern</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ladder</span><span class="o">=</span><span class="n">ladder</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="k">else</span> <span class="n">p</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">patterns</span>
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label_fontdict</span> <span class="o">=</span> <span class="n">label_fontdict</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">global_patterns_props</span> <span class="o">=</span> <span class="p">({}</span> <span class="k">if</span> <span class="n">global_patterns_props</span> <span class="ow">is</span> <span class="kc">None</span>
-                                      <span class="k">else</span> <span class="n">global_patterns_props</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">global_patterns_props</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">{}</span> <span class="k">if</span> <span class="n">global_patterns_props</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">global_patterns_props</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alternate_background_colors</span> <span class="o">=</span> <span class="n">alternate_background_colors</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ladder</span> <span class="o">=</span> <span class="n">ladder</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ladder_ticks</span> <span class="o">=</span> <span class="n">ladder_ticks</span>
@@ -275,16 +284,17 @@
         <span class="k">return</span> <span class="n">new_patterns</span>
 
     <span class="k">def</span> <span class="nf">_plot_ladder_ticks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Plot the ticks indicating the DNA sizes on the left of the plot&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Plot the ticks indicating the DNA sizes on the left of the plot.&quot;&quot;&quot;</span>
         <span class="n">ticks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ladder_ticks</span>
         <span class="k">if</span> <span class="n">ticks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ladder</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Provide a `ladder` to BandsPatternsSet to enable&quot;</span>
-                             <span class="s2">&quot; ladder ticks display.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Provide a `ladder` to BandsPatternsSet to enable&quot;</span>
+                <span class="s2">&quot; ladder ticks display.&quot;</span>
+            <span class="p">)</span>
         <span class="n">fontdict</span> <span class="o">=</span> <span class="n">updated_dict</span><span class="p">(</span>
-            <span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ticks_fontdict</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ticks_fontdict</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">bmin</span><span class="p">,</span> <span class="n">bmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ladder</span><span class="o">.</span><span class="n">migration_distances_span</span>
@@ -294,14 +304,13 @@
         <span class="n">yticks</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">ladder</span><span class="o">.</span><span class="n">dna_size_to_migration</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">ticks</span><span class="p">]</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">ticks</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_plot_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Plot the label of the figure on the left.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span>
-        <span class="n">fontdict</span> <span class="o">=</span> <span class="n">updated_dict</span><span class="p">({</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">},</span>
-                                <span class="bp">self</span><span class="o">.</span><span class="n">label_fontdict</span><span class="p">)</span>
+        <span class="n">fontdict</span> <span class="o">=</span> <span class="n">updated_dict</span><span class="p">({</span><span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">},</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_fontdict</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">fontdict</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_plot_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ax</span><span class="p">):</span>
@@ -354,58 +363,85 @@
         <span class="n">max_migration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ladder</span><span class="o">.</span><span class="n">migration_distances</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="n">mmin</span><span class="p">,</span> <span class="n">mmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ladder</span><span class="o">.</span><span class="n">migration_distances_span</span>
         <span class="n">hw</span> <span class="o">=</span> <span class="mf">0.002</span> <span class="o">*</span> <span class="nb">abs</span><span class="p">(</span><span class="n">mmax</span> <span class="o">-</span> <span class="n">mmin</span><span class="p">)</span>
-        <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">HoverTool</span><span class="p">(</span><span class="n">tooltips</span><span class="o">=</span><span class="s2">&quot;@html&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bands&quot;</span><span class="p">])]</span> <span class="o">+</span>
-                           <span class="p">[</span><span class="s2">&quot;xwheel_zoom,xpan,reset&quot;</span><span class="p">],</span>
-                     <span class="n">plot_height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">plot_width</span><span class="o">=</span><span class="n">band_width_pixels</span> <span class="o">*</span> <span class="n">max_x</span><span class="p">,</span>
-                     <span class="n">x_range</span><span class="o">=</span><span class="n">Range1d</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">max_x</span><span class="p">),</span>  <span class="c1"># labels,</span>
-                     <span class="n">y_range</span><span class="o">=</span><span class="n">Range1d</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span> <span class="o">*</span> <span class="n">max_migration</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                     <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
-                     <span class="n">x_axis_location</span><span class="o">=</span><span class="s2">&quot;above&quot;</span><span class="p">,</span>
-                     <span class="n">title_location</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">,</span>
-                     <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">HoverTool</span><span class="p">(</span><span class="n">tooltips</span><span class="o">=</span><span class="s2">&quot;@html&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;bands&quot;</span><span class="p">])]</span>
+            <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;xwheel_zoom,xpan,reset&quot;</span><span class="p">],</span>
+            <span class="n">plot_height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+            <span class="n">plot_width</span><span class="o">=</span><span class="n">band_width_pixels</span> <span class="o">*</span> <span class="n">max_x</span><span class="p">,</span>
+            <span class="n">x_range</span><span class="o">=</span><span class="n">Range1d</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">max_x</span><span class="p">),</span>  <span class="c1"># labels,</span>
+            <span class="n">y_range</span><span class="o">=</span><span class="n">Range1d</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span> <span class="o">*</span> <span class="n">max_migration</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+            <span class="n">x_axis_location</span><span class="o">=</span><span class="s2">&quot;above&quot;</span><span class="p">,</span>
+            <span class="n">title_location</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+        <span class="p">)</span>
         <span class="n">label_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">pattern</span><span class="o">.</span><span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">pattern</span><span class="o">.</span><span class="n">label</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">xaxis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ticker</span> <span class="o">=</span> <span class="n">FixedTicker</span><span class="p">(</span>
-            <span class="n">ticks</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
-        <span class="n">fig</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">FuncTickFormatter</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">xaxis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ticker</span> <span class="o">=</span> <span class="n">FixedTicker</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patterns</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">formatter</span> <span class="o">=</span> <span class="n">FuncTickFormatter</span><span class="p">(</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">            var labels = </span><span class="si">%s</span><span class="s2">;</span>
 <span class="s2">            return labels[tick];</span>
-<span class="s2">        &quot;&quot;&quot;</span> <span class="o">%</span> <span class="n">label_dict</span><span class="p">)</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+            <span class="o">%</span> <span class="n">label_dict</span>
+        <span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;backgrounds&quot;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-            <span class="n">right</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">pattern</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
-                    <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">pattern</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
-                    <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                    <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">max_migration</span><span class="p">,</span>
-                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">pattern</span><span class="o">.</span><span class="n">background_color</span><span class="p">,</span>
-                <span class="p">}</span>
-                <span class="k">for</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_patterns</span><span class="p">())</span>
-            <span class="p">])))</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;backgrounds&quot;</span><span class="p">,</span>
+            <span class="n">top</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+            <span class="n">bottom</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+            <span class="n">right</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span>
+                <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">pattern</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">pattern</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+                            <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                            <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">max_migration</span><span class="p">,</span>
+                            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">pattern</span><span class="o">.</span><span class="n">background_color</span><span class="p">,</span>
+                        <span class="p">}</span>
+                        <span class="k">for</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_patterns</span><span class="p">())</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
 
         <span class="n">fig</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span>
-            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bands&quot;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
-            <span class="n">right</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
-            <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span>
-                <span class="p">{</span>
-                    <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_width</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                    <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_width</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                    <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">band</span><span class="o">.</span><span class="n">migration_distance</span> <span class="o">-</span>
-                                      <span class="n">hw</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_thickness</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                    <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">band</span><span class="o">.</span><span class="n">migration_distance</span> <span class="o">+</span>
-                                         <span class="n">hw</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_thickness</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-                    <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">band</span><span class="o">.</span><span class="n">band_color</span><span class="p">,</span>
-                    <span class="s2">&quot;html&quot;</span><span class="p">:</span> <span class="n">band</span><span class="o">.</span><span class="n">html</span> <span class="k">if</span> <span class="n">band</span><span class="o">.</span><span class="n">html</span> <span class="k">else</span> <span class="p">(</span>
-                        <span class="n">band</span><span class="o">.</span><span class="n">label</span> <span class="k">if</span> <span class="n">band</span><span class="o">.</span><span class="n">label</span> <span class="k">else</span> <span class="p">(</span>
-                            <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> bp&quot;</span> <span class="o">%</span> <span class="n">band</span><span class="o">.</span><span class="n">dna_size</span><span class="p">))</span>
-                <span class="p">}</span>
-                <span class="k">for</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_patterns</span><span class="p">())</span>
-                <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">bands</span>
-            <span class="p">])))</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bands&quot;</span><span class="p">,</span>
+            <span class="n">top</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+            <span class="n">bottom</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span>
+            <span class="n">right</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;color&quot;</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">ColumnDataSource</span><span class="p">(</span>
+                <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_width</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                            <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x_coord</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_width</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                            <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
+                                <span class="n">band</span><span class="o">.</span><span class="n">migration_distance</span> <span class="o">-</span> <span class="n">hw</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_thickness</span><span class="p">,</span> <span class="mi">2</span>
+                            <span class="p">),</span>
+                            <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span>
+                                <span class="n">band</span><span class="o">.</span><span class="n">migration_distance</span> <span class="o">+</span> <span class="n">hw</span> <span class="o">*</span> <span class="n">band</span><span class="o">.</span><span class="n">band_thickness</span><span class="p">,</span> <span class="mi">2</span>
+                            <span class="p">),</span>
+                            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">band</span><span class="o">.</span><span class="n">band_color</span><span class="p">,</span>
+                            <span class="s2">&quot;html&quot;</span><span class="p">:</span> <span class="n">band</span><span class="o">.</span><span class="n">html</span>
+                            <span class="k">if</span> <span class="n">band</span><span class="o">.</span><span class="n">html</span>
+                            <span class="k">else</span> <span class="p">(</span>
+                                <span class="n">band</span><span class="o">.</span><span class="n">label</span> <span class="k">if</span> <span class="n">band</span><span class="o">.</span><span class="n">label</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> bp&quot;</span> <span class="o">%</span> <span class="n">band</span><span class="o">.</span><span class="n">dna_size</span><span class="p">)</span>
+                            <span class="p">),</span>
+                        <span class="p">}</span>
+                        <span class="k">for</span> <span class="n">x_coord</span><span class="p">,</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed_patterns</span><span class="p">())</span>
+                        <span class="k">for</span> <span class="n">band</span> <span class="ow">in</span> <span class="n">pattern</span><span class="o">.</span><span class="n">bands</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
 
         <span class="n">fig</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">outline_line_color</span> <span class="o">=</span> <span class="kc">None</span>
@@ -423,7 +459,7 @@
 </ul><div class="footer" role="contentinfo">
       &#169; Copyright 2019, Edinburgh Genome Foundry.
     <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
 </div>
             </div>
           </div>
