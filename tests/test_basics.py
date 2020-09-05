@@ -29,7 +29,7 @@ ladder = LADDER_100_to_4k.modified(label="Ladder", background_color="#ffebe6")
 
 def test_random_dna_sequence():
     assert len(random_dna_sequence(5)) == 5
-    assert set(random_dna_sequence(15)) == set(["A", "T", "C", "G"])
+    assert len(set(random_dna_sequence(15)) | set(["A", "T", "C", "G"])) == 4
 
 
 def test_sequence_to_biopython_record():
