@@ -5,9 +5,9 @@
     <br /><br />
     </p>
 
-.. image:: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon.svg?branch=master
-   :target: https://travis-ci.org/Edinburgh-Genome-Foundry/BandWagon
-   :alt: Travis CI build status
+.. image:: https://github.com/Edinburgh-Genome-Foundry/BandWagon/actions/workflows/build.yml/badge.svg
+    :target: https://github.com/Edinburgh-Genome-Foundry/BandWagon/actions/workflows/build.yml
+    :alt: GitHub CI build status
 
 .. image:: https://coveralls.io/repos/github/Edinburgh-Genome-Foundry/BandWagon/badge.svg?branch=master
    :target: https://coveralls.io/github/Edinburgh-Genome-Foundry/BandWagon?branch=master
@@ -27,7 +27,7 @@ Bandwagon
 =========
 
 License = MIT
---------------
+-------------
 
 Bandwagon is an open-source software originally written at the `Edinburgh Genome Foundry
 <http://edinburgh-genome-foundry.github.io/home.html>`_ by `Zulko <https://github.com/Zulko>`_
@@ -36,30 +36,30 @@ and `released on Github <https://github.com/Edinburgh-Genome-Foundry/Bandwagon>`
 Everyone is welcome to contribute!
 
 Installation
---------------
+------------
 
 If you have pip installed, just type:
 
 .. code:: shell
 
-    (sudo) pip install bandwagon
+    pip install bandwagon
 
 Bandwagon can be installed by unzipping the source code in one directory and using this command:
 
 .. code:: shell
 
-    (sudo) python setup.py install
+    python setup.py install
 
-To create interactive bokeh plots you will need to additionally install Bokeh and Pandas with
+To create interactive bokeh plots you will need to additionally install Bokeh and Pandas with:
 
 .. code:: shell
 
-    (sudo) pip install bokeh pandas
+    pip install bokeh pandas
 
 
 
 Examples of use
-----------------
+---------------
 
 
 Computing digestion band sizes
@@ -89,7 +89,7 @@ a linear fragment, a circular fragment, and a multi-enzymes digestion:
     # Result >>> [400, 417, 600, 3583]
 
 Plotting bands
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 ..  code:: python
 
@@ -179,7 +179,7 @@ with one page per construct and digestion, looking like this:
     :align: center
 
 Using a custom ladder
-~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 You can define a custom ladder by providing a dictionary of the form
 
