@@ -91,7 +91,6 @@ def plot_record_digestion(record_digestion, ladder, record_label, digestion_labe
 
     digestion_label
       Label to use as the title of the bands pattern(s).
-
     """
     gs = gridspec.GridSpec(4, 10)
 
@@ -157,6 +156,12 @@ def plot_records_digestions(
     Parameters
     ----------
 
+    target
+      path to a PDF file, or file-like object.
+
+    ladder
+      A Ladder object representing the ladder to be used for placing the bands.
+
     records_and_digestions
       A list [(record, digestion), ...] where record is a Genbank record and
       digestions a tuple of enzymes. Alternatively, a list of ``records`` and
@@ -169,14 +174,6 @@ def plot_records_digestions(
     digestions
       List of tuples of enzyme names e.g. ``[('BsaI',),`('MfeI', 'BsmBI')...]``
       representing the digestions for the provided ``records``.
-
-    ladder
-      A Ladder object representing the ladder to be used for placing the bands.
-
-    target
-      path to a PDF file, or file-like object.
-
-    full_report
     """
     if records_and_digestions is None:
         records_and_digestions = itertools.product(records, digestions)
@@ -224,8 +221,7 @@ def plot_all_digestion_patterns(
       representing the digestions for the provided ``records``.
 
     ladder
-      A Ladder object representing the ladder to be used for placing the bands
-    axes.
+      A Ladder object representing the ladder to be used for placing the bands axes.
       If None, new axes will be created.
 
     group_by
@@ -234,6 +230,7 @@ def plot_all_digestion_patterns(
     show_band_sizes
       If true, the band sizes will be printed on each band.
 
+    plot_ladder
     """
     all_patterns = OrderedDict()
     for record in records:

@@ -1,6 +1,6 @@
 .. _computeDigestionsBands:
 
-Compute digestions bands
--------------------------
+Compute digestion bands
+-----------------------
 
 .. literalinclude:: ../../examples/compute_digestion_bands.py

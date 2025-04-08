@@ -42,7 +42,7 @@ class Band:
       ``{'size': 7, 'weight':'bold', 'color': '#0011aa'}``.
 
     html
-      Html appearing when hovering the band.
+      HTML appearing when hovering the band.
     """
 
     def __init__(

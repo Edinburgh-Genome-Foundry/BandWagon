@@ -164,11 +164,11 @@ class BandsPatternsSet:
 
         max_visible_patterns
           Max number of patterns that will be visible at the same time.
-          A horizontal scroll will allow to see more patterns if there are more
+          A horizontal scroll will allow to see more patterns if there are more.
 
         band_width_pixels
           Size of a band width in pixels on the screen. Said otherwise, the
-          final figure will have a width of ``band_width_pixels * visible``
+          final figure will have a width of ``band_width_pixels * visible``.
         """
 
         if not BOKEH_PANDAS_AVAILABLE:

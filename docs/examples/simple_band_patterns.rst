@@ -1,7 +1,7 @@
 .. _simpleBandsPatterns:
 
-Simple Bands patterns
-----------------------
+Simple band patterns
+--------------------
 
 .. literalinclude:: ../../examples/simple_band_patterns.py
 

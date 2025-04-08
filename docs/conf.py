@@ -14,6 +14,8 @@
 import sys, os
 import bandwagon
 
+sys.path.insert(0, os.path.abspath("../bandwagon/"))
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -28,11 +30,13 @@ import bandwagon
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
-    "numpydoc",
+    #     "numpydoc",
     "sphinx.ext.autosummary",
 ]
+napoleon_numpy_docstring = True
 numpydoc_show_class_members = False
 html_theme = "press"
 pygments_style = "monokai"
@@ -40,7 +44,7 @@ html_css_files = ["css/press_main.css"]
 
 
 def setup(app):
-    app.add_stylesheet("css/press_main.css")
+    app.add_css_file("css/press_main.css")
 
 
 html_theme_options = {
@@ -67,8 +71,8 @@ source_suffix = [".rst"]
 master_doc = "index"
 
 # General information about the project.
-project = u"Bandwagon"
-copyright = u"2019, Edinburgh Genome Foundry"
+project = "BandWagon"
+copyright = "2019 Edinburgh Genome Foundry, University of Edinburgh"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -207,7 +211,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ("index", "Bandwagon.tex", u"Bandwagon Documentation", u"Zulko", "manual")
+    ("index", "Bandwagon.tex", "Bandwagon Documentation", "Zulko", "manual")
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -235,9 +239,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ("index", "Bandwagon", u"PACKAGE_NAME Documentation", [u"Zulko"], 1)
-]
+man_pages = [("index", "Bandwagon", "PACKAGE_NAME Documentation", ["Zulko"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -252,8 +254,8 @@ texinfo_documents = [
     (
         "index",
         "Bandwagon",
-        u"Bandwagon Documentation",
-        u"Zulko",
+        "Bandwagon Documentation",
+        "Zulko",
         "Bandwagon",
         "One line description of project.",
         "Miscellaneous",
@@ -276,10 +278,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u"Bandwagon"
-epub_author = u"Zulko"
-epub_publisher = u"Zulko"
-epub_copyright = u"2019, Edinburgh Genome Foundry"
+epub_title = "Bandwagon"
+epub_author = "Zulko"
+epub_publisher = "Zulko"
+epub_copyright = "2019, Edinburgh Genome Foundry"
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
@@ -331,4 +333,3 @@ epub_copyright = u"2019, Edinburgh Genome Foundry"
 # epub_use_index = True
 
 # autodoc_member_order = 'bysource'
-

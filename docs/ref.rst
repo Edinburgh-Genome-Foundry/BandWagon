@@ -1,8 +1,8 @@
-Bandwagon Reference manual
+Bandwagon reference manual
 ==========================
 
-Ladders utilities
-------------------
+Ladder utilities
+----------------
 
 .. automodule:: bandwagon.ladders
    :members:
@@ -26,7 +26,7 @@ Band
    :members:
 
 Plots
------------
+-----
 
 .. automodule:: bandwagon.plot_records_digestions
    :members:

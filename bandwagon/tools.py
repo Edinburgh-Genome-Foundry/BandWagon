@@ -45,7 +45,7 @@ def compute_digestion_bands(sequence, enzymes, linear="auto_or_true"):
     ----------
 
     sequence
-      Sequence to be digested. Either a string ("ATGC...") or a BioPython `Seq`.
+      Sequence to be digested. Either a string ("ATGC...") or a Biopython `Seq`.
 
     enzymes
       list of all enzymes placed at the same time in the digestion mix
@@ -112,7 +112,6 @@ def updated_dict(dic1, dic2):
 
     Example
     -------
-
     >>> my_dict = updated_dict({"size": 7, "color": "r"}, some_defaults_dict)
     """
     if dic2 is not None:
@@ -162,7 +161,6 @@ def load_record(
     file_format
       Indicates the file format for the parser, when record_file is a filelike
       object.
-
     """
     if file_format is not None:
         record = SeqIO.read(record_file, file_format)
