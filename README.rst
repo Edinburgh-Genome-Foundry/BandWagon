@@ -13,7 +13,7 @@
    :target: https://coveralls.io/github/Edinburgh-Genome-Foundry/BandWagon?branch=master
 
 
-Bandwagon (full documentation `here
+BandWagon (full documentation `here
 <http://edinburgh-genome-foundry.github.io/BandWagon/>`_) is a Python library to predict and plot migration patterns
 from DNA digestions. It supports hundreds of different enzymes (thanks to BioPython),
 single- and multiple-enzyme digestions, and custom ladders.
@@ -23,34 +23,29 @@ It uses Matplotlib to produce plots like this one:
 .. figure:: https://raw.githubusercontent.com/Edinburgh-Genome-Foundry/BandWagon/master/examples/mixed_digestions.png
     :align: center
 
-Bandwagon
+BandWagon
 =========
 
 License = MIT
 -------------
 
-Bandwagon is an open-source software originally written at the `Edinburgh Genome Foundry
+BandWagon is an open-source software originally written at the `Edinburgh Genome Foundry
 <http://edinburgh-genome-foundry.github.io/home.html>`_ by `Zulko <https://github.com/Zulko>`_
-and `released on Github <https://github.com/Edinburgh-Genome-Foundry/Bandwagon>`_ under the MIT license (Copyright 2019 Edinburgh Genome Foundry).
+and `released on Github <https://github.com/Edinburgh-Genome-Foundry/BandWagon>`_ under
+the MIT license (Copyright 2019 Edinburgh Genome Foundry, University of Edinburgh).
 
 Everyone is welcome to contribute!
 
 Installation
 ------------
 
-If you have pip installed, just type:
+BandWagon can be installed with pip:
 
 .. code:: shell
 
     pip install bandwagon
 
-Bandwagon can be installed by unzipping the source code in one directory and using this command:
-
-.. code:: shell
-
-    python setup.py install
-
-To create interactive bokeh plots you will need to additionally install Bokeh and Pandas with:
+To create interactive Bokeh plots you will need to additionally install Bokeh and Pandas with:
 
 .. code:: shell
 
