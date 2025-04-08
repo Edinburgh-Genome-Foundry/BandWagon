@@ -12,7 +12,8 @@ patterns = [
     BandsPattern([400, 700], ladder, label="C5"),
     BandsPattern([400, 200, 1200], ladder, label="C6"),
 ]
-patterns_set = BandsPatternsSet(patterns=[ladder] + patterns, ladder=ladder,
-                                label="Digests", ladder_ticks=3)
+patterns_set = BandsPatternsSet(
+    patterns=[ladder] + patterns, ladder=ladder, label="Digests", ladder_ticks=3
+)
 ax = patterns_set.plot()
 ax.figure.savefig("simple_band_patterns.png", bbox_inches="tight", dpi=120)

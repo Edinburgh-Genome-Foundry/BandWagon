@@ -7,9 +7,7 @@ from bandwagon import (
 import os
 
 records = [
-    load_record(
-        os.path.join("records", filename), id=filename, topology="circular"
-    )
+    load_record(os.path.join("records", filename), id=filename, topology="circular")
     for filename in sorted(os.listdir("records"))
 ]
 digestions = [("BamHI", "NcoI"), ("BsaI", "XbaI"), ("StyI",)]
@@ -25,4 +23,3 @@ axes = plot_all_digestion_patterns(
     records=records, digestions=digestions, ladder=LADDER_100_to_4k
 )
 axes[0].figure.savefig("plot_all_digestion_patterns.png", bbox_inches="tight")
-
