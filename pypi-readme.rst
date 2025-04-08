@@ -14,12 +14,6 @@ It uses Matplotlib to produce plots like this one:
 Infos
 -----
 
-**PIP installation:**
-
-.. code:: bash
-
-  pip install bandwagon
-
 **Web documentation:** `<https://edinburgh-genome-foundry.github.io/bandwagon/>`_
 
 **Github page** `<https://github.com/Edinburgh-Genome-Foundry/bandwagon>`_

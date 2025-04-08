@@ -45,12 +45,11 @@ BandWagon can be installed with pip:
 
     pip install bandwagon
 
-To create interactive Bokeh plots you will need to additionally install Bokeh and Pandas with:
+To create interactive Bokeh plots, install additional packages with:
 
 .. code:: shell
 
-    pip install bokeh pandas
-
+    pip install bandwagon[bokeh]
 
 
 Examples of use

@@ -7,7 +7,7 @@ from .tools import updated_dict
 try:
     from bokeh.plotting import ColumnDataSource, figure
     from bokeh.models import HoverTool, Range1d, FixedTicker
-    from bokeh.models import FuncTickFormatter
+    from bokeh.models import CustomJSTickFormatter
     import pandas
 
     BOKEH_PANDAS_AVAILABLE = True
@@ -178,10 +178,9 @@ class BandsPatternsSet:
         mmin, mmax = self.ladder.migration_distances_span
         hw = 0.002 * abs(mmax - mmin)
         fig = figure(
-            tools=[HoverTool(tooltips="@html", names=["bands"])]
-            + ["xwheel_zoom,xpan,reset"],
-            plot_height=300,
-            plot_width=band_width_pixels * max_x,
+            tools=["xwheel_zoom,xpan,reset"],
+            height=300,
+            width=band_width_pixels * max_x,
             x_range=Range1d(0.5, max_x),  # labels,
             y_range=Range1d(-1.1 * max_migration, 0),
             toolbar_location="right",
@@ -189,12 +188,18 @@ class BandsPatternsSet:
             title_location="below",
             title=self.label,
         )
+        hover = HoverTool()
+        hover.tooltips = [
+            ("bands", "@html"),
+        ]
+        fig.add_tools(hover)
+
         label_dict = {
             i + 1: "" if (pattern.label is None) else pattern.label
             for i, pattern in enumerate(self.patterns)
         }
         fig.xaxis[0].ticker = FixedTicker(ticks=list(range(1, len(self.patterns) + 1)))
-        fig.xaxis.formatter = FuncTickFormatter(
+        fig.xaxis.formatter = CustomJSTickFormatter(
             code="""
             var labels = %s;
             return labels[tick];

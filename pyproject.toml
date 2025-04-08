@@ -1,0 +1,32 @@
+[project]
+name = "bandwagon"
+version = "0.3.2"
+license = "MIT"
+authors = [{ name = "Zulko" }]
+description = "Simulate DNA band patterns for gel migration experiments."
+readme = "pypi-readme.rst"
+keywords = ["gel", "agarose", "simulation", "matplotlib"]
+dependencies = [
+  "biopython",
+  "matplotlib",
+  "numpy",
+  "scipy",
+  "snapgene_reader",
+  "dna_features_viewer"
+]
+
+[project.optional-dependencies]
+bokeh = ["bokeh", "pandas"]
+
+[project.urls]
+Homepage = "https://github.com/Edinburgh-Genome-Foundry/BandWagon"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["docs"]
