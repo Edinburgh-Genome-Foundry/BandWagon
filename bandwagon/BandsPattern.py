@@ -140,7 +140,9 @@ class BandsPattern:
         """Return the dna sizes corresponding to the given migrations."""
         if self._migration_to_dna_size_interpolator is None:
             self._migration_to_dna_size_interpolator = CubicSpline(
-                self.migration_distances[::-1], self.dna_sizes[::-1], bc_type="natural",
+                self.migration_distances[::-1],
+                self.dna_sizes[::-1],
+                bc_type="natural",
             )
         return self._migration_to_dna_size_interpolator(migration_distances)
 

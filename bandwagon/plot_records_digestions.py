@@ -28,7 +28,6 @@ try:
             else:
                 return "#eaedff"
 
-
 except ImportError:
 
     class DigestGraphicTranslator:
@@ -46,8 +45,7 @@ except ImportError:
 
 
 def annotate_digestion_bands(record, enzymes, ladder):
-    """Annotate the record to indicate the regions corresponding to bands.
-    """
+    """Annotate the record to indicate the regions corresponding to bands."""
 
     linear = record_is_linear(record, default=False)
     sequence = record.seq
@@ -64,7 +62,7 @@ def annotate_digestion_bands(record, enzymes, ladder):
             bands[0] = band0
     sorted_bands = sorted(bands, key=lambda b: b[0] - b[1])
     new_record = deepcopy(record)
-    for (band, label) in zip(sorted_bands, "abcdefghijkl"):
+    for band, label in zip(sorted_bands, "abcdefghijkl"):
         band_size = abs(band[1] - band[0])
         formatted_size = Band._format_dna_size(band_size)
         annotate_record(
@@ -189,7 +187,10 @@ def plot_records_digestions(
             if record_label not in annotated_records:
                 annotated_records[record_label] = OrderedDict()
             enzymes_label = " + ".join(sorted(enzymes))
-            basename = "%s--%s" % (record_label.replace(" ", "_"), "+".join(enzymes),)
+            basename = "%s--%s" % (
+                record_label.replace(" ", "_"),
+                "+".join(enzymes),
+            )
             record_digestion = annotate_digestion_bands(record, enzymes, ladder)
             record_digestion.id = basename
             annotated_records[record_label][enzymes_label] = record_digestion

@@ -24,7 +24,11 @@ def custom_ladder(label, bands_migrations):
         shift = min_migrations - 0.1 * ladder_span
     return BandsPattern(
         [
-            Band(size, migration_distance=migration - shift, band_color="#8B0000",)
+            Band(
+                size,
+                migration_distance=migration - shift,
+                band_color="#8B0000",
+            )
             for (size, migration) in bands_migrations.items()
         ],
         background_color="#ffffff",

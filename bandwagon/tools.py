@@ -1,4 +1,5 @@
 """Basic useful functions for computing bands and comparing patterns."""
+
 import os
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -18,7 +19,12 @@ def sequence_to_biopython_record(
     sequence, id="<unknown id>", name="<unknown name>", features=()
 ):
     """Return a SeqRecord of the sequence, ready to be Genbanked."""
-    return SeqRecord(Seq(sequence), id=id, name=name, features=list(features),)
+    return SeqRecord(
+        Seq(sequence),
+        id=id,
+        name=name,
+        features=list(features),
+    )
 
 
 def find_cut_sites(sequence, enzymes, linear=True):
@@ -68,8 +74,7 @@ def compute_digestion_bands(sequence, enzymes, linear="auto_or_true"):
 def annotate_record(
     seqrecord, location="full", feature_type="misc_feature", margin=0, **qualifiers
 ):
-    """Add a feature to a Biopython SeqRecord. (also returns that same record).
-    """
+    """Add a feature to a Biopython SeqRecord. (also returns that same record)."""
     if location == "full":
         location = (margin, len(seqrecord) - margin)
 

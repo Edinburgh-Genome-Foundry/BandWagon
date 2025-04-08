@@ -18,7 +18,7 @@ from .BandsPattern import BandsPattern
 
 
 class BandsPatternsSet:
-    """ A set of band patterns, that will be plotted next to one another.
+    """A set of band patterns, that will be plotted next to one another.
 
     Parameters
     ----------
@@ -244,10 +244,14 @@ class BandsPatternsSet:
                                 band.migration_distance + hw * band.band_thickness, 2
                             ),
                             "color": band.band_color,
-                            "html": band.html
-                            if band.html
-                            else (
-                                band.label if band.label else ("%d bp" % band.dna_size)
+                            "html": (
+                                band.html
+                                if band.html
+                                else (
+                                    band.label
+                                    if band.label
+                                    else ("%d bp" % band.dna_size)
+                                )
                             ),
                         }
                         for x_coord, pattern in enumerate(self._processed_patterns())
