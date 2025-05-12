@@ -1,6 +1,6 @@
 [project]
 name = "bandwagon"
-version = "0.3.3"
+version = "0.3.4"
 license = "MIT"
 authors = [{ name = "Zulko" }]
 description = "Simulate DNA band patterns for gel migration experiments."
